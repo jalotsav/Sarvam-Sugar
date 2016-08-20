@@ -1,0 +1,75 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <!-- NoActionBar -->
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!--ColorAccent style-->
+    <!--BLUE-->
+    <style name="ColorAccentBlue">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+    <!--RED-->
+    <style name="ColorAccentRed">
+        <item name="colorAccent">@color/colorPrimaryRed</item>
+    </style>
+    <!--GREENSPEECH-->
+    <style name="ColorAccentGreenSpeech">
+        <item name="colorAccent">@color/greenSpeech</item>
+    </style>
+    <!--PINK-->
+    <style name="ColorAccentPink">
+        <item name="colorAccent">@color/colorPrimaryPink</item>
+    </style>
+    <!--AMBER-->
+    <style name="ColorAccentAmber">
+        <item name="colorAccent">@color/colorPrimaryAmber</item>
+    </style>
+
+    <!--Material Style Button Theme-->
+    <!--BLUE-->
+    <style name="AppCompatButton.Blue" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:theme">@style/ColorAccentBlue</item>
+    </style>
+    <!--RED-->
+    <style name="AppCompatButton.Red" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:theme">@style/ColorAccentRed</item>
+    </style>
+    <!--GREENSPEECH-->
+    <style name="AppCompatButton.GreenSpeech" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:theme">@style/ColorAccentGreenSpeech</item>
+    </style>
+    <!--AMBER-->
+    <style name="AppCompatButton.Amber" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:theme">@style/ColorAccentAmber</item>
+    </style>
+
+    <!--Material Style EditText Theme-->
+    <!--BLUE-->
+    <style name="AppCompatEdittext.Blue" parent="Widget.AppCompat.EditText">
+        <item name="android:theme">@style/ColorAccentBlue</item>
+    </style>
+    <!--PINK-->
+    <style name="AppCompatEdittext.Pink" parent="Widget.AppCompat.EditText">
+        <item name="android:theme">@style/ColorAccentPink</item>
+    </style>
+
+    <!--Material Style Switch Theme -->
+    <!--RED-->
+    <style name="AppCompatSwitch.Red" parent="Base.Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:theme">@style/ColorAccentRed</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>

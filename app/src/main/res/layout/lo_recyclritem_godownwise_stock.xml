@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2016 Jalotsav
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/_5jdp"
+    android:layout_marginLeft="@dimen/_8jdp"
+    android:layout_marginRight="@dimen/_8jdp"
+    android:layout_marginTop="@dimen/_5jdp"
+    card_view:cardCornerRadius="3dp"
+    card_view:cardElevation="2dp"
+    tools:ignore="Missingprefix">
+
+    <RelativeLayout
+        android:id="@+id/rltvlyot_recylrvw_godownstck_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/_10jdp"
+        android:paddingTop="@dimen/_10jdp">
+
+        <TextView
+            android:id="@+id/tv_recylrvw_godownstck_firstchr"
+            android:layout_width="@dimen/_40jdp"
+            android:layout_height="@dimen/_40jdp"
+            android:layout_margin="@dimen/_8jdp"
+            android:background="@drawable/round_drwbl"
+            android:gravity="center"
+            android:padding="@dimen/_5jdp"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18jdp"
+            tools:text="b" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/tv_recylrvw_godownstck_firstchr"
+            android:layout_toRightOf="@id/tv_recylrvw_godownstck_firstchr"
+            android:orientation="vertical">
+
+            <!--Collapse content-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/lnrlyot_godownstck_arrow"
+                    android:layout_width="@dimen/_30jdp"
+                    android:layout_height="@dimen/_30jdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_5jdp">
+
+                    <ImageView
+                        android:id="@+id/imgvw_godownstck_arrow"
+                        android:layout_width="@dimen/_15jdp"
+                        android:layout_height="@dimen/_15jdp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:contentDescription="@string/imgcd_image"
+                        app:ico_color="@color/grayA8"
+                        app:ico_icon="gmd-keyboard-arrow-down"
+                        app:ico_size="15dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/lnrlyot_godownstck_arrow"
+                    android:layout_toStartOf="@id/lnrlyot_godownstck_arrow"
+                    android:orientation="vertical">
+
+                    <!--Item Name-->
+                    <TextView
+                        android:id="@+id/tv_recylrvw_godownstck_itemname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        tools:text="BARDOLI mk." />
+
+                    <!--Packing & Total stock-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5jdp"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <!--Packing-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/packing_coln"
+                                android:textColor="@color/gray72"
+                                android:textSize="@dimen/_12jdp" />
+
+                            <TextView
+                                android:id="@+id/tv_recylrvw_godownstck_packing"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_5jdp"
+                                android:layout_marginStart="@dimen/_5jdp"
+                                android:textAllCaps="true"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12jdp"
+                                tools:text="50kg" />
+                        </LinearLayout>
+                        <!--END Packing-->
+
+                        <!--Total stock-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_2jdp"
+                            android:layout_marginStart="@dimen/_2jdp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/total_stk_sml"
+                                android:textColor="@color/gray72"
+                                android:textSize="@dimen/_12jdp" />
+
+                            <TextView
+                                android:id="@+id/tv_recylrvw_godownstck_totalstck"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_5jdp"
+                                android:layout_marginStart="@dimen/_5jdp"
+                                android:gravity="end"
+                                android:textAllCaps="true"
+                                android:textColor="@color/greenSpeech"
+                                android:textSize="@dimen/_12jdp"
+                                android:textStyle="bold"
+                                tools:text="6.00" />
+                        </LinearLayout>
+                        <!--END Total stock-->
+                    </LinearLayout>
+                    <!--END Packing & Total stock-->
+
+                    <!--Net stock & Pending Sauda-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5jdp"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <!--Pending Sauda-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/pend_sauda_sml"
+                                android:textColor="@color/gray72"
+                                android:textSize="@dimen/_12jdp" />
+
+                            <TextView
+                                android:id="@+id/tv_recylrvw_godownstck_pendngsauda"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_3jdp"
+                                android:layout_marginLeft="@dimen/_5jdp"
+                                android:layout_marginRight="@dimen/_3jdp"
+                                android:layout_marginStart="@dimen/_5jdp"
+                                android:gravity="end"
+                                android:textAllCaps="true"
+                                android:textColor="@color/redAlizarin"
+                                android:textSize="@dimen/_12jdp"
+                                android:textStyle="bold"
+                                tools:text="54.00" />
+                        </LinearLayout>
+                        <!--END Pending Sauda-->
+
+                        <!--Net Stock-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_2jdp"
+                            android:layout_marginStart="@dimen/_2jdp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/net_stk_sml"
+                                android:textColor="@color/gray72"
+                                android:textSize="@dimen/_12jdp" />
+
+                            <TextView
+                                android:id="@+id/tv_recylrvw_godownstck_netstck"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_5jdp"
+                                android:layout_marginStart="@dimen/_5jdp"
+                                android:gravity="end"
+                                android:textAllCaps="true"
+                                android:textColor="@color/blueBelize"
+                                android:textSize="@dimen/_12jdp"
+                                android:textStyle="bold"
+                                tools:text="-48.00" />
+                        </LinearLayout>
+                        <!--END Net Stock-->
+                    </LinearLayout>
+                    <!--END Net stock & Pending Sauda-->
+
+                    <!--Stock Bori-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5jdp"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <!--Stock Bori-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/stk_bori_sml"
+                                android:textColor="@color/gray72"
+                                android:textSize="@dimen/_12jdp" />
+
+                            <TextView
+                                android:id="@+id/tv_recylrvw_godownstck_stckbori"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_3jdp"
+                                android:layout_marginLeft="@dimen/_5jdp"
+                                android:layout_marginRight="@dimen/_3jdp"
+                                android:layout_marginStart="@dimen/_5jdp"
+                                android:gravity="end"
+                                android:textAllCaps="true"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12jdp"
+                                android:textStyle="bold"
+                                tools:text="4.00" />
+                        </LinearLayout>
+                        <!--END Stock Bori-->
+
+                        <!--Pending Sauda-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_2jdp"
+                            android:layout_marginStart="@dimen/_2jdp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <!--<TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/pend_sauda_sml"
+                                android:textColor="@color/gray72"
+                                android:textSize="@dimen/_12jdp" />
+
+                            <TextView
+                                android:id="@+id/tv_recylrvw_godownstck_pendngsauda"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_5jdp"
+                                android:layout_marginStart="@dimen/_5jdp"
+                                android:gravity="end"
+                                tools:text="54.00"
+                                android:textAllCaps="true"
+                                android:textColor="@color/redAlizarin"
+                                android:textSize="@dimen/_12jdp" />-->
+                        </LinearLayout>
+                        <!--END Pending Sauda-->
+                    </LinearLayout>
+                    <!--END Stock Bori-->
+                </LinearLayout>
+
+            </RelativeLayout>
+            <!--END Collapse content-->
+
+            <!--Expand Content-->
+            <LinearLayout
+                android:id="@+id/lnrlyot_godownstck_expandvw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_35jdp"
+                android:layout_marginRight="@dimen/_35jdp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1jdp"
+                    android:layout_marginBottom="@dimen/_5jdp"
+                    android:layout_marginTop="@dimen/_5jdp"
+                    android:background="@color/grayA8" />
+
+                <!--E-1 & F-24-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <!--E-1-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/e_hyphen_1_coln"
+                            android:textColor="@color/gray72"
+                            android:textSize="@dimen/_12jdp" />
+
+                        <TextView
+                            android:id="@+id/tv_recylrvw_godownstck_e1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_3jdp"
+                            android:layout_marginLeft="@dimen/_5jdp"
+                            android:layout_marginRight="@dimen/_3jdp"
+                            android:layout_marginStart="@dimen/_5jdp"
+                            android:gravity="end"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12jdp"
+                            tools:text="0.00" />
+                    </LinearLayout>
+                    <!--END E-1-->
+
+                    <!--F-24-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_2jdp"
+                        android:layout_marginStart="@dimen/_2jdp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/h_hyphen_22_coln"
+                            android:textColor="@color/gray72"
+                            android:textSize="@dimen/_12jdp" />
+
+                        <TextView
+                            android:id="@+id/tv_recylrvw_godownstck_f24"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5jdp"
+                            android:layout_marginStart="@dimen/_5jdp"
+                            android:gravity="end"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12jdp"
+                            tools:text="6.00" />
+                    </LinearLayout>
+                    <!--END F-24-->
+                </LinearLayout>
+                <!--END E-21 & F-24-->
+
+                <!--H-21 & I-17-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5jdp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <!--H-21-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/h_hyphen_21_coln"
+                            android:textColor="@color/gray72"
+                            android:textSize="@dimen/_12jdp" />
+
+                        <TextView
+                            android:id="@+id/tv_recylrvw_godownstck_h21"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_3jdp"
+                            android:layout_marginLeft="@dimen/_5jdp"
+                            android:layout_marginRight="@dimen/_3jdp"
+                            android:layout_marginStart="@dimen/_5jdp"
+                            android:gravity="end"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12jdp"
+                            tools:text="0.00" />
+                    </LinearLayout>
+                    <!--END H-21-->
+
+                    <!--H-22-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_2jdp"
+                        android:layout_marginStart="@dimen/_2jdp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/h_hyphen_22_coln"
+                            android:textColor="@color/gray72"
+                            android:textSize="@dimen/_12jdp" />
+
+                        <TextView
+                            android:id="@+id/tv_recylrvw_godownstck_h22"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5jdp"
+                            android:layout_marginStart="@dimen/_5jdp"
+                            android:gravity="end"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12jdp"
+                            tools:text="6.00" />
+                    </LinearLayout>
+                    <!--END H-22-->
+                </LinearLayout>
+                <!--END H-21 & I-17-->
+
+                <!--OST & Shahpur-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5jdp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <!--OST-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ost_coln"
+                            android:textColor="@color/gray72"
+                            android:textSize="@dimen/_12jdp" />
+
+                        <TextView
+                            android:id="@+id/tv_recylrvw_godownstck_ost"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_3jdp"
+                            android:layout_marginLeft="@dimen/_5jdp"
+                            android:layout_marginRight="@dimen/_3jdp"
+                            android:layout_marginStart="@dimen/_5jdp"
+                            android:gravity="end"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12jdp"
+                            tools:text="0.00" />
+                    </LinearLayout>
+                    <!--END OST-->
+
+                    <!--Shahpur-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_2jdp"
+                        android:layout_marginStart="@dimen/_2jdp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/shahpur_coln"
+                            android:textColor="@color/gray72"
+                            android:textSize="@dimen/_12jdp" />
+
+                        <TextView
+                            android:id="@+id/tv_recylrvw_godownstck_shahpur"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5jdp"
+                            android:layout_marginStart="@dimen/_5jdp"
+                            android:gravity="end"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12jdp"
+                            tools:text="0.00" />
+                    </LinearLayout>
+                    <!--END Shahpur-->
+                </LinearLayout>
+                <!--END F-24 & Shahpur-->
+            </LinearLayout>
+            <!--END Expand content-->
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

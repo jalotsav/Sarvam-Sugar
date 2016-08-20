@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2016 Jalotsav
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/_5jdp"
+    android:layout_marginLeft="@dimen/_8jdp"
+    android:layout_marginRight="@dimen/_8jdp"
+    android:layout_marginTop="@dimen/_5jdp"
+    card_view:cardCornerRadius="3dp"
+    card_view:cardElevation="2dp"
+    tools:ignore="Missingprefix">
+
+    <RelativeLayout
+        android:id="@+id/rltvlyot_recylrvw_allmasterdtls_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/_10jdp"
+        android:paddingTop="@dimen/_10jdp">
+
+        <TextView
+            android:id="@+id/tv_recylrvw_allmasterdtls_firstchr"
+            android:layout_width="@dimen/_40jdp"
+            android:layout_height="@dimen/_40jdp"
+            android:layout_margin="@dimen/_8jdp"
+            android:background="@drawable/round_drwbl"
+            android:gravity="center"
+            android:padding="@dimen/_5jdp"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18jdp"
+            android:visibility="gone"
+            tools:text="b" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/tv_recylrvw_allmasterdtls_firstchr"
+            android:layout_toRightOf="@id/tv_recylrvw_allmasterdtls_firstchr"
+            android:orientation="vertical">
+
+            <!--Collapse content-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/lnrlyot_allmasterdtls_arrow"
+                    android:layout_width="@dimen/_30jdp"
+                    android:layout_height="@dimen/_30jdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_5jdp">
+
+                    <ImageView
+                        android:id="@+id/imgvw_allmasterdtls_arrow"
+                        android:layout_width="@dimen/_15jdp"
+                        android:layout_height="@dimen/_15jdp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:contentDescription="@string/imgcd_image"
+                        app:ico_color="@color/grayA8"
+                        app:ico_icon="gmd-keyboard-arrow-down"
+                        app:ico_size="15dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/_8jdp"
+                    android:layout_marginStart="@dimen/_8jdp"
+                    android:layout_toLeftOf="@id/lnrlyot_allmasterdtls_arrow"
+                    android:layout_toStartOf="@id/lnrlyot_allmasterdtls_arrow"
+                    android:orientation="vertical">
+
+                    <!--Party Name-->
+                    <TextView
+                        android:id="@+id/tv_recylrvw_allmasterdtls_partyname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        tools:text="BARDOLI mk." />
+
+                    <!--Mobile & Phone-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5jdp"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <!--Mobile-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/mobile_coln"
+                                android:textColor="@color/gray72"
+                                android:textSize="@dimen/_12jdp" />
+
+                            <TextView
+                                android:id="@+id/tv_recylrvw_allmasterdtls_mobiles"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_3jdp"
+                                android:layout_marginLeft="@dimen/_5jdp"
+                                android:layout_marginRight="@dimen/_3jdp"
+                                android:layout_marginStart="@dimen/_5jdp"
+                                android:gravity="end"
+                                android:textColor="@color/colorPrimaryTeal"
+                                android:textSize="@dimen/_12jdp"
+                                android:textStyle="bold"
+                                tools:text="9662675372" />
+                        </LinearLayout>
+                        <!--END Mobile-->
+
+                        <!--Phone-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_2jdp"
+                            android:layout_marginStart="@dimen/_2jdp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/phone_coln"
+                                android:textColor="@color/gray72"
+                                android:textSize="@dimen/_12jdp" />
+
+                            <TextView
+                                android:id="@+id/tv_recylrvw_allmasterdtls_phone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_5jdp"
+                                android:layout_marginStart="@dimen/_5jdp"
+                                android:gravity="end"
+                                android:textColor="@color/colorPrimaryDeepOrange"
+                                android:textSize="@dimen/_12jdp"
+                                android:textStyle="bold"
+                                tools:text="9662675372" />
+                        </LinearLayout>
+                        <!--END Phone-->
+                    </LinearLayout>
+                    <!--END Mobile & Phone-->
+                    android:orientation="horizontal">
+
+                    <!--Dalal-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5jdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/dalal_coln"
+                            android:textColor="@color/gray72"
+                            android:textSize="@dimen/_12jdp" />
+
+                        <TextView
+                            android:id="@+id/tv_recylrvw_allmasterdtls_dalal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5jdp"
+                            android:layout_marginStart="@dimen/_5jdp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12jdp"
+                            tools:text="JD Patel" />
+                    </LinearLayout>
+                    <!--END Dalal-->
+
+                    <!--Contact Person-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5jdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/contact_person_coln"
+                            android:textColor="@color/gray72"
+                            android:textSize="@dimen/_12jdp" />
+
+                        <TextView
+                            android:id="@+id/tv_recylrvw_allmasterdtls_cntctprsn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5jdp"
+                            android:layout_marginStart="@dimen/_5jdp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12jdp"
+                            tools:text="Jaldeep Asodariya" />
+                    </LinearLayout>
+                    <!--END Contact Person-->
+                </LinearLayout>
+
+            </RelativeLayout>
+            <!--END Collapse content-->
+
+            <!--Expand Content-->
+            <LinearLayout
+                android:id="@+id/lnrlyot_allmasterdtls_expandvw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_35jdp"
+                android:layout_marginLeft="@dimen/_8jdp"
+                android:layout_marginRight="@dimen/_35jdp"
+                android:layout_marginStart="@dimen/_8jdp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1jdp"
+                    android:layout_marginBottom="@dimen/_5jdp"
+                    android:layout_marginTop="@dimen/_5jdp"
+                    android:background="@color/grayA8" />
+
+                <!--CR Limit & Bori-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <!--CR Limit-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cr_limit_coln"
+                            android:textColor="@color/gray72"
+                            android:textSize="@dimen/_12jdp" />
+
+                        <TextView
+                            android:id="@+id/tv_recylrvw_allmasterdtls_crlimit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_3jdp"
+                            android:layout_marginLeft="@dimen/_5jdp"
+                            android:layout_marginRight="@dimen/_3jdp"
+                            android:layout_marginStart="@dimen/_5jdp"
+                            android:gravity="end"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12jdp"
+                            tools:text="0.00" />
+                    </LinearLayout>
+                    <!--END CR Limit-->
+
+                    <!--Bori-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_2jdp"
+                        android:layout_marginStart="@dimen/_2jdp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bori_coln"
+                            android:textColor="@color/gray72"
+                            android:textSize="@dimen/_12jdp" />
+
+                        <TextView
+                            android:id="@+id/tv_recylrvw_allmasterdtls_bori"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5jdp"
+                            android:layout_marginStart="@dimen/_5jdp"
+                            android:gravity="end"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12jdp"
+                            tools:text="6.00" />
+                    </LinearLayout>
+                    <!--END Bori-->
+                </LinearLayout>
+                <!--END CR Limit & Bori-->
+
+                <!--Count & Avg.-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5jdp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <!--Count-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/count_coln"
+                            android:textColor="@color/gray72"
+                            android:textSize="@dimen/_12jdp" />
+
+                        <TextView
+                            android:id="@+id/tv_recylrvw_allmasterdtls_count"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_3jdp"
+                            android:layout_marginLeft="@dimen/_5jdp"
+                            android:layout_marginRight="@dimen/_3jdp"
+                            android:layout_marginStart="@dimen/_5jdp"
+                            android:gravity="end"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12jdp"
+                            tools:text="0.00" />
+                    </LinearLayout>
+                    <!--END Count-->
+
+                    <!--Avg.-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_2jdp"
+                        android:layout_marginStart="@dimen/_2jdp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/avg_coln"
+                            android:textColor="@color/gray72"
+                            android:textSize="@dimen/_12jdp" />
+
+                        <TextView
+                            android:id="@+id/tv_recylrvw_allmasterdtls_avg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5jdp"
+                            android:layout_marginStart="@dimen/_5jdp"
+                            android:gravity="end"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12jdp"
+                            tools:text="6.00" />
+                    </LinearLayout>
+                    <!--END Avg.-->
+                </LinearLayout>
+                <!--END Count & Avg.-->
+
+                <!--Last Bill Days & Last Item-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5jdp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <!--Last Bill Day-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/last_bill_days_coln"
+                            android:textColor="@color/gray72"
+                            android:textSize="@dimen/_12jdp" />
+
+                        <TextView
+                            android:id="@+id/tv_recylrvw_allmasterdtls_lastbillday"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_3jdp"
+                            android:layout_marginLeft="@dimen/_5jdp"
+                            android:layout_marginRight="@dimen/_3jdp"
+                            android:layout_marginStart="@dimen/_5jdp"
+                            android:gravity="end"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12jdp"
+                            tools:text="0.00" />
+                    </LinearLayout>
+                    <!--END Last Bill Day-->
+
+                    <!--Last Item-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_2jdp"
+                        android:layout_marginStart="@dimen/_2jdp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/last_item_coln"
+                            android:textColor="@color/gray72"
+                            android:textSize="@dimen/_12jdp" />
+
+                        <TextView
+                            android:id="@+id/tv_recylrvw_allmasterdtls_lastitem"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5jdp"
+                            android:layout_marginStart="@dimen/_5jdp"
+                            android:gravity="end"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12jdp"
+                            tools:text="0.00" />
+                    </LinearLayout>
+                    <!--END Last Item-->
+                </LinearLayout>
+                <!--END Last Bill Days & Last Item-->
+
+                <!--Last Avg.-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5jdp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <!--Last Avg.-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/last_avg_coln"
+                            android:textColor="@color/gray72"
+                            android:textSize="@dimen/_12jdp" />
+
+                        <TextView
+                            android:id="@+id/tv_recylrvw_allmasterdtls_lastavg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_3jdp"
+                            android:layout_marginLeft="@dimen/_5jdp"
+                            android:layout_marginRight="@dimen/_3jdp"
+                            android:layout_marginStart="@dimen/_5jdp"
+                            android:gravity="end"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12jdp"
+                            tools:text="0.00" />
+                    </LinearLayout>
+                    <!--END Last Avg.-->
+
+                    <!--Avg.-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_2jdp"
+                        android:layout_marginStart="@dimen/_2jdp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <!--<TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/avg_coln"
+                            android:textColor="@color/gray72"
+                            android:textSize="@dimen/_12jdp" />
+
+                        <TextView
+                            android:id="@+id/tv_recylrvw_allmasterdtls_avg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5jdp"
+                            android:layout_marginStart="@dimen/_5jdp"
+                            android:gravity="end"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12jdp"
+                            tools:text="6.00" />-->
+                    </LinearLayout>
+                    <!--END Avg.-->
+                </LinearLayout>
+                <!--END Last Avg.-->
+            </LinearLayout>
+            <!--END Expand content-->
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

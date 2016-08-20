@@ -1,0 +1,114 @@
+<resources>
+    <string name="app_name">Sarvam Sugar</string>
+    <string name="imgcd_image">Content description of images</string>
+    <string name="loading_sml">Loading&#8230;</string>
+    <string name="no_intrnt_cnctn">No internet connection</string>
+    <string name="there_are_some_server_prblm">There are some server problems.</string>
+    <string name="there_are_some_prblm">There are some problems for fetching data</string>
+    <string name="sync_data_msg">No data found, Please Sync data.</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!--SingIn-->
+    <string name="login_sml">Login</string>
+    <string name="usernm_or_email_sml">Username or email</string>
+    <string name="entr_usernm_or_email_sml">Enter username or email</string>
+    <string name="invalid_usernm_or_email_sml">Invalid username or email</string>
+    <string name="pswrd_sml">Password</string>
+    <string name="entr_pswrd_sml">Enter password</string>
+    <string name="invalid_pswrd_sml">Invalid password</string>
+    <string name="rembr_me_sml">Remember me</string>
+    <string name="forgt_paswrd_questnmrk">Forgot your password \?</string>
+
+    <!--Navigation Drawer Menu-->
+    <string name="outstanding_sml">Outstanding</string>
+    <string name="allinone_sml">All In One</string>
+    <string name="all_master_dtls_sml">All Master Details</string>
+    <string name="godownwise_stock_sml">Godown Wise Stock</string>
+    <string name="collection_sml">Collection</string>
+    <string name="collctn_entry_sml">Collection Entry</string>
+    <string name="collctn_view_sml">Collection View</string>
+    <string name="sauda_sml">Sauda</string>
+    <string name="sauda_entry_sml">Sauda Entry</string>
+    <string name="sauda_view_sml">Sauda View</string>
+    <string name="settings_sml">Settings</string>
+    <string name="logout_sml">Logout</string>
+
+    <!--Filters-->
+    <string name="filters_sml">Filters</string>
+    <string name="apply_sml">Apply</string>
+    <string name="clear_sml">Clear</string>
+    <string name="cancel_sml">Cancel</string>
+    <string name="slct_from_list_sml">Select from list</string>
+
+    <!--Outstanding Report-->
+    <string name="outstndng_rprts">Outstanding reports</string>
+    <string-array name="arry_filterby_outstanding">
+        <item>Select filter by</item>
+        <item>From-To date</item>
+        <item>Collection From-To date</item>
+        <item>Dalal</item>
+        <item>Zone</item>
+        <item>Area</item>
+        <item>Party</item>
+    </string-array>
+    <string-array name="arry_temp">
+        <item>Jaldeep Asodariya</item>
+        <item>JD Patel</item>
+        <item>Nilesh Thakor</item>
+        <item>Hirendra Rathod</item>
+        <item>Vipul Kava</item>
+    </string-array>
+    <string name="slct_fromto_date">Select From-To date</string>
+    <string name="slct_colctn_fromto_date">Select Collection From-To date</string>
+    <string name="from_date_sml">From date</string>
+    <string name="to_date_sml">To date</string>
+    <string name="slct_from_date">Select from date</string>
+    <string name="slct_to_date">Select to date</string>
+    <string name="save_sml">Save</string>
+
+    <!--Godownwise Stock Report-->
+    <string name="packing_coln">Packing:</string>
+    <string name="e_hyphen_1_coln">E-1:</string>
+    <string name="f_hyphen_24_coln">F-24:</string>
+    <string name="h_hyphen_21_coln">H-21:</string>
+    <string name="h_hyphen_22_coln">H-22:</string>
+    <string name="ost_coln">OST:</string>
+    <string name="shahpur_coln">Shahpur:</string>
+    <string name="total_stk_sml">Total Stk.</string>
+    <string name="pend_sauda_sml">Pend.Sauda</string>
+    <string name="net_stk_sml">Net Stk.</string>
+    <string name="stk_bori_sml">Stk.Bori</string>
+    <string name="grand_total_sml">Grand Total</string>
+    <string name="godownwisestck_appear_here">Godown wise stock report apeear here</string>
+
+    <!--All Master Details-->
+    <string name="refresh_sml">Refresh</string>
+    <string name="partyname_bracket_pcode">%1$s (%2$s)</string>
+    <string name="mobile_coln">Mobile:</string>
+    <string name="phone_coln">Phone:</string>
+    <string name="dalal_coln">Dalal:</string>
+    <string name="contact_person_coln">Contact Person:</string>
+    <string name="cr_limit_coln">CR Limit</string>
+    <string name="bori_coln">Bori</string>
+    <string name="count_coln">Count</string>
+    <string name="avg_coln">Avg.:</string>
+    <string name="last_bill_days_coln">Last bill days</string>
+    <string name="last_item_coln">Last item</string>
+    <string name="last_avg_coln">Last Avg.:</string>
+    <string name="masterdtls_appear_here">Master details report apeear here</string>
+    <string name="value_records_sml">%d records.</string>
+    <string-array name="arry_filterby_allmasterdtls">
+        <item>Select filter by</item>
+        <item>PCode</item>
+        <item>Party name</item>
+        <item>Dalal</item>
+        <item>Item</item>
+    </string-array>
+    <string name="enter_atleast_2char_fltr">Enter at least 2 characters</string>
+
+    <!--Logout-->
+    <string name="logout_alrtdlg_msg">Do you want to logout?</string>
+    <string name="no_sml">No</string>
+</resources>

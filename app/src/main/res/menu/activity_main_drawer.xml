@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_outstanding"
+            android:icon="@drawable/ic_menu_report"
+            android:title="@string/outstanding_sml" />
+        <item
+            android:id="@+id/nav_allinone"
+            android:icon="@drawable/ic_menu_allinone"
+            android:title="@string/allinone_sml" />
+        <item
+            android:id="@+id/nav_allmasterdtls"
+            android:icon="@drawable/ic_menu_mastrdtls"
+            android:title="@string/all_master_dtls_sml" />
+        <item
+            android:id="@+id/nav_godownwisestck"
+            android:icon="@drawable/ic_menu_godownwisestck"
+            android:title="@string/godownwise_stock_sml" />
+    </group>
+
+    <item android:title="@string/collection_sml">
+        <menu>
+            <item
+                android:id="@+id/nav_collctnentry"
+                android:icon="@drawable/ic_menu_collctnentry"
+                android:title="@string/collctn_entry_sml" />
+            <item
+                android:id="@+id/nav_collctnview"
+                android:icon="@drawable/ic_menu_collctnview"
+                android:title="@string/collctn_view_sml" />
+        </menu>
+    </item>
+
+    <item android:title="@string/sauda_sml">
+        <menu>
+            <item
+                android:id="@+id/nav_sauda_entry"
+                android:icon="@drawable/ic_menu_saudaentry"
+                android:title="@string/sauda_entry_sml" />
+            <item
+                android:id="@+id/nav_sauda_view"
+                android:icon="@drawable/ic_menu_saudaview"
+                android:title="@string/sauda_view_sml" />
+        </menu>
+    </item>
+
+    <item android:title="@string/settings_sml">
+        <menu>
+            <item
+                android:id="@+id/nav_settings_logout"
+                android:icon="@drawable/ic_menu_power"
+                android:title="@string/logout_sml" />
+        </menu>
+    </item>
+
+</menu>

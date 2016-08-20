@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2016 Jalotsav
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Login"
+    tools:ignore="MissingPrefix">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/whiteDialogBg">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.CardView xmlns:cardview="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardvw_login_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/_16jdp"
+                android:layout_marginRight="@dimen/_16jdp"
+                cardview:cardCornerRadius="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_50jdp"
+                    android:layout_marginLeft="@dimen/_16jdp"
+                    android:layout_marginRight="@dimen/_16jdp"
+                    android:layout_marginTop="@dimen/_5jdp"
+                    android:orientation="vertical">
+
+                    <!--App Logo-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_20jdp"
+                        android:layout_marginTop="@dimen/_20jdp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/_60jdp"
+                            android:layout_height="@dimen/_60jdp"
+                            android:layout_gravity="center_horizontal"
+                            android:contentDescription="@string/imgcd_image"
+                            android:src="@drawable/ic_launcher" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_200jdp"
+                            android:layout_height="@dimen/_40jdp"
+                            android:layout_gravity="center_horizontal"
+                            android:contentDescription="@string/imgcd_image"
+                            android:src="@drawable/img_appname" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/_200jdp"
+                        android:layout_height="@dimen/_55jdp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/_20jdp"
+                        android:layout_marginTop="@dimen/_20jdp"
+                        android:contentDescription="@string/imgcd_image"
+                        android:src="@drawable/img_logo_withname"
+                        android:visibility="gone"/>
+
+                    <!--Username or Email-->
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/txtinputlyot_login_usernmemail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/et_login_usernmemail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/usernm_or_email_sml"
+                            android:inputType="textEmailAddress"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grayA8"
+                            android:textSize="@dimen/_14jdp" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <!--Password-->
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/txtinputlyot_login_paswrd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10jdp">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/et_login_paswrd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/pswrd_sml"
+                            android:inputType="textPassword"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grayA8"
+                            android:textSize="@dimen/_14jdp" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <!--Remember me & Forgot Password-->
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/swtchcmpt_login_rembrme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/AppCompatSwitch.Red"
+                        android:layout_marginTop="@dimen/_10jdp"
+                        android:text="@string/rembr_me_sml"
+                        android:textColor="@color/grayA8"
+                        android:textSize="@dimen/_14jdp"/>
+                    <!--END Remember me & Forgot Password-->
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </RelativeLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <!--SignIn FAB Button-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_login_signin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/AppCompatButton.Blue"
+        android:layout_marginRight="@dimen/_32jdp"
+        android:layout_marginEnd="@dimen/_32jdp"
+        android:clickable="true"
+        app:layout_anchor="@id/cardvw_login_main"
+        app:layout_anchorGravity="right|end|bottom" />
+</android.support.design.widget.CoordinatorLayout>

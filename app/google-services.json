@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "479844848385",
+    "firebase_url": "https://sarvam-sugar.firebaseio.com",
+    "project_id": "sarvam-sugar",
+    "storage_bucket": "sarvam-sugar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:479844848385:android:21fcff5d3ba38a16",
+        "android_client_info": {
+          "package_name": "com.jalotsav.sarvamsugar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "479844848385-q5i9seeuqe3i4lnkc8n0v7mtme0njtq7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jalotsav.sarvamsugar",
+            "certificate_hash": "F6E7D4F778DEA84C18167FA4789352CD8CC17F09"
+          }
+        },
+        {
+          "client_id": "479844848385-nda0c1f5q0n6h61srm03hup1iq6766td.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKdhKPrFdKA7GesveA9QTfbrowf5rpcLg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "479844848385-nda0c1f5q0n6h61srm03hup1iq6766td.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
