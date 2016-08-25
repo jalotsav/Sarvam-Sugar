@@ -19,6 +19,7 @@ package com.jalotsav.sarvamsugar.retrofitapihelper;
 
 import com.jalotsav.sarvamsugar.model.MdlGodownStock;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -29,7 +30,7 @@ import retrofit2.http.Query;
 public interface APIGodownStock {
 
     @GET("index.aspx")
-    Call<MdlGodownStock> getGodownStock(@Query("method") String method,
-                                  @Query("fromdate") String fromDate,
-                                  @Query("todate") String toDate);
+    Call<ResponseBody> getGodownStock(@Query("method") String method,
+                                      @Query("fromdate") String fromDate,
+                                      @Query("todate") String toDate);
 }

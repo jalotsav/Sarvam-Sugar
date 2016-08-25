@@ -340,15 +340,26 @@
                     android:layout_marginTop="@dimen/_5jdp"
                     android:background="@color/grayA8" />
 
+                <GridView
+                    android:id="@+id/gridvw_godownstck_expandvw"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50jdp"
+                    android:columnWidth="@dimen/_90jdp"
+                    android:gravity="center"
+                    android:horizontalSpacing="@dimen/_3jdp"
+                    android:numColumns="2"
+                    android:stretchMode="columnWidth" />
+                <!--android:verticalSpacing="@dimen/_3jdp"-->
+
                 <!--E-1 & F-24-->
-                <LinearLayout
+                <!--<LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:baselineAligned="false"
                     android:orientation="horizontal"
                     android:weightSum="2">
 
-                    <!--E-1-->
+                    &lt;!&ndash;E-1&ndash;&gt;
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -376,9 +387,9 @@
                             android:textSize="@dimen/_12jdp"
                             tools:text="0.00" />
                     </LinearLayout>
-                    <!--END E-1-->
+                    &lt;!&ndash;END E-1&ndash;&gt;
 
-                    <!--F-24-->
+                    &lt;!&ndash;F-24&ndash;&gt;
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -406,12 +417,12 @@
                             android:textSize="@dimen/_12jdp"
                             tools:text="6.00" />
                     </LinearLayout>
-                    <!--END F-24-->
-                </LinearLayout>
+                    &lt;!&ndash;END F-24&ndash;&gt;
+                </LinearLayout>-->
                 <!--END E-21 & F-24-->
 
                 <!--H-21 & I-17-->
-                <LinearLayout
+                <!--<LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5jdp"
@@ -419,7 +430,7 @@
                     android:orientation="horizontal"
                     android:weightSum="2">
 
-                    <!--H-21-->
+                    &lt;!&ndash;H-21&ndash;&gt;
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -447,9 +458,9 @@
                             android:textSize="@dimen/_12jdp"
                             tools:text="0.00" />
                     </LinearLayout>
-                    <!--END H-21-->
+                    &lt;!&ndash;END H-21&ndash;&gt;
 
-                    <!--H-22-->
+                    &lt;!&ndash;H-22&ndash;&gt;
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -477,12 +488,12 @@
                             android:textSize="@dimen/_12jdp"
                             tools:text="6.00" />
                     </LinearLayout>
-                    <!--END H-22-->
-                </LinearLayout>
+                    &lt;!&ndash;END H-22&ndash;&gt;
+                </LinearLayout>-->
                 <!--END H-21 & I-17-->
 
                 <!--OST & Shahpur-->
-                <LinearLayout
+                <!--<LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5jdp"
@@ -490,7 +501,7 @@
                     android:orientation="horizontal"
                     android:weightSum="2">
 
-                    <!--OST-->
+                    &lt;!&ndash;OST&ndash;&gt;
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -518,9 +529,9 @@
                             android:textSize="@dimen/_12jdp"
                             tools:text="0.00" />
                     </LinearLayout>
-                    <!--END OST-->
+                    &lt;!&ndash;END OST&ndash;&gt;
 
-                    <!--Shahpur-->
+                    &lt;!&ndash;Shahpur&ndash;&gt;
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -548,8 +559,8 @@
                             android:textSize="@dimen/_12jdp"
                             tools:text="0.00" />
                     </LinearLayout>
-                    <!--END Shahpur-->
-                </LinearLayout>
+                    &lt;!&ndash;END Shahpur&ndash;&gt;
+                </LinearLayout>-->
                 <!--END F-24 & Shahpur-->
             </LinearLayout>
             <!--END Expand content-->

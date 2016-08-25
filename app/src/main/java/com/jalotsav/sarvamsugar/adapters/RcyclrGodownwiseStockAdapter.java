@@ -23,6 +23,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -79,12 +80,8 @@ public class RcyclrGodownwiseStockAdapter extends RecyclerView.Adapter<RcyclrGod
         holder.tvPendngSauda.setText(GeneralFuncations.get2decimalDigitOfDouble(objMdlGodownStckData.getPendingSauda()));
         holder.tvNetStck.setText(GeneralFuncations.get2decimalDigitOfDouble(objMdlGodownStckData.getNetStock()));
         holder.tvStckBori.setText(GeneralFuncations.get2decimalDigitOfDouble(objMdlGodownStckData.getStkBori()));
-        holder.tvE1.setText(GeneralFuncations.get2decimalDigitOfDouble(objMdlGodownStckData.getE1()));
-        holder.tvF24.setText(GeneralFuncations.get2decimalDigitOfDouble(objMdlGodownStckData.getF24()));
-        holder.tvH21.setText(GeneralFuncations.get2decimalDigitOfDouble(objMdlGodownStckData.getH21()));
-        holder.tvH22.setText(GeneralFuncations.get2decimalDigitOfDouble(objMdlGodownStckData.getH22()));
-        holder.tvOST.setText(GeneralFuncations.get2decimalDigitOfDouble(objMdlGodownStckData.getOst()));
-        holder.tvShahpur.setText(GeneralFuncations.get2decimalDigitOfDouble(objMdlGodownStckData.getShahpur()));
+
+        holder.gridvwExpandvw.setAdapter(new GridGodownwiseStockAdapter(mContext, objMdlGodownStckData.getArrylstAllGodowns()));
 
         if(slctdExpndColpsPostn != 1001) { // for first time onBind all view byDefault collapse
 
@@ -128,9 +125,9 @@ public class RcyclrGodownwiseStockAdapter extends RecyclerView.Adapter<RcyclrGod
 
         public RelativeLayout rltvlyotMain;
         public ImageView imgvwArrow;
-        public TextView tvFirstChar, tvItemName, tvPacking, tvTotalStck, tvNetStck, tvPendngSauda, tvStckBori,
-                tvE1, tvF24, tvOST, tvShahpur, tvH21, tvH22;
+        public TextView tvFirstChar, tvItemName, tvPacking, tvTotalStck, tvNetStck, tvPendngSauda, tvStckBori;
         public LinearLayout lnrlyotExpandvw;
+        GridView gridvwExpandvw;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -144,13 +141,8 @@ public class RcyclrGodownwiseStockAdapter extends RecyclerView.Adapter<RcyclrGod
             tvPendngSauda = (TextView) itemView.findViewById(R.id.tv_recylrvw_godownstck_pendngsauda);
             tvNetStck = (TextView) itemView.findViewById(R.id.tv_recylrvw_godownstck_netstck);
             tvStckBori = (TextView) itemView.findViewById(R.id.tv_recylrvw_godownstck_stckbori);
-            tvE1 = (TextView) itemView.findViewById(R.id.tv_recylrvw_godownstck_e1);
-            tvF24 = (TextView) itemView.findViewById(R.id.tv_recylrvw_godownstck_f24);
-            tvH21 = (TextView) itemView.findViewById(R.id.tv_recylrvw_godownstck_h21);
-            tvH22 = (TextView) itemView.findViewById(R.id.tv_recylrvw_godownstck_h22);
-            tvOST = (TextView) itemView.findViewById(R.id.tv_recylrvw_godownstck_ost);
-            tvShahpur = (TextView) itemView.findViewById(R.id.tv_recylrvw_godownstck_shahpur);
             lnrlyotExpandvw = (LinearLayout) itemView.findViewById(R.id.lnrlyot_godownstck_expandvw);
+            gridvwExpandvw = (GridView) itemView.findViewById(R.id.gridvw_godownstck_expandvw);
         }
     }
 }

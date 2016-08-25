@@ -19,6 +19,8 @@ package com.jalotsav.sarvamsugar.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 /**
  * Created by JALOTSAV Dev. on 27/7/16.
  */
@@ -30,23 +32,8 @@ public class MdlGodownStockData {
     @SerializedName("Packing")
     String packing;
 
-    @SerializedName("E-1")
-    String e1;
-
-    @SerializedName("F-24")
-    String f24;
-
-    @SerializedName("H-21")
-    String h21;
-
-    @SerializedName("H-22")
-    String h22;
-
-    @SerializedName("OST")
-    String ost;
-
-    @SerializedName("SHAHPUR")
-    String shahpur;
+    @SerializedName("goDowns")
+    ArrayList<MdlAllGodowns> arrylstAllGodowns;
 
     @SerializedName("Total Stk.")
     String totalStock;
@@ -76,52 +63,12 @@ public class MdlGodownStockData {
         this.packing = packing;
     }
 
-    public String getE1() {
-        return e1;
+    public ArrayList<MdlAllGodowns> getArrylstAllGodowns() {
+        return arrylstAllGodowns;
     }
 
-    public void setE1(String e1) {
-        this.e1 = e1;
-    }
-
-    public String getF24() {
-        return f24;
-    }
-
-    public void setF24(String f24) {
-        this.f24 = f24;
-    }
-
-    public String getH21() {
-        return h21;
-    }
-
-    public void setH21(String h21) {
-        this.h21 = h21;
-    }
-
-    public String getH22() {
-        return h22;
-    }
-
-    public void setH22(String h22) {
-        this.h22 = h22;
-    }
-
-    public String getOst() {
-        return ost;
-    }
-
-    public void setOst(String ost) {
-        this.ost = ost;
-    }
-
-    public String getShahpur() {
-        return shahpur;
-    }
-
-    public void setShahpur(String shahpur) {
-        this.shahpur = shahpur;
+    public void setArrylstAllGodowns(ArrayList<MdlAllGodowns> arrylstAllGodowns) {
+        this.arrylstAllGodowns = arrylstAllGodowns;
     }
 
     public String getTotalStock() {

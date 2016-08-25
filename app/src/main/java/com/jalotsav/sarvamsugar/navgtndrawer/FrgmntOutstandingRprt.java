@@ -40,10 +40,16 @@ import android.widget.Toast;
 
 import com.jalotsav.sarvamsugar.R;
 import com.jalotsav.sarvamsugar.common.AppConstants;
+import com.jalotsav.sarvamsugar.common.LogManager;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
+import java.util.Iterator;
 
 /**
  * Created by JALOTSAV Dev. on 20/7/16.
@@ -85,13 +91,6 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
 
         return rootView;
     }
-
-    /*@Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        LayoutInflaterCompat.setFactory(getLayoutInflater(), new IconicsLayoutInflater(getDelegate()));
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.lo_frgmnt_outstanding_report);
-    }*/
 
     @Override
     public void onClick(View v) {
