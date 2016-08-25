@@ -33,6 +33,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,9 @@ import com.jalotsav.sarvamsugar.R;
 import com.jalotsav.sarvamsugar.adapters.RcyclrGodownwiseStockAdapter;
 import com.jalotsav.sarvamsugar.common.AppConstants;
 import com.jalotsav.sarvamsugar.common.GeneralFuncations;
+import com.jalotsav.sarvamsugar.common.LogManager;
 import com.jalotsav.sarvamsugar.common.RecyclerViewEmptySupport;
+import com.jalotsav.sarvamsugar.model.MdlAllGodowns;
 import com.jalotsav.sarvamsugar.model.MdlGodownStock;
 import com.jalotsav.sarvamsugar.model.MdlGodownStockData;
 import com.jalotsav.sarvamsugar.retrofitapihelper.APIGodownStock;
@@ -52,9 +55,16 @@ import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.context.IconicsLayoutInflater;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -123,11 +133,11 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
 
         mFabFilters.setOnClickListener(this);
 
-        if(!GeneralFuncations.isNetConnected(getActivity())){
+        if (!GeneralFuncations.isNetConnected(getActivity())) {
 
             // Show SnackBar with given message
             showMySnackBar(getResources().getString(R.string.no_intrnt_cnctn));
-        }else getGodownStockList();
+        } else getGodownStockList();
 
         return rootView;
     }
@@ -146,14 +156,14 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
     @Override
     public void onRefresh() {
 
-        if(!GeneralFuncations.isNetConnected(getActivity())){
+        if (!GeneralFuncations.isNetConnected(getActivity())) {
 
             mSwiperfrshlyot.setRefreshing(false);
             mSwiperfrshlyotEmptyvw.setRefreshing(false);
 
             // Show SnackBar with given message
             showMySnackBar(getResources().getString(R.string.no_intrnt_cnctn));
-        }else getGodownStockList();
+        } else getGodownStockList();
     }
 
     private void getGodownStockList() {
@@ -174,35 +184,130 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
                 .build();
 
         APIGodownStock apiGodownStck = objRetrofit.create(APIGodownStock.class);
-        Call<MdlGodownStock> callGodownStck = apiGodownStck.getGodownStock(API_METHOD_GETGODOWNSTK, "27-07-2016", "27-07-2016");
-        callGodownStck.enqueue(new Callback<MdlGodownStock>() {
+        Call<ResponseBody> callGodownStck = apiGodownStck.getGodownStock(API_METHOD_GETGODOWNSTK, "27-07-2016", "27-07-2016");
+        callGodownStck.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<MdlGodownStock> call, Response<MdlGodownStock> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 mSwiperfrshlyot.setRefreshing(false);
                 mSwiperfrshlyotEmptyvw.setRefreshing(false);
-                if(!mFabFilters.isShown()) mFabFilters.setVisibility(View.VISIBLE);
+                if (!mFabFilters.isShown()) mFabFilters.setVisibility(View.VISIBLE);
 
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
 
-                    ArrayList<MdlGodownStockData> arrylstGodownStckData = response.body().getData();
+                    ArrayList<MdlGodownStockData> arrylstGodownStckData = new ArrayList<>();
+                    MdlGodownStockData objMdlGodownStockData;
 
-                    mAdapter = new RcyclrGodownwiseStockAdapter(getActivity(), arrylstGodownStckData);
-                    mRecyclerView.setAdapter(mAdapter);
-                } else {
+                    try {
+
+                        String websrvcRespns = response.body().string();
+
+                        JSONObject jsnObj = new JSONObject(websrvcRespns);
+                        String result = jsnObj.getString("result");
+//                        String message = jsnObj.getString("message");
+                        if (result.equals("0"))
+                            showMySnackBar(getString(R.string.there_are_some_server_prblm));
+                        else {
+
+                            JSONArray jsnArrayData = jsnObj.getJSONArray("data");
+                            for (int i = 0; i < jsnArrayData.length(); i++) {
+
+                                objMdlGodownStockData = new MdlGodownStockData();
+                                ArrayList<MdlAllGodowns> arrylstMdlAllGodowns = new ArrayList<>();
+
+                                JSONObject jsonobjData = jsnArrayData.getJSONObject(i);
+                                objMdlGodownStockData.setItemName(jsonobjData.getString("Item Name"));
+                                objMdlGodownStockData.setPacking(jsonobjData.getString("Packing"));
+                                objMdlGodownStockData.setTotalStock(jsonobjData.getString("Total Stk."));
+                                objMdlGodownStockData.setPendingSauda(jsonobjData.getString("Pend.Sauda"));
+                                objMdlGodownStockData.setNetStock(jsonobjData.getString("Net Stk."));
+                                objMdlGodownStockData.setStkBori(jsonobjData.getString("Stk.Bori"));
+                                JSONArray jsnArryGoDowns = jsonobjData.getJSONArray("goDowns");
+
+                                for (int j = 0; j < jsnArryGoDowns.length(); j++) {
+
+                                    JSONObject jsnGoDowns = jsnArryGoDowns.getJSONObject(j);
+
+                                    Iterator<String> iter = jsnGoDowns.keys();
+                                    while (iter.hasNext()) {
+                                        String key = iter.next();
+                                        Object value = jsnGoDowns.get(key);
+
+                                        MdlAllGodowns objMdlAllGodowns = new MdlAllGodowns(key, value.toString());
+                                        arrylstMdlAllGodowns.add(objMdlAllGodowns);
+                                    }
+
+                                    objMdlGodownStockData.setArrylstAllGodowns(arrylstMdlAllGodowns);
+
+                                    arrylstGodownStckData.add(objMdlGodownStockData);
+                                }
+                            }
+
+                            mAdapter = new RcyclrGodownwiseStockAdapter(getActivity(), arrylstGodownStckData);
+                            mRecyclerView.setAdapter(mAdapter);
+
+                        }
+                    } catch (Exception e) {e.printStackTrace();}
+                } else
                     showMySnackBar(getString(R.string.there_are_some_server_prblm));
-                }
             }
 
             @Override
-            public void onFailure(Call<MdlGodownStock> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
 
+                t.printStackTrace();
                 mSwiperfrshlyot.setRefreshing(false);
                 mSwiperfrshlyotEmptyvw.setRefreshing(false);
-                if(!mFabFilters.isShown()) mFabFilters.setVisibility(View.GONE);
+                if (!mFabFilters.isShown()) mFabFilters.setVisibility(View.GONE);
                 showMySnackBar(getString(R.string.there_are_some_prblm));
             }
         });
+    }
+
+    private String getGodownJSON() {
+        String json = "{\n" +
+                "    \"method\": \"getGodownStk\",\n" +
+                "    \"result\": \"1\",\n" +
+                "    \"message\": \"Stock successfully retrieved...\",\n" +
+                "    \"data\": [\n" +
+                "        {\n" +
+                "            \"ICODE\": \"B00011\",\n" +
+                "            \"Item Name\": \"BARDOLI MK.\",\n" +
+                "            \"Packing\": \"50KG\",\n" +
+                "            \"goDowns\": \n" +
+                "                {\n" +
+                "                    \"F-24\": 0,\n" +
+                "                    \"H-21\": 0,\n" +
+                "                    \"H-22\": 24,\n" +
+                "                    \"SHAHPUR\": 0\n" +
+                "                }\n" +
+                "            ,\n" +
+                "            \"Total Stk.\": 24,\n" +
+                "            \"PendSauda\": 0,\n" +
+                "            \"Net Stk.\": 24,\n" +
+                "            \"Stk.Bori\": 12\n" +
+                "        },\n" +
+                "        {\n" +
+                "            \"ICODE\": \"B00035\",\n" +
+                "            \"Item Name\": \"BURUKHAND KATTA\",\n" +
+                "            \"Packing\": \"50KG\",\n" +
+                "            \"goDowns\": \n" +
+                "                {\n" +
+                "                    \"F-24\": 0,\n" +
+                "                    \"H-21\": 3,\n" +
+                "                    \"H-22\": 0,\n" +
+                "                    \"SHAHPUR\": 0\n" +
+                "                }\n" +
+                "            ,\n" +
+                "            \"Total Stk.\": 3,\n" +
+                "            \"PendSauda\": 0,\n" +
+                "            \"Net Stk.\": 3,\n" +
+                "            \"Stk.Bori\": 1.5\n" +
+                "        }\n" +
+                "    ]\n" +
+                "}";
+
+        return json;
     }
 
     private void showFiltersBottomSheets() {
