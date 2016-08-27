@@ -90,9 +90,10 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
     Spinner mSpnrFltrBy;
     AppCompatAutoCompleteTextView mAppcmptAutocmplttvSlctdFltrVal;
 
-    MdlMasterDtls objMdlMasterDtls;
-    ArrayList<MdlMasterDtlsData> arrylstMasterDtlsData;
-    ArrayList<String> arrylstPartyCode, arrylstPartyName, arrylstDalal, arrylstItem;
+    MdlMasterDtls mObjMdlMasterDtls;
+    ArrayList<MdlMasterDtlsData> mArrylstMasterDtlsData;
+    ArrayList<String> mArrylstPartyCode, mArrylstPartyName, mArrylstDalal, mArrylstItem;
+    String mQueryPcode = "", mQueryPname = "", mQueryDalal = "", mQueryBori = "";
 
     @Nullable
     @Override
@@ -136,11 +137,11 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
 
         mTvAppearHere.setText(getString(R.string.masterdtls_appear_here));
 
-        arrylstMasterDtlsData = new ArrayList<>();
-        arrylstPartyCode = new ArrayList<>();
-        arrylstPartyName = new ArrayList<>();
-        arrylstDalal = new ArrayList<>();
-        arrylstItem = new ArrayList<>();
+        mArrylstMasterDtlsData = new ArrayList<>();
+        mArrylstPartyCode = new ArrayList<>();
+        mArrylstPartyName = new ArrayList<>();
+        mArrylstDalal = new ArrayList<>();
+        mArrylstItem = new ArrayList<>();
 
         // AsynTask through get JSON data of API from device storage file
         new getAllMasterDtlsFromFileAsync().execute();
@@ -149,8 +150,8 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
 
+                mAppcmptAutocmplttvSlctdFltrVal.setText("");
                 if(position == 0) {
-                    mAppcmptAutocmplttvSlctdFltrVal.setText("");
                     mAppcmptAutocmplttvSlctdFltrVal.setVisibility(View.GONE);
                     mFabApply.setVisibility(View.GONE);
                 } else {
@@ -180,19 +181,36 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
                 String slctdFltrVal = mAppcmptAutocmplttvSlctdFltrVal.getText().toString().trim();
                 if(!TextUtils.isEmpty(slctdFltrVal)) {
 
-                    mAdapter.setFilter(
-                            filters(arrylstMasterDtlsData, mSpnrFltrBy.getSelectedItemPosition(), slctdFltrVal)
-                    );
+                    switch (mSpnrFltrBy.getSelectedItemPosition()) {
+                        case 1:
+                            mQueryPcode = slctdFltrVal;
+                            break;
+                        case 2:
+                            mQueryPname = slctdFltrVal;
+                            break;
+                        case 3:
+                            mQueryDalal = slctdFltrVal;
+                            break;
+                        case 4:
+                            mQueryBori = slctdFltrVal;
+                            break;
+                    }
+
+                    mAdapter.setFilter(filters(mArrylstMasterDtlsData));
                 } else
                     showMySnackBar(getString(R.string.enter_atleast_1char_fltr));
                 break;
             case R.id.imgvw_allmasterdtls_fltrremove:
 
-                if(!arrylstMasterDtlsData.isEmpty())
-                    mAdapter.setFilter(arrylstMasterDtlsData);
+                if(!mArrylstMasterDtlsData.isEmpty())
+                    mAdapter.setFilter(mArrylstMasterDtlsData);
 
                 mSpnrFltrBy.setSelection(0);
                 mAppcmptAutocmplttvSlctdFltrVal.setText("");
+                mQueryPcode = "";
+                mQueryPname = "";
+                mQueryDalal = "";
+                mQueryBori = "";
 
                 hideFiltersView(); // Hide Filters View
                 break;
@@ -232,26 +250,26 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
         @Override
         protected Void doInBackground(Void... voids) {
 
-            objMdlMasterDtls = getJSONDataFromStorage();
-            if(objMdlMasterDtls != null) {
+            mObjMdlMasterDtls = getJSONDataFromStorage();
+            if(mObjMdlMasterDtls != null) {
 
-                if(TextUtils.isEmpty(objMdlMasterDtls.getResult())
-                        || objMdlMasterDtls.getData() == null) {
+                if(TextUtils.isEmpty(mObjMdlMasterDtls.getResult())
+                        || mObjMdlMasterDtls.getData() == null) {
 
                     showMySnackBar(getString(R.string.sync_data_msg));
-                } else if(objMdlMasterDtls.getResult().equalsIgnoreCase(RESULT_ONE)) {
+                } else if(mObjMdlMasterDtls.getResult().equalsIgnoreCase(RESULT_ONE)) {
 
-                    arrylstMasterDtlsData = objMdlMasterDtls.getData();
-                    if(!arrylstMasterDtlsData.isEmpty()) {
-                        for(MdlMasterDtlsData objMdlMasterDtlsData : arrylstMasterDtlsData) {
-                            if(!arrylstPartyCode.contains(objMdlMasterDtlsData.getPcode()))
-                                arrylstPartyCode.add(objMdlMasterDtlsData.getPcode());
-                            if(!arrylstPartyName.contains(objMdlMasterDtlsData.getPname()))
-                                arrylstPartyName.add(objMdlMasterDtlsData.getPname());
-                            if(!arrylstDalal.contains(objMdlMasterDtlsData.getDalal()))
-                                arrylstDalal.add(objMdlMasterDtlsData.getDalal());
-                            if(!arrylstItem.contains(objMdlMasterDtlsData.getBori()))
-                                arrylstItem.add(objMdlMasterDtlsData.getBori());
+                    mArrylstMasterDtlsData = mObjMdlMasterDtls.getData();
+                    if(!mArrylstMasterDtlsData.isEmpty()) {
+                        for(MdlMasterDtlsData objMdlMasterDtlsData : mArrylstMasterDtlsData) {
+                            if(!mArrylstPartyCode.contains(objMdlMasterDtlsData.getPcode()))
+                                mArrylstPartyCode.add(objMdlMasterDtlsData.getPcode());
+                            if(!mArrylstPartyName.contains(objMdlMasterDtlsData.getPname()))
+                                mArrylstPartyName.add(objMdlMasterDtlsData.getPname());
+                            if(!mArrylstDalal.contains(objMdlMasterDtlsData.getDalal()))
+                                mArrylstDalal.add(objMdlMasterDtlsData.getDalal());
+                            if(!mArrylstItem.contains(objMdlMasterDtlsData.getBori()))
+                                mArrylstItem.add(objMdlMasterDtlsData.getBori());
                         }
                         setAutoCompltTvAdapter(0);
                     }
@@ -265,11 +283,11 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
             super.onPostExecute(aVoid);
 
             mPrgrsbrMain.setVisibility(View.GONE);
-            if(!arrylstMasterDtlsData.isEmpty()) {
-                showMySnackBar(getResources().getString(R.string.value_records_sml, arrylstMasterDtlsData.size()));
+            if(!mArrylstMasterDtlsData.isEmpty()) {
+                showMySnackBar(getResources().getString(R.string.value_records_sml, mArrylstMasterDtlsData.size()));
                 mFabFilters.setVisibility(View.VISIBLE);
             }
-            mAdapter = new RcyclrAllMasterDtlsAdapter(getActivity(), arrylstMasterDtlsData);
+            mAdapter = new RcyclrAllMasterDtlsAdapter(getActivity(), mArrylstMasterDtlsData);
             mRecyclerView.setAdapter(mAdapter);
         }
     }
@@ -279,13 +297,13 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
         mAppcmptAutocmplttvSlctdFltrVal.setThreshold(1);
 
         ArrayAdapter<String> adapterPCode = new ArrayAdapter<>
-                (getActivity(),android.R.layout.simple_list_item_1, arrylstPartyCode);
+                (getActivity(),android.R.layout.simple_list_item_1, mArrylstPartyCode);
         ArrayAdapter<String> adapterPName = new ArrayAdapter<>
-                (getActivity(),android.R.layout.simple_list_item_1, arrylstPartyName);
+                (getActivity(),android.R.layout.simple_list_item_1, mArrylstPartyName);
         ArrayAdapter<String> adapterDalal = new ArrayAdapter<>
-                (getActivity(),android.R.layout.simple_list_item_1, arrylstDalal);
+                (getActivity(),android.R.layout.simple_list_item_1, mArrylstDalal);
         ArrayAdapter<String> adapterItem = new ArrayAdapter<>
-                (getActivity(),android.R.layout.simple_list_item_1, arrylstItem);
+                (getActivity(),android.R.layout.simple_list_item_1, mArrylstItem);
 
         switch (spnrSlctdPosition) {
             case 1:
@@ -374,7 +392,7 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
 
         try {
 
-            objMdlMasterDtls = new MdlMasterDtls();
+            mObjMdlMasterDtls = new MdlMasterDtls();
 
             File filesDirectory = PATH_SARVAMSUGAR_FILES;
             if(!filesDirectory.exists())	filesDirectory.mkdirs();
@@ -393,35 +411,28 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
                 myReader.close();
 
                 Gson mGson = new GsonBuilder().create();
-                objMdlMasterDtls = mGson.fromJson(aBuffer, MdlMasterDtls.class);
+                mObjMdlMasterDtls = mGson.fromJson(aBuffer, MdlMasterDtls.class);
             }
         } catch (Exception e) { e.printStackTrace(); }
 
-        return objMdlMasterDtls;
+        return mObjMdlMasterDtls;
     }
 
-    private ArrayList<MdlMasterDtlsData> filters(ArrayList<MdlMasterDtlsData> arrylstMdlMasterDtlsData, int slctdFilterPostion, String query){
+    private ArrayList<MdlMasterDtlsData> filters(ArrayList<MdlMasterDtlsData> arrylstMdlMasterDtlsData){
 
-        query = query.toLowerCase();
         ArrayList<MdlMasterDtlsData> fltrdMdlMasterDtlsData = new ArrayList<>();
         for(MdlMasterDtlsData objMdlMasterDtlsData : arrylstMdlMasterDtlsData) {
 
-            String target="";
-            switch (slctdFilterPostion) {
-                case 1:
-                    target = objMdlMasterDtlsData.getPcode().toLowerCase();
-                    break;
-                case 2:
-                    target = objMdlMasterDtlsData.getPname().toLowerCase();
-                    break;
-                case 3:
-                    target = objMdlMasterDtlsData.getDalal().toLowerCase();
-                    break;
-                case 4:
-                    target = objMdlMasterDtlsData.getBori().toLowerCase();
-                    break;
-            }
-            if(target.contains(query)) {
+            String targetPcode = objMdlMasterDtlsData.getPcode().toLowerCase();
+            String targetPname = objMdlMasterDtlsData.getPname().toLowerCase();
+            String targetDalal = objMdlMasterDtlsData.getDalal().toLowerCase();
+            String targetBori = objMdlMasterDtlsData.getBori().toLowerCase();
+
+            if(targetPcode.contains(mQueryPcode.toLowerCase())
+                    && targetPname.contains(mQueryPname.toLowerCase())
+                    && targetDalal.contains(mQueryDalal.toLowerCase())
+                    && targetBori.contains(mQueryBori.toLowerCase())) {
+
                 fltrdMdlMasterDtlsData.add(objMdlMasterDtlsData);
             }
         }
