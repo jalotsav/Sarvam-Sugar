@@ -27,13 +27,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,21 +42,16 @@ import com.jalotsav.sarvamsugar.R;
 import com.jalotsav.sarvamsugar.adapters.RcyclrGodownwiseStockAdapter;
 import com.jalotsav.sarvamsugar.common.AppConstants;
 import com.jalotsav.sarvamsugar.common.GeneralFuncations;
-import com.jalotsav.sarvamsugar.common.LogManager;
 import com.jalotsav.sarvamsugar.common.RecyclerViewEmptySupport;
 import com.jalotsav.sarvamsugar.model.MdlAllGodowns;
-import com.jalotsav.sarvamsugar.model.MdlGodownStock;
 import com.jalotsav.sarvamsugar.model.MdlGodownStockData;
-import com.jalotsav.sarvamsugar.retrofitapihelper.APIGodownStock;
+import com.jalotsav.sarvamsugar.retrofitapihelper.RetroAPI;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
-import com.mikepenz.iconics.context.IconicsLayoutInflater;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -108,10 +100,6 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
         mRecyclerView = (RecyclerViewEmptySupport) rootView.findViewById(R.id.rcyclrvw_godownwise_stock);
         mFabFilters = (FloatingActionButton) rootView.findViewById(R.id.fab_godownwise_stock_filters);
 
-        mFabFilters.setImageDrawable(new IconicsDrawable(getActivity())
-                .icon(CommunityMaterial.Icon.cmd_filter)
-                .color(Color.WHITE));
-
         // Initialization of SwipeRefreshLayout
         initSwipeRefreshLayout(mSwiperfrshlyot);
         initSwipeRefreshLayout(mSwiperfrshlyotEmptyvw);
@@ -121,6 +109,10 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setEmptyView(mSwiperfrshlyotEmptyvw);
 
+        mFabFilters.setImageDrawable(new IconicsDrawable(getActivity())
+                .icon(CommunityMaterial.Icon.cmd_filter)
+                .color(Color.WHITE));
+
         mBottomSheetDialog = new BottomSheetDialog(getActivity());
 
         mCalndr = Calendar.getInstance();
@@ -128,8 +120,8 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
         mCrntMonth = mCalndr.get(Calendar.MONTH);
         mCrntDay = mCalndr.get(Calendar.DAY_OF_MONTH);
 
-        mReqstFromDT = mCrntDay + "-" + (GeneralFuncations.setMonthIn2Digit(mCrntMonth + 1)) + "-" + mCrntYear; // Format "27-07-2016"
-        mReqstToDt = mCrntDay + "-" + (GeneralFuncations.setMonthIn2Digit(mCrntMonth + 1)) + "-" + mCrntYear;
+        mReqstFromDT = GeneralFuncations.setDateIn2Digit(mCrntDay) + "-" + (GeneralFuncations.setDateIn2Digit(mCrntMonth + 1)) + "-" + mCrntYear; // Format "27-07-2016"
+        mReqstToDt = GeneralFuncations.setDateIn2Digit(mCrntDay) + "-" + (GeneralFuncations.setDateIn2Digit(mCrntMonth + 1)) + "-" + mCrntYear;
 
         mFabFilters.setOnClickListener(this);
 
@@ -183,7 +175,7 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        APIGodownStock apiGodownStck = objRetrofit.create(APIGodownStock.class);
+        RetroAPI apiGodownStck = objRetrofit.create(RetroAPI.class);
         Call<ResponseBody> callGodownStck = apiGodownStck.getGodownStock(API_METHOD_GETGODOWNSTK, "27-07-2016", "27-07-2016");
         callGodownStck.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -191,7 +183,6 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
 
                 mSwiperfrshlyot.setRefreshing(false);
                 mSwiperfrshlyotEmptyvw.setRefreshing(false);
-                if (!mFabFilters.isShown()) mFabFilters.setVisibility(View.VISIBLE);
 
                 if (response.isSuccessful()) {
 
@@ -204,10 +195,12 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
 
                         JSONObject jsnObj = new JSONObject(websrvcRespns);
                         String result = jsnObj.getString("result");
-//                        String message = jsnObj.getString("message");
+                        String message = jsnObj.getString("message");
                         if (result.equals("0"))
-                            showMySnackBar(getString(R.string.there_are_some_server_prblm));
+                            showMySnackBar(message);
                         else {
+
+                            if (!mFabFilters.isShown()) mFabFilters.setVisibility(View.VISIBLE);
 
                             JSONArray jsnArrayData = jsnObj.getJSONArray("data");
                             for (int i = 0; i < jsnArrayData.length(); i++) {
@@ -258,56 +251,10 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
                 t.printStackTrace();
                 mSwiperfrshlyot.setRefreshing(false);
                 mSwiperfrshlyotEmptyvw.setRefreshing(false);
-                if (!mFabFilters.isShown()) mFabFilters.setVisibility(View.GONE);
+                if (mFabFilters.isShown()) mFabFilters.setVisibility(View.GONE);
                 showMySnackBar(getString(R.string.there_are_some_prblm));
             }
         });
-    }
-
-    private String getGodownJSON() {
-        String json = "{\n" +
-                "    \"method\": \"getGodownStk\",\n" +
-                "    \"result\": \"1\",\n" +
-                "    \"message\": \"Stock successfully retrieved...\",\n" +
-                "    \"data\": [\n" +
-                "        {\n" +
-                "            \"ICODE\": \"B00011\",\n" +
-                "            \"Item Name\": \"BARDOLI MK.\",\n" +
-                "            \"Packing\": \"50KG\",\n" +
-                "            \"goDowns\": \n" +
-                "                {\n" +
-                "                    \"F-24\": 0,\n" +
-                "                    \"H-21\": 0,\n" +
-                "                    \"H-22\": 24,\n" +
-                "                    \"SHAHPUR\": 0\n" +
-                "                }\n" +
-                "            ,\n" +
-                "            \"Total Stk.\": 24,\n" +
-                "            \"PendSauda\": 0,\n" +
-                "            \"Net Stk.\": 24,\n" +
-                "            \"Stk.Bori\": 12\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"ICODE\": \"B00035\",\n" +
-                "            \"Item Name\": \"BURUKHAND KATTA\",\n" +
-                "            \"Packing\": \"50KG\",\n" +
-                "            \"goDowns\": \n" +
-                "                {\n" +
-                "                    \"F-24\": 0,\n" +
-                "                    \"H-21\": 3,\n" +
-                "                    \"H-22\": 0,\n" +
-                "                    \"SHAHPUR\": 0\n" +
-                "                }\n" +
-                "            ,\n" +
-                "            \"Total Stk.\": 3,\n" +
-                "            \"PendSauda\": 0,\n" +
-                "            \"Net Stk.\": 3,\n" +
-                "            \"Stk.Bori\": 1.5\n" +
-                "        }\n" +
-                "    ]\n" +
-                "}";
-
-        return json;
     }
 
     private void showFiltersBottomSheets() {
@@ -350,7 +297,7 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
                         month++;
-                        mReqstFromDT = day + "-" + GeneralFuncations.setMonthIn2Digit(month) + "-" + year;
+                        mReqstFromDT = GeneralFuncations.setDateIn2Digit(day) + "-" + GeneralFuncations.setDateIn2Digit(month) + "-" + year;
                         mTvSlctdFromDt.setText(mReqstFromDT);
 //                        mTvSlctdFromDt.setText(new StringBuilder().append(day).append("-").append(month).append("-").append(year));
                     }
@@ -364,7 +311,7 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
                         month++;
-                        mReqstToDt = day + "-" + GeneralFuncations.setMonthIn2Digit(month) + "-" + year;
+                        mReqstToDt = GeneralFuncations.setDateIn2Digit(day) + "-" + GeneralFuncations.setDateIn2Digit(month) + "-" + year;
                         mTvSlctdToDt.setText(mReqstToDt);
                     }
                 }, mCrntYear, mCrntMonth, mCrntDay);

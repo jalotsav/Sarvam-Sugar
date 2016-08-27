@@ -48,13 +48,12 @@ import com.google.gson.GsonBuilder;
 import com.jalotsav.sarvamsugar.R;
 import com.jalotsav.sarvamsugar.adapters.RcyclrAllMasterDtlsAdapter;
 import com.jalotsav.sarvamsugar.common.AppConstants;
-import com.jalotsav.sarvamsugar.common.DatabaseHandler;
 import com.jalotsav.sarvamsugar.common.GeneralFuncations;
 import com.jalotsav.sarvamsugar.common.LogManager;
 import com.jalotsav.sarvamsugar.common.RecyclerViewEmptySupport;
 import com.jalotsav.sarvamsugar.model.MdlMasterDtls;
 import com.jalotsav.sarvamsugar.model.MdlMasterDtlsData;
-import com.jalotsav.sarvamsugar.retrofitapihelper.APIMasterDtls;
+import com.jalotsav.sarvamsugar.retrofitapihelper.RetroAPI;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
@@ -77,8 +76,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by JALOTSAV Dev. on 6/8/16.
  */
 public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.OnClickListener {
-
-    DatabaseHandler dbHndlr;
 
     CoordinatorLayout mCordntrlyotMain;
     ProgressBar mPrgrsbrMain;
@@ -104,8 +101,6 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
         View rootView = inflater.inflate(R.layout.lo_frgmnt_allmasterdtls, container, false);
 
         setHasOptionsMenu(true);
-
-        dbHndlr = new DatabaseHandler(getActivity());
 
         mCordntrlyotMain = (CoordinatorLayout) rootView.findViewById(R.id.cordntrlyot_allmasterdtls_stock);
         mPrgrsbrMain = (ProgressBar) rootView.findViewById(R.id.prgrsbr_allmasterdtls_main);
@@ -189,7 +184,7 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
                             filters(arrylstMasterDtlsData, mSpnrFltrBy.getSelectedItemPosition(), slctdFltrVal)
                     );
                 } else
-                    showMySnackBar(getString(R.string.enter_atleast_2char_fltr));
+                    showMySnackBar(getString(R.string.enter_atleast_1char_fltr));
                 break;
             case R.id.imgvw_allmasterdtls_fltrremove:
 
@@ -249,10 +244,14 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
                     arrylstMasterDtlsData = objMdlMasterDtls.getData();
                     if(!arrylstMasterDtlsData.isEmpty()) {
                         for(MdlMasterDtlsData objMdlMasterDtlsData : arrylstMasterDtlsData) {
-                            arrylstPartyCode.add(objMdlMasterDtlsData.getPcode());
-                            arrylstPartyName.add(objMdlMasterDtlsData.getPname());
-                            arrylstDalal.add(objMdlMasterDtlsData.getDalal());
-                            arrylstItem.add(objMdlMasterDtlsData.getBori());
+                            if(!arrylstPartyCode.contains(objMdlMasterDtlsData.getPcode()))
+                                arrylstPartyCode.add(objMdlMasterDtlsData.getPcode());
+                            if(!arrylstPartyName.contains(objMdlMasterDtlsData.getPname()))
+                                arrylstPartyName.add(objMdlMasterDtlsData.getPname());
+                            if(!arrylstDalal.contains(objMdlMasterDtlsData.getDalal()))
+                                arrylstDalal.add(objMdlMasterDtlsData.getDalal());
+                            if(!arrylstItem.contains(objMdlMasterDtlsData.getBori()))
+                                arrylstItem.add(objMdlMasterDtlsData.getBori());
                         }
                         setAutoCompltTvAdapter(0);
                     }
@@ -315,7 +314,7 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        APIMasterDtls apiMasterDtls = objRetrofit.create(APIMasterDtls.class);
+        RetroAPI apiMasterDtls = objRetrofit.create(RetroAPI.class);
         Call<ResponseBody> callGodownStck = apiMasterDtls.getMasterDtls(API_METHOD_GETMASTERRPT);
         callGodownStck.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -356,7 +355,7 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
         try {
 
             File filesDirectory = PATH_SARVAMSUGAR_FILES;
-            if(!filesDirectory.exists())	filesDirectory.mkdirs();
+            if(!filesDirectory.exists()) filesDirectory.mkdirs();
 
             File fileJson = new File(filesDirectory, ALL_MASTER_DTLS_JSON);
             if(fileJson.exists()) fileJson.delete();

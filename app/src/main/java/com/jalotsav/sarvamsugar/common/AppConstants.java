@@ -41,6 +41,7 @@ public interface AppConstants {
     // API Method name
     String API_METHOD_GETGODOWNSTK = "getGodownStk";
     String API_METHOD_GETMASTERRPT = "getMasterRpt";
+    String API_METHOD_GETDSALESSUMM = "getDSalesSumm";
 
     // Login static Credentials
     String LOGIN_USERNAME = "jsp";

@@ -22,7 +22,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".navgtndrawer.FrgmntGodownwiseStock"
+    tools:context=".navgtndrawer.FrgmntAllMasterDtls"
     tools:ignore="Missingprefix">
 
     <RelativeLayout
@@ -144,7 +144,7 @@
         style="@style/AppCompatButton.Red"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
+        android:layout_gravity="right|end|bottom"
         android:layout_margin="@dimen/_16jdp"
         android:clickable="true"
         android:visibility="visible" />

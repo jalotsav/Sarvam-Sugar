@@ -145,9 +145,9 @@ public class GeneralFuncations {
     }
 
     /***
-     * Check and convert given Month into 2 digits (from 7 to 07)
+     * Check and convert given Date into 2 digits (from 7 to 07)
      * ***/
-    public static String setMonthIn2Digit(int number) {
+    public static String setDateIn2Digit(int number) {
         return number<=9?"0"+number:String.valueOf(number);
     }
 

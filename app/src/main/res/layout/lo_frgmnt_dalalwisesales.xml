@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2016 Jalotsav
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cordntrlyot_dalalwssls_stock"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".navgtndrawer.FrgmntDalalwiseSales"
+    tools:ignore="Missingprefix">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/lnrlyot_dalalwssls_filtersvw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/_25jdp"
+            android:paddingLeft="@dimen/_16jdp"
+            android:paddingRight="@dimen/_16jdp"
+            android:visibility="gone">
+
+            <!--Title & Cancel button-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/filters_sml"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_20jdp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/_10jdp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imgvw_dalalwssls_fltrremove"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:contentDescription="@string/imgcd_image"
+                        app:ico_color="@color/white"
+                        app:ico_icon="cmd-filter-remove"
+                        app:ico_size="24dp" />
+
+                    <ImageView
+                        android:id="@+id/imgvw_dalalwssls_fltrclose"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/_10jdp"
+                        android:layout_marginStart="@dimen/_10jdp"
+                        android:contentDescription="@string/imgcd_image"
+                        app:ico_color="@color/white"
+                        app:ico_icon="cmd-close"
+                        app:ico_size="20dp" />
+                </LinearLayout>
+            </RelativeLayout>
+            <!--END Title & Cancel button-->
+
+            <android.support.v7.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/apcmptautocmplttv_dalalwssls_slctdfilterval"
+                style="@style/AppCompatEdittext.Pink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2jdp"
+                android:ems="10"
+                android:hint="@string/slct_from_list_sml"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+
+            <!--From & To Date-->
+            <LinearLayout
+                android:id="@+id/lnrlyot_dalalwssls_fromtodate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2jdp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <!--From Date-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/slct_from_date"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14jdp" />
+
+                    <LinearLayout
+                        android:id="@+id/lnrlyot_dalalwssls_fromdt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5jdp"
+                        android:background="@drawable/drawbl_round_bgteal_brdrgray800"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_22jdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_25jdp"
+                            android:layout_height="@dimen/_25jdp"
+                            android:contentDescription="@string/imgcd_image"
+                            android:textColor="@color/white"
+                            app:ico_color="@color/white"
+                            app:ico_icon="cmd-calendar-today"
+                            app:ico_size="25dp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_dalalwssls_slctdfromdt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5jdp"
+                        android:textColor="@color/colorPrimaryAmber"
+                        android:textSize="@dimen/_14jdp"
+                        android:textStyle="bold"
+                        tools:text="23/07/2016" />
+                </LinearLayout>
+                <!--END From Date-->
+
+                <!--To Date-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_25jdp"
+                    android:layout_marginStart="@dimen/_25jdp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/slct_to_date"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14jdp" />
+
+                    <LinearLayout
+                        android:id="@+id/lnrlyot_dalalwssls_todt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5jdp"
+                        android:background="@drawable/drawbl_round_bggray_brdrgray800"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_22jdp">
+
+                        <ImageView
+                            android:layout_width="@dimen/_25jdp"
+                            android:layout_height="@dimen/_25jdp"
+                            android:contentDescription="@string/imgcd_image"
+                            android:textColor="@color/white"
+                            app:ico_color="@color/white"
+                            app:ico_icon="cmd-calendar"
+                            app:ico_size="25dp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_dalalwssls_slctdtodt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5jdp"
+                        android:textColor="@color/colorPrimaryAmber"
+                        android:textSize="@dimen/_14jdp"
+                        android:textStyle="bold"
+                        tools:text="27/07/2016" />
+                </LinearLayout>
+                <!--END To Date-->
+            </LinearLayout>
+            <!--END From & To Date-->
+        </LinearLayout>
+
+        <com.jalotsav.sarvamsugar.common.RecyclerViewEmptySupport
+            android:id="@+id/rcyclrvw_dalalwssls"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/lnrlyot_dalalwssls_filtersvw"
+            tools:listitem="@layout/lo_recyclritem_dalalwisesales" />
+
+        <include
+            layout="@layout/lo_recyclremptyvw_appearhere"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/lnrlyot_dalalwssls_filtersvw" />
+
+        <ProgressBar
+            android:id="@+id/prgrsbr_dalalwssls_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <!--Filters FAB-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_dalalwssls_filters"
+        style="@style/AppCompatButton.Red"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="@dimen/_16jdp"
+        android:clickable="true"
+        android:visibility="visible" />
+
+    <!--Filter Apply FAB-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_dalalwssls_apply"
+        style="@style/AppCompatButton.GreenSpeech"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:visibility="gone"
+        app:layout_anchor="@id/lnrlyot_dalalwssls_filtersvw"
+        app:layout_anchorGravity="end|bottom"
+        app:useCompatPadding="true" />
+</android.support.design.widget.CoordinatorLayout>
