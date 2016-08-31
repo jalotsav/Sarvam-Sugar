@@ -69,7 +69,7 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
     CoordinatorLayout mCordntrlyotMain;
     ProgressBar mPrgrsbrMain;
     LinearLayout mLnrlyotAppearHere;
-    TextView mTvAppearHere;
+    TextView mTvAppearHere, mTvSlctdFromDt, mTvSlctdToDt;
     RecyclerViewEmptySupport mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
     RcyclrDalalwiseSalesAdapter mAdapter;
@@ -77,12 +77,11 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
     LinearLayout mLnrlyotFilters;
     ImageView mImgvwFltrRemove, mImgvwFltrClose;
     AppCompatAutoCompleteTextView mAppcmptAutocmplttvSlctdFltrVal;
-    TextView mTvSlctdFromDt, mTvSlctdToDt;
     LinearLayout mLnrlyotFromDt, mLnrlyotToDt;
 
     ArrayList<String> mArrylstDalal;
     Calendar mCalndr;
-    int mCrntYear, mCrntMonth, mCrntDay;
+    int mCrntYear, mCrntMonth, mCrntDay, mFromYear, mFromMonth, mFromDay, mToYear, mToMonth, mToDay;
     String mReqstFromDT, mReqstToDt, mReqstDalal;
 
     @Nullable
@@ -139,12 +138,16 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
         mRecyclerView.setAdapter(mAdapter);
 
         mCalndr = Calendar.getInstance();
-        mCrntYear = mCalndr.get(Calendar.YEAR);
-        mCrntMonth = mCalndr.get(Calendar.MONTH);
-        mCrntDay = mCalndr.get(Calendar.DAY_OF_MONTH);
+        mCrntYear = mFromYear = mToYear = mCalndr.get(Calendar.YEAR);
+        mCrntMonth = mFromMonth = mToMonth = mCalndr.get(Calendar.MONTH);
+        mCrntDay = mFromDay = mToDay = mCalndr.get(Calendar.DAY_OF_MONTH);
 
-        mReqstFromDT = GeneralFuncations.setDateIn2Digit(mCrntDay) + "-" + (GeneralFuncations.setDateIn2Digit(mCrntMonth + 1)) + "-" + mCrntYear; // Format "27-07-2016"
-        mReqstToDt = GeneralFuncations.setDateIn2Digit(mCrntDay) + "-" + (GeneralFuncations.setDateIn2Digit(mCrntMonth + 1)) + "-" + mCrntYear;
+        mReqstFromDT = GeneralFuncations.setDateIn2Digit(mFromDay)
+                + "-" + GeneralFuncations.setDateIn2Digit(mFromMonth+1)
+                + "-" + mFromYear; // Format "27-07-2016"
+        mReqstToDt = GeneralFuncations.setDateIn2Digit(mToDay)
+                + "-" + GeneralFuncations.setDateIn2Digit(mToMonth+1)
+                + "-" + mToYear;
         mReqstDalal = "";
 
         // Set filter selected date to TextView
@@ -157,6 +160,14 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
         } else getDalalWiseSalesList();
 
         return rootView;
+    }
+
+    // Set filter selected date to TextView
+    private void setFilterSlctdDateTv() {
+
+        mTvSlctdFromDt.setText(mReqstFromDT);
+        mTvSlctdToDt.setText(mReqstToDt);
+        mAppcmptAutocmplttvSlctdFltrVal.setText(mReqstDalal);
     }
 
     private void getDalalWiseSalesList() {
@@ -220,14 +231,6 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
         });
     }
 
-    // Set filter selected date to TextView
-    private void setFilterSlctdDateTv() {
-
-        mTvSlctdFromDt.setText(mReqstFromDT);
-        mTvSlctdToDt.setText(mReqstToDt);
-        mAppcmptAutocmplttvSlctdFltrVal.setText(mReqstDalal);
-    }
-
     @Override
     public void onClick(View view) {
 
@@ -250,8 +253,17 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
                 break;
             case R.id.imgvw_dalalwssls_fltrremove:
 
-                mReqstFromDT = GeneralFuncations.setDateIn2Digit(mCrntDay) + "-" + (GeneralFuncations.setDateIn2Digit(mCrntMonth + 1)) + "-" + mCrntYear; // Format "27-07-2016"
-                mReqstToDt = GeneralFuncations.setDateIn2Digit(mCrntDay) + "-" + (GeneralFuncations.setDateIn2Digit(mCrntMonth + 1)) + "-" + mCrntYear;
+                mFromDay = mToDay = mCrntDay;
+                mFromMonth = mToMonth = mCrntMonth;
+                mFromYear = mToYear = mCrntYear;
+
+                mReqstFromDT = GeneralFuncations.setDateIn2Digit(mFromDay)
+                        + "-" + GeneralFuncations.setDateIn2Digit(mFromMonth+1)
+                        + "-" + mFromYear; // Format "27-07-2016"
+                mReqstToDt = GeneralFuncations.setDateIn2Digit(mToDay)
+                        + "-" + GeneralFuncations.setDateIn2Digit(mToMonth+1)
+                        + "-" + mToYear;
+
                 mReqstDalal = "";
 
                 // Set filter selected date to TextView
@@ -278,12 +290,15 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
+                        mFromYear = year;
+                        mFromMonth = month;
+                        mFromDay = day;
                         month++;
                         mReqstFromDT = GeneralFuncations.setDateIn2Digit(day) + "-" + GeneralFuncations.setDateIn2Digit(month) + "-" + year;
                         mTvSlctdFromDt.setText(mReqstFromDT);
 //                        mTvSlctdFromDt.setText(new StringBuilder().append(day).append("-").append(month).append("-").append(year));
                     }
-                }, mCrntYear, mCrntMonth, mCrntDay);
+                }, mFromYear, mFromMonth, mFromDay);
                 mFromDatePckrDlg.show();
                 break;
             case R.id.lnrlyot_dalalwssls_todt:
@@ -292,11 +307,14 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
+                        mToYear = year;
+                        mToMonth = month;
+                        mToDay = day;
                         month++;
                         mReqstToDt = GeneralFuncations.setDateIn2Digit(day) + "-" + GeneralFuncations.setDateIn2Digit(month) + "-" + year;
                         mTvSlctdToDt.setText(mReqstToDt);
                     }
-                }, mCrntYear, mCrntMonth, mCrntDay);
+                }, mToYear, mToMonth, mToDay);
                 mToDatePckrDlg.show();
                 break;
         }

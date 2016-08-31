@@ -47,18 +47,41 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
                 android:text="@string/filters_sml"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textColor="@android:color/black" />
+                android:textColor="@color/gray800"
+                android:textSize="@dimen/_20jdp" />
 
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/apcmptbtn_btmshts_frmtodt_savefilter"
-                style="@style/AppCompatButton.Red"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:text="@string/save_sml" />
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/_10jdp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgvw_btmshts_frmtodt_fltrremove"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="@string/imgcd_image"
+                    app:ico_color="@color/redAlizarin"
+                    app:ico_icon="cmd-filter-remove"
+                    app:ico_size="24dp" />
+
+                <ImageView
+                    android:id="@+id/imgvw_btmshts_frmtodt_fltrapply"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_10jdp"
+                    android:layout_marginStart="@dimen/_10jdp"
+                    android:contentDescription="@string/imgcd_image"
+                    app:ico_color="@color/greenSpeech"
+                    app:ico_icon="cmd-check"
+                    app:ico_size="20dp" />
+            </LinearLayout>
         </RelativeLayout>
         <!--END Title & Cancel/Save button-->
 
@@ -93,16 +116,16 @@
                     android:layout_marginTop="@dimen/_5jdp"
                     android:background="@drawable/drawbl_round_bgteal_brdrgray800"
                     android:orientation="vertical"
-                    android:padding="@dimen/_25jdp">
+                    android:padding="@dimen/_22jdp">
 
                     <ImageView
-                        android:layout_width="@dimen/_45jdp"
-                        android:layout_height="@dimen/_45jdp"
+                        android:layout_width="@dimen/_40jdp"
+                        android:layout_height="@dimen/_40jdp"
                         android:contentDescription="@string/imgcd_image"
                         android:textColor="@color/white"
                         app:ico_color="@color/white"
                         app:ico_icon="cmd-calendar-today"
-                        app:ico_size="45dp" />
+                        app:ico_size="40dp" />
                 </LinearLayout>
 
                 <TextView
@@ -140,16 +163,16 @@
                     android:layout_marginTop="@dimen/_5jdp"
                     android:background="@drawable/drawbl_round_bgblue_brdrgray800"
                     android:orientation="vertical"
-                    android:padding="@dimen/_25jdp">
+                    android:padding="@dimen/_22jdp">
 
                     <ImageView
-                        android:layout_width="@dimen/_45jdp"
-                        android:layout_height="@dimen/_45jdp"
+                        android:layout_width="@dimen/_40jdp"
+                        android:layout_height="@dimen/_40jdp"
                         android:contentDescription="@string/imgcd_image"
                         android:textColor="@color/white"
                         app:ico_color="@color/white"
                         app:ico_icon="cmd-calendar"
-                        app:ico_size="45dp" />
+                        app:ico_size="40dp" />
                 </LinearLayout>
 
                 <TextView

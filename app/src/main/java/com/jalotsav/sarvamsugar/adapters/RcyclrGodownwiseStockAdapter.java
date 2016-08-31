@@ -145,4 +145,11 @@ public class RcyclrGodownwiseStockAdapter extends RecyclerView.Adapter<RcyclrGod
             gridvwExpandvw = (GridView) itemView.findViewById(R.id.gridvw_godownstck_expandvw);
         }
     }
+
+    public void setFilter(ArrayList<MdlGodownStockData> arrylstMdlGodownStockData) {
+
+        mArrylstGodownStckData = new ArrayList<>();
+        mArrylstGodownStckData.addAll(arrylstMdlGodownStockData);
+        notifyDataSetChanged();
+    }
 }

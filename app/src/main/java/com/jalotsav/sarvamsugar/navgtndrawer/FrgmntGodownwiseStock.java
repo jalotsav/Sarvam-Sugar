@@ -35,6 +35,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -72,18 +73,17 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
     CoordinatorLayout mCordntrlyotMain;
     SwipeRefreshLayout mSwiperfrshlyot, mSwiperfrshlyotEmptyvw;
     LinearLayout mLnrlyotAppearHere;
-    TextView mTvAppearHere;
+    TextView mTvAppearHere, mTvSlctdFromDt, mTvSlctdToDt;
     RecyclerViewEmptySupport mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
-    RecyclerView.Adapter mAdapter;
+    RcyclrGodownwiseStockAdapter mAdapter;
     FloatingActionButton mFabFilters;
     BottomSheetDialog mBottomSheetDialog;
-    AppCompatButton mApcmptbtnSaveFiltr;
-    TextView mTvSlctdFromDt, mTvSlctdToDt;
+    ImageView mImgvwFltrRemove, mImgvwFltrApply;
     LinearLayout mLnrlyotFromDt, mLnrlyotToDt;
 
     Calendar mCalndr;
-    int mCrntYear, mCrntMonth, mCrntDay;
+    int mCrntYear, mCrntMonth, mCrntDay, mFromYear, mFromMonth, mFromDay, mToYear, mToMonth, mToDay;
     String mReqstFromDT, mReqstToDt;
 
     @Nullable
@@ -113,15 +113,23 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
                 .icon(CommunityMaterial.Icon.cmd_filter)
                 .color(Color.WHITE));
 
+        ArrayList<MdlGodownStockData> arrylstGodownStckData = new ArrayList<>();
+        mAdapter = new RcyclrGodownwiseStockAdapter(getActivity(), arrylstGodownStckData);
+        mRecyclerView.setAdapter(mAdapter);
+
         mBottomSheetDialog = new BottomSheetDialog(getActivity());
 
         mCalndr = Calendar.getInstance();
-        mCrntYear = mCalndr.get(Calendar.YEAR);
-        mCrntMonth = mCalndr.get(Calendar.MONTH);
-        mCrntDay = mCalndr.get(Calendar.DAY_OF_MONTH);
+        mCrntYear = mFromYear = mToYear = mCalndr.get(Calendar.YEAR);
+        mCrntMonth = mFromMonth = mToMonth = mCalndr.get(Calendar.MONTH);
+        mCrntDay = mFromDay = mToDay = mCalndr.get(Calendar.DAY_OF_MONTH);
 
-        mReqstFromDT = GeneralFuncations.setDateIn2Digit(mCrntDay) + "-" + (GeneralFuncations.setDateIn2Digit(mCrntMonth + 1)) + "-" + mCrntYear; // Format "27-07-2016"
-        mReqstToDt = GeneralFuncations.setDateIn2Digit(mCrntDay) + "-" + (GeneralFuncations.setDateIn2Digit(mCrntMonth + 1)) + "-" + mCrntYear;
+        mReqstFromDT = GeneralFuncations.setDateIn2Digit(mFromDay)
+                + "-" + GeneralFuncations.setDateIn2Digit(mFromMonth+1)
+                + "-" + mFromYear; // Format "27-07-2016"
+        mReqstToDt = GeneralFuncations.setDateIn2Digit(mToDay)
+                + "-" + GeneralFuncations.setDateIn2Digit(mToMonth+1)
+                + "-" + mToYear;
 
         mFabFilters.setOnClickListener(this);
 
@@ -176,7 +184,7 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
                 .build();
 
         RetroAPI apiGodownStck = objRetrofit.create(RetroAPI.class);
-        Call<ResponseBody> callGodownStck = apiGodownStck.getGodownStock(API_METHOD_GETGODOWNSTK, "27-07-2016", "27-07-2016");
+        Call<ResponseBody> callGodownStck = apiGodownStck.getGodownStock(API_METHOD_GETGODOWNSTK, mReqstFromDT, mReqstToDt);
         callGodownStck.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -236,9 +244,7 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
                                 }
                             }
 
-                            mAdapter = new RcyclrGodownwiseStockAdapter(getActivity(), arrylstGodownStckData);
-                            mRecyclerView.setAdapter(mAdapter);
-
+                            mAdapter.setFilter(arrylstGodownStckData);
                         }
                     } catch (Exception e) {e.printStackTrace();}
                 } else
@@ -260,19 +266,21 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
     private void showFiltersBottomSheets() {
 
         View contnVw = getActivity().getLayoutInflater().inflate(R.layout.lo_bottomsheets_fromtodate, null);
-        mApcmptbtnSaveFiltr = (AppCompatButton) contnVw.findViewById(R.id.apcmptbtn_btmshts_frmtodt_savefilter);
+        mImgvwFltrRemove = (ImageView) contnVw.findViewById(R.id.imgvw_btmshts_frmtodt_fltrremove);
+        mImgvwFltrApply = (ImageView) contnVw.findViewById(R.id.imgvw_btmshts_frmtodt_fltrapply);
         mTvSlctdFromDt = (TextView) contnVw.findViewById(R.id.tv_btmshts_frmtodt_slctdfromdt);
         mTvSlctdToDt = (TextView) contnVw.findViewById(R.id.tv_btmshts_frmtodt_slctdtodt);
         mLnrlyotFromDt = (LinearLayout) contnVw.findViewById(R.id.lnrlyot_btmshts_frmtodt_fromdt);
         mLnrlyotToDt = (LinearLayout) contnVw.findViewById(R.id.lnrlyot_btmshts_frmtodt_todt);
 
-        mTvSlctdFromDt.setText(mReqstFromDT);
-        mTvSlctdToDt.setText(mReqstToDt);
+        // Set filter selected date to TextView
+        setFilterSlctdDateTv();
 
         mBottomSheetDialog.setContentView(contnVw);
         mBottomSheetDialog.show();
 
-        mApcmptbtnSaveFiltr.setOnClickListener(this);
+        mImgvwFltrRemove.setOnClickListener(this);
+        mImgvwFltrApply.setOnClickListener(this);
         mLnrlyotFromDt.setOnClickListener(this);
         mLnrlyotToDt.setOnClickListener(this);
     }
@@ -284,11 +292,29 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
 
                 showFiltersBottomSheets();
                 break;
-            case R.id.apcmptbtn_btmshts_frmtodt_savefilter:
+            case R.id.imgvw_btmshts_frmtodt_fltrapply:
 
                 mBottomSheetDialog.dismiss();
-//                onRefresh();
-                showMySnackBar("Under Development");
+
+                onRefresh();
+                break;
+            case R.id.imgvw_btmshts_frmtodt_fltrremove:
+
+                mFromDay = mToDay = mCrntDay;
+                mFromMonth = mToMonth = mCrntMonth;
+                mFromYear = mToYear = mCrntYear;
+
+                mReqstFromDT = GeneralFuncations.setDateIn2Digit(mFromDay)
+                        + "-" + GeneralFuncations.setDateIn2Digit(mFromMonth+1)
+                        + "-" + mFromYear; // Format "27-07-2016"
+                mReqstToDt = GeneralFuncations.setDateIn2Digit(mToDay)
+                        + "-" + GeneralFuncations.setDateIn2Digit(mToMonth+1)
+                        + "-" + mToYear;
+
+                ArrayList<MdlGodownStockData> arrylstGodownStckData = new ArrayList<>();
+                mAdapter.setFilter(arrylstGodownStckData);
+
+                mBottomSheetDialog.dismiss();
                 break;
             case R.id.lnrlyot_btmshts_frmtodt_fromdt:
 
@@ -296,12 +322,15 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
+                        mFromYear = year;
+                        mFromMonth = month;
+                        mFromDay = day;
                         month++;
                         mReqstFromDT = GeneralFuncations.setDateIn2Digit(day) + "-" + GeneralFuncations.setDateIn2Digit(month) + "-" + year;
                         mTvSlctdFromDt.setText(mReqstFromDT);
 //                        mTvSlctdFromDt.setText(new StringBuilder().append(day).append("-").append(month).append("-").append(year));
                     }
-                }, mCrntYear, mCrntMonth, mCrntDay);
+                }, mFromYear, mFromMonth, mFromDay);
                 mFromDatePckrDlg.show();
                 break;
             case R.id.lnrlyot_btmshts_frmtodt_todt:
@@ -310,14 +339,24 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
+                        mToYear = year;
+                        mToMonth = month;
+                        mToDay = day;
                         month++;
                         mReqstToDt = GeneralFuncations.setDateIn2Digit(day) + "-" + GeneralFuncations.setDateIn2Digit(month) + "-" + year;
                         mTvSlctdToDt.setText(mReqstToDt);
                     }
-                }, mCrntYear, mCrntMonth, mCrntDay);
+                }, mToYear, mToMonth, mToDay);
                 mToDatePckrDlg.show();
                 break;
         }
+    }
+
+    // Set filter selected date to TextView
+    private void setFilterSlctdDateTv() {
+
+        mTvSlctdFromDt.setText(mReqstFromDT);
+        mTvSlctdToDt.setText(mReqstToDt);
     }
 
     // Show SnackBar with given message
