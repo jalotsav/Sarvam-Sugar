@@ -23,15 +23,12 @@
 
     <!--Navigation Drawer Menu-->
     <string name="outstanding_sml">Outstanding</string>
-    <string name="dalalwisesales_sml">Dalal Wise sales</string>
+    <string name="allinone_sml">All In One</string>
     <string name="all_master_dtls_sml">All Master Details</string>
     <string name="godownwise_stock_sml">Godown Wise Stock</string>
-    <string name="collection_sml">Collection</string>
-    <string name="collctn_entry_sml">Collection Entry</string>
-    <string name="collctn_view_sml">Collection View</string>
-    <string name="sauda_sml">Sauda</string>
-    <string name="sauda_entry_sml">Sauda Entry</string>
-    <string name="sauda_view_sml">Sauda View</string>
+    <string name="dalal_sml">Dalal</string>
+    <string name="dalalwisesales_sml">Dalal Wise Sales</string>
+    <string name="dalalwisesauda_sml">Dalal Wise Sauda</string>
     <string name="settings_sml">Settings</string>
     <string name="logout_sml">Logout</string>
 
@@ -68,11 +65,6 @@
     <string name="slct_to_date">Select to date</string>
     <string name="save_sml">Save</string>
 
-    <!--Dalal Wise sales-->
-    <string name="madhur_sml">Madhur</string>
-    <string name="other_sml">Other</string>
-    <string name="dalalwisesales_appear_here">Dalal Wise Sales report apeear here</string>
-
     <!--All Master Details-->
     <string name="refresh_sml">Refresh</string>
     <string name="partyname_bracket_pcode">%1$s (%2$s)</string>
@@ -87,7 +79,7 @@
     <string name="last_bill_days_coln">Last bill days</string>
     <string name="last_item_coln">Last item</string>
     <string name="last_avg_coln">Last Avg.:</string>
-    <string name="masterdtls_appear_here">Master details report apeear here</string>
+    <string name="masterdtls_appear_here">Master details report appear here</string>
     <string name="value_records_sml">%d records.</string>
     <string-array name="arry_filterby_allmasterdtls">
         <item>Select filter by</item>
@@ -111,7 +103,16 @@
     <string name="net_stk_sml">Net Stk.</string>
     <string name="stk_bori_sml">Stk.Bori</string>
     <string name="grand_total_sml">Grand Total</string>
-    <string name="godownwisestck_appear_here">Godown wise stock report apeear here</string>
+    <string name="godownwisestck_appear_here">Godown wise stock report appear here</string>
+
+    <!--Dalal Wise sales-->
+    <string name="madhur_sml">Madhur</string>
+    <string name="other_sml">Other</string>
+    <string name="totalbori_sml">Total Bori</string>
+    <string name="dalalwisesales_appear_here">Dalal Wise Sales report appear here</string>
+
+    <!--Dalal Wise Sauda-->
+    <string name="dalalwisesauda_appear_here">Dalal Wise Sauda report appear here</string>
 
     <!--Logout-->
     <string name="logout_alrtdlg_msg">Do you want to logout?</string>

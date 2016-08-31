@@ -177,7 +177,6 @@
                         <!--END Phone-->
                     </LinearLayout>
                     <!--END Mobile & Phone-->
-                    android:orientation="horizontal">
 
                     <!--Dalal-->
                     <LinearLayout

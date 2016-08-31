@@ -25,6 +25,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -150,6 +151,8 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
 
+                ((TextView) adapterView.getChildAt(0)).setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryAmber));
+
                 mAppcmptAutocmplttvSlctdFltrVal.setText("");
                 if(position == 0) {
                     mAppcmptAutocmplttvSlctdFltrVal.setVisibility(View.GONE);
@@ -197,6 +200,8 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
                     }
 
                     mAdapter.setFilter(filters(mArrylstMasterDtlsData));
+
+                    hideFiltersView(); // Hide Filters View
                 } else
                     showMySnackBar(getString(R.string.enter_atleast_1char_fltr));
                 break;
@@ -361,6 +366,7 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
+                t.printStackTrace();
                 if(mPrgrsbrMain.isShown()) mPrgrsbrMain.setVisibility(View.GONE);
                 showMySnackBar(getString(R.string.there_are_some_prblm));
             }

@@ -84,10 +84,10 @@ public class NavgtnDrwrMain extends AppCompatActivity
 
             fragment = new FrgmntOutstandingRprt();
             toolbarTitle = getString(R.string.outstanding_sml);
-        } else if (id == R.id.nav_dalalwisesales) {
+        } else if (id == R.id.nav_allinone) {
 
-            fragment = new FrgmntDalalwiseSales();
-            toolbarTitle = getString(R.string.dalalwisesales_sml);
+            fragment = new FrgmntUndrDevlpmnt();
+            toolbarTitle = getString(R.string.allinone_sml);
         } else if (id == R.id.nav_allmasterdtls) {
 
             fragment = new FrgmntAllMasterDtls();
@@ -96,22 +96,14 @@ public class NavgtnDrwrMain extends AppCompatActivity
 
             fragment = new FrgmntGodownwiseStock();
             toolbarTitle = getString(R.string.godownwise_stock_sml);
-        } else if (id == R.id.nav_collctnentry) {
+        } else if (id == R.id.nav_dalalwisesales) {
 
-            fragment = new FrgmntUndrDevlpmnt();
-            toolbarTitle = getString(R.string.collctn_entry_sml);
-        } else if (id == R.id.nav_collctnview) {
+            fragment = new FrgmntDalalwiseSales();
+            toolbarTitle = getString(R.string.dalalwisesales_sml);
+        } else if (id == R.id.nav_dalalwisesauda) {
 
-            fragment = new FrgmntUndrDevlpmnt();
-            toolbarTitle = getString(R.string.collctn_view_sml);
-        } else if (id == R.id.nav_sauda_entry) {
-
-            fragment = new FrgmntUndrDevlpmnt();
-            toolbarTitle = getString(R.string.sauda_entry_sml);
-        } else if (id == R.id.nav_sauda_view) {
-
-            fragment = new FrgmntUndrDevlpmnt();
-            toolbarTitle = getString(R.string.sauda_view_sml);
+            fragment = new FrgmntDalalwiseSauda();
+            toolbarTitle = getString(R.string.dalalwisesauda_sml);
         } else if (id == R.id.nav_settings_logout) {
 
             // Show AlertDialog for confirm to Logout

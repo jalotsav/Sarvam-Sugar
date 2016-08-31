@@ -20,9 +20,9 @@ package com.jalotsav.sarvamsugar.model;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by JALOTSAV Dev. on 27/8/16.
+ * Created by JALOTSAV Dev. on 31/8/16.
  */
-public class MdlDalalwsSlsData {
+public class MdlDalalwsSaudaData {
 
     @SerializedName("DCODE")
     String dpCode;

@@ -27,25 +27,25 @@ import android.widget.TextView;
 
 import com.jalotsav.sarvamsugar.R;
 import com.jalotsav.sarvamsugar.common.GeneralFuncations;
-import com.jalotsav.sarvamsugar.model.MdlDalalwsSlsData;
+import com.jalotsav.sarvamsugar.model.MdlDalalwsSaudaData;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Created by JALOTSAV Dev. on 27/8/16.
+ * Created by JALOTSAV Dev. on 31/8/16.
  */
-public class RcyclrDalalwiseSalesAdapter extends RecyclerView.Adapter<RcyclrDalalwiseSalesAdapter.ViewHolder>  {
+public class RcyclrDalalwiseSaudaAdapter extends RecyclerView.Adapter<RcyclrDalalwiseSaudaAdapter.ViewHolder>  {
 
 
     Context mContext;
-    ArrayList<MdlDalalwsSlsData> mArrylstDalalwsSlsData;
+    ArrayList<MdlDalalwsSaudaData> mArrylstDalalwsSaudaData;
     ArrayList<Integer> mArrylstPrmryclrs;
 
-    public RcyclrDalalwiseSalesAdapter(Context context, ArrayList<MdlDalalwsSlsData> arrylstDalalwsSlsData) {
+    public RcyclrDalalwiseSaudaAdapter(Context context, ArrayList<MdlDalalwsSaudaData> arrylstDalalwsSaudaData) {
 
         mContext = context;
-        mArrylstDalalwsSlsData = arrylstDalalwsSlsData;
+        mArrylstDalalwsSaudaData = arrylstDalalwsSaudaData;
         mArrylstPrmryclrs = GeneralFuncations.getPrimaryColorArray(mContext);
     }
 
@@ -68,7 +68,7 @@ public class RcyclrDalalwiseSalesAdapter extends RecyclerView.Adapter<RcyclrDala
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
-        MdlDalalwsSlsData objMdlData = mArrylstDalalwsSlsData.get(position);
+        MdlDalalwsSaudaData objMdlData = mArrylstDalalwsSaudaData.get(position);
         holder.tvFirstChar.setText(objMdlData.getDalal().substring(0,1));
         holder.tvDalalName.setText(mContext.getResources().getString(R.string.partyname_bracket_pcode, objMdlData.getDalal(), objMdlData.getDpCode()));
         holder.tvMadhur.setText(objMdlData.getMadhur());
@@ -79,7 +79,7 @@ public class RcyclrDalalwiseSalesAdapter extends RecyclerView.Adapter<RcyclrDala
 
     @Override
     public int getItemCount() {
-        return mArrylstDalalwsSlsData.size();
+        return mArrylstDalalwsSaudaData.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -98,10 +98,10 @@ public class RcyclrDalalwiseSalesAdapter extends RecyclerView.Adapter<RcyclrDala
         }
     }
 
-    public void setFilter(ArrayList<MdlDalalwsSlsData> arrylstMdlDalalwsSlsData) {
+    public void setFilter(ArrayList<MdlDalalwsSaudaData> arrylstMdlDalalwsSaudaData) {
 
-        mArrylstDalalwsSlsData = new ArrayList<>();
-        mArrylstDalalwsSlsData.addAll(arrylstMdlDalalwsSlsData);
+        mArrylstDalalwsSaudaData = new ArrayList<>();
+        mArrylstDalalwsSaudaData.addAll(arrylstMdlDalalwsSaudaData);
         notifyDataSetChanged();
     }
 }

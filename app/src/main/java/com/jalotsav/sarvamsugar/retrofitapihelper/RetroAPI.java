@@ -18,6 +18,7 @@
 package com.jalotsav.sarvamsugar.retrofitapihelper;
 
 import com.jalotsav.sarvamsugar.model.MdlDalalWiseSales;
+import com.jalotsav.sarvamsugar.model.MdlDalalWiseSauda;
 import com.jalotsav.sarvamsugar.model.MdlGodownStock;
 
 import okhttp3.ResponseBody;
@@ -40,6 +41,12 @@ public interface RetroAPI {
 
     @GET("index.aspx")
     Call<MdlDalalWiseSales> getDalalwisesales(@Query("method") String method,
+                                              @Query("fromdate") String fromDate,
+                                              @Query("todate") String toDate,
+                                              @Query("dalal") String dalal);
+
+    @GET("index.aspx")
+    Call<MdlDalalWiseSauda> getDalalwisesauda(@Query("method") String method,
                                               @Query("fromdate") String fromDate,
                                               @Query("todate") String toDate,
                                               @Query("dalal") String dalal);
