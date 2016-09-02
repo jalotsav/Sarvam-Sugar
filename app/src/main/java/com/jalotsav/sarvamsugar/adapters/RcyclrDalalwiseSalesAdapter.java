@@ -66,7 +66,7 @@ public class RcyclrDalalwiseSalesAdapter extends RecyclerView.Adapter<RcyclrDala
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         MdlDalalwsSlsData objMdlData = mArrylstDalalwsSlsData.get(position);
         holder.tvFirstChar.setText(objMdlData.getDalal().substring(0,1));
@@ -75,6 +75,13 @@ public class RcyclrDalalwiseSalesAdapter extends RecyclerView.Adapter<RcyclrDala
         holder.tvOther.setText(objMdlData.getOther());
         holder.tvMobile.setText(objMdlData.getMobile());
         holder.tvTotalBori.setText(objMdlData.getTotalBori());
+
+        holder.tvMobile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GeneralFuncations.openDialerToCall(mContext, holder.tvMobile.getText().toString().trim());
+            }
+        });
     }
 
     @Override

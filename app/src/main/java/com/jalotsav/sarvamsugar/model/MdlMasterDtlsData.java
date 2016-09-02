@@ -36,6 +36,9 @@ public class MdlMasterDtlsData {
     @SerializedName("PHONE")
     String phone;
 
+    @SerializedName("AREA")
+    String area;
+
     @SerializedName("DALAL")
     String dalal;
 
@@ -93,6 +96,14 @@ public class MdlMasterDtlsData {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public String getDalal() {

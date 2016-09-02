@@ -18,9 +18,11 @@
 package com.jalotsav.sarvamsugar.common;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -157,5 +159,17 @@ public class GeneralFuncations {
     public static String getcurrentTimestamp() {
 
         return String.valueOf(System.currentTimeMillis() / 1000);
+    }
+
+    /***
+     * Open native call dialer with given number
+     * ***/
+    public static void openDialerToCall(Context context, String mobileNo) {
+
+        try {
+            context.startActivity(
+                    new Intent(Intent.ACTION_DIAL).setData(Uri.parse("tel:" + mobileNo))
+            );
+        } catch (Exception e) {e.printStackTrace();}
     }
 }

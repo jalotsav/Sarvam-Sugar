@@ -28,6 +28,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jalotsav.sarvamsugar.R;
+import com.jalotsav.sarvamsugar.common.GeneralFuncations;
 import com.jalotsav.sarvamsugar.model.MdlMasterDtlsData;
 
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class RcyclrAllMasterDtlsAdapter extends RecyclerView.Adapter<RcyclrAllMa
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         MdlMasterDtlsData objMdlMasterDtlsData = mArrylstMdlMasterDtlsData.get(position);
         holder.tvPartyName.setText(mContext.getResources().getString(R.string.partyname_bracket_pcode, objMdlMasterDtlsData.getPname(), objMdlMasterDtlsData.getPcode()));
@@ -104,6 +105,20 @@ public class RcyclrAllMasterDtlsAdapter extends RecyclerView.Adapter<RcyclrAllMa
                 // set current selected position and NotifyDataSetChange for ReBind all view
                 slctdExpndColpsPostn = position;
                 notifyDataSetChanged();
+            }
+        });
+
+        holder.tvMobile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GeneralFuncations.openDialerToCall(mContext, holder.tvMobile.getText().toString().trim());
+            }
+        });
+
+        holder.tvPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GeneralFuncations.openDialerToCall(mContext, holder.tvPhone.getText().toString().trim());
             }
         });
     }

@@ -93,8 +93,8 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
 
     MdlMasterDtls mObjMdlMasterDtls;
     ArrayList<MdlMasterDtlsData> mArrylstMasterDtlsData;
-    ArrayList<String> mArrylstPartyCode, mArrylstPartyName, mArrylstDalal, mArrylstItem;
-    String mQueryPcode = "", mQueryPname = "", mQueryDalal = "", mQueryBori = "";
+    ArrayList<String> mArrylstPartyCode, mArrylstPartyName, mArrylstDalal, mArrylstArea, mArrylstMobile, mArrylstPhone;
+    String mQueryPcode = "", mQueryPname = "", mQueryDalal = "", mQueryArea = "", mQueryMobile = "", mQueryPhone = "";
 
     @Nullable
     @Override
@@ -142,7 +142,9 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
         mArrylstPartyCode = new ArrayList<>();
         mArrylstPartyName = new ArrayList<>();
         mArrylstDalal = new ArrayList<>();
-        mArrylstItem = new ArrayList<>();
+        mArrylstArea = new ArrayList<>();
+        mArrylstMobile = new ArrayList<>();
+        mArrylstPhone = new ArrayList<>();
 
         // AsynTask through get JSON data of API from device storage file
         new getAllMasterDtlsFromFileAsync().execute();
@@ -195,7 +197,13 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
                             mQueryDalal = slctdFltrVal;
                             break;
                         case 4:
-                            mQueryBori = slctdFltrVal;
+                            mQueryArea = slctdFltrVal;
+                            break;
+                        case 5:
+                            mQueryMobile = slctdFltrVal;
+                            break;
+                        case 6:
+                            mQueryPhone = slctdFltrVal;
                             break;
                     }
 
@@ -215,7 +223,9 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
                 mQueryPcode = "";
                 mQueryPname = "";
                 mQueryDalal = "";
-                mQueryBori = "";
+                mQueryArea = "";
+                mQueryMobile = "";
+                mQueryPhone = "";
 
                 hideFiltersView(); // Hide Filters View
                 break;
@@ -273,8 +283,12 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
                                 mArrylstPartyName.add(objMdlMasterDtlsData.getPname());
                             if(!mArrylstDalal.contains(objMdlMasterDtlsData.getDalal()))
                                 mArrylstDalal.add(objMdlMasterDtlsData.getDalal());
-                            if(!mArrylstItem.contains(objMdlMasterDtlsData.getBori()))
-                                mArrylstItem.add(objMdlMasterDtlsData.getBori());
+                            if(!mArrylstArea.contains(objMdlMasterDtlsData.getArea()))
+                                mArrylstArea.add(objMdlMasterDtlsData.getArea());
+                            if(!mArrylstMobile.contains(objMdlMasterDtlsData.getMobile()))
+                                mArrylstMobile.add(objMdlMasterDtlsData.getMobile());
+                            if(!mArrylstPhone.contains(objMdlMasterDtlsData.getPhone()))
+                                mArrylstPhone.add(objMdlMasterDtlsData.getPhone());
                         }
                         setAutoCompltTvAdapter(0);
                     }
@@ -307,8 +321,12 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
                 (getActivity(),android.R.layout.simple_list_item_1, mArrylstPartyName);
         ArrayAdapter<String> adapterDalal = new ArrayAdapter<>
                 (getActivity(),android.R.layout.simple_list_item_1, mArrylstDalal);
-        ArrayAdapter<String> adapterItem = new ArrayAdapter<>
-                (getActivity(),android.R.layout.simple_list_item_1, mArrylstItem);
+        ArrayAdapter<String> adapterArea = new ArrayAdapter<>
+                (getActivity(),android.R.layout.simple_list_item_1, mArrylstArea);
+        ArrayAdapter<String> adapterMobile = new ArrayAdapter<>
+                (getActivity(),android.R.layout.simple_list_item_1, mArrylstMobile);
+        ArrayAdapter<String> adapterPhone = new ArrayAdapter<>
+                (getActivity(),android.R.layout.simple_list_item_1, mArrylstPhone);
 
         switch (spnrSlctdPosition) {
             case 1:
@@ -321,7 +339,13 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
                 mAppcmptAutocmplttvSlctdFltrVal.setAdapter(adapterDalal);
                 break;
             case 4:
-                mAppcmptAutocmplttvSlctdFltrVal.setAdapter(adapterItem);
+                mAppcmptAutocmplttvSlctdFltrVal.setAdapter(adapterArea);
+                break;
+            case 5:
+                mAppcmptAutocmplttvSlctdFltrVal.setAdapter(adapterMobile);
+                break;
+            case 6:
+                mAppcmptAutocmplttvSlctdFltrVal.setAdapter(adapterPhone);
                 break;
         }
 
@@ -432,12 +456,16 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
             String targetPcode = objMdlMasterDtlsData.getPcode().toLowerCase();
             String targetPname = objMdlMasterDtlsData.getPname().toLowerCase();
             String targetDalal = objMdlMasterDtlsData.getDalal().toLowerCase();
-            String targetBori = objMdlMasterDtlsData.getBori().toLowerCase();
+            String targetArea = objMdlMasterDtlsData.getArea().toLowerCase();
+            String targetMobile = objMdlMasterDtlsData.getMobile().toLowerCase();
+            String targetPhone = objMdlMasterDtlsData.getPhone().toLowerCase();
 
             if(targetPcode.contains(mQueryPcode.toLowerCase())
                     && targetPname.contains(mQueryPname.toLowerCase())
                     && targetDalal.contains(mQueryDalal.toLowerCase())
-                    && targetBori.contains(mQueryBori.toLowerCase())) {
+                    && targetArea.contains(mQueryArea.toLowerCase())
+                    && targetMobile.contains(mQueryMobile.toLowerCase())
+                    && targetPhone.contains(mQueryPhone.toLowerCase())) {
 
                 fltrdMdlMasterDtlsData.add(objMdlMasterDtlsData);
             }
