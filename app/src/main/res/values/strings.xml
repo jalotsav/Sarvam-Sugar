@@ -38,6 +38,8 @@
     <string name="clear_sml">Clear</string>
     <string name="cancel_sml">Cancel</string>
     <string name="slct_from_list_sml">Select from list</string>
+    <string name="slct_dalal">Select Dalal</string>
+    <string name="slct_mobile">Select Mobile</string>
 
     <!--Outstanding Report-->
     <string name="outstndng_rprts">Outstanding reports</string>

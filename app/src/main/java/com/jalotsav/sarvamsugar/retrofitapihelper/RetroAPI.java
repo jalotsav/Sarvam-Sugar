@@ -43,7 +43,8 @@ public interface RetroAPI {
     Call<MdlDalalWiseSales> getDalalwisesales(@Query("method") String method,
                                               @Query("fromdate") String fromDate,
                                               @Query("todate") String toDate,
-                                              @Query("dalal") String dalal);
+                                              @Query("dalal") String dalal,
+                                              @Query("mobile") String mobile);
 
     @GET("index.aspx")
     Call<MdlDalalWiseSauda> getDalalwisesauda(@Query("method") String method,

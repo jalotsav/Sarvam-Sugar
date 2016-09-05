@@ -76,13 +76,13 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
     FloatingActionButton mFabFilters, mFabApply;
     LinearLayout mLnrlyotFilters;
     ImageView mImgvwFltrRemove, mImgvwFltrClose;
-    AppCompatAutoCompleteTextView mAppcmptAutocmplttvSlctdFltrVal;
+    AppCompatAutoCompleteTextView mAppcmptAutocmplttvFltrDalal, mAppcmptAutocmplttvFltrMobile;
     LinearLayout mLnrlyotFromDt, mLnrlyotToDt;
 
-    ArrayList<String> mArrylstDalal;
+    ArrayList<String> mArrylstDalal, mArrylstMobile;
     Calendar mCalndr;
     int mCrntYear, mCrntMonth, mCrntDay, mFromYear, mFromMonth, mFromDay, mToYear, mToMonth, mToDay;
-    String mReqstFromDT, mReqstToDt, mReqstDalal;
+    String mReqstFromDT, mReqstToDt, mReqstDalal, mReqstMobile;
 
     @Nullable
     @Override
@@ -102,7 +102,8 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
         mLnrlyotFilters = (LinearLayout) rootView.findViewById(R.id.lnrlyot_dalalwssls_filtersvw);
         mImgvwFltrRemove = (ImageView) rootView.findViewById(R.id.imgvw_dalalwssls_fltrremove);
         mImgvwFltrClose = (ImageView) rootView.findViewById(R.id.imgvw_dalalwssls_fltrclose);
-        mAppcmptAutocmplttvSlctdFltrVal = (AppCompatAutoCompleteTextView) rootView.findViewById(R.id.apcmptautocmplttv_dalalwssls_slctdfilterval);
+        mAppcmptAutocmplttvFltrDalal = (AppCompatAutoCompleteTextView) rootView.findViewById(R.id.apcmptautocmplttv_dalalwssls_fltr_dalal);
+        mAppcmptAutocmplttvFltrMobile = (AppCompatAutoCompleteTextView) rootView.findViewById(R.id.apcmptautocmplttv_dalalwssls_fltr_mobile);
         mTvSlctdFromDt = (TextView) rootView.findViewById(R.id.tv_dalalwssls_slctdfromdt);
         mTvSlctdToDt = (TextView) rootView.findViewById(R.id.tv_dalalwssls_slctdtodt);
         mLnrlyotFromDt = (LinearLayout) rootView.findViewById(R.id.lnrlyot_dalalwssls_fromdt);
@@ -121,7 +122,8 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
                 .icon(CommunityMaterial.Icon.cmd_check)
                 .color(Color.WHITE));
 
-        mAppcmptAutocmplttvSlctdFltrVal.setThreshold(1);
+        mAppcmptAutocmplttvFltrDalal.setThreshold(1);
+        mAppcmptAutocmplttvFltrMobile.setThreshold(1);
 
         mFabFilters.setOnClickListener(this);
         mFabApply.setOnClickListener(this);
@@ -133,6 +135,7 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
         mTvAppearHere.setText(getString(R.string.dalalwisesales_appear_here));
 
         mArrylstDalal = new ArrayList<>();
+        mArrylstMobile = new ArrayList<>();
         ArrayList<MdlDalalwsSlsData> arrylstDalalwsSlsData = new ArrayList<>();
         mAdapter = new RcyclrDalalwiseSalesAdapter(getActivity(), arrylstDalalwsSlsData);
         mRecyclerView.setAdapter(mAdapter);
@@ -149,6 +152,7 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
                 + "-" + GeneralFuncations.setDateIn2Digit(mToMonth+1)
                 + "-" + mToYear;
         mReqstDalal = "";
+        mReqstMobile = "";
 
         // Set filter selected date to TextView
         setFilterSlctdDateTv();
@@ -167,7 +171,8 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
 
         mTvSlctdFromDt.setText(mReqstFromDT);
         mTvSlctdToDt.setText(mReqstToDt);
-        mAppcmptAutocmplttvSlctdFltrVal.setText(mReqstDalal);
+        mAppcmptAutocmplttvFltrDalal.setText(mReqstDalal);
+        mAppcmptAutocmplttvFltrMobile.setText(mReqstMobile);
     }
 
     private void getDalalWiseSalesList() {
@@ -181,7 +186,9 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
                 .build();
 
         RetroAPI apiDalalwsSls = objRetrofit.create(RetroAPI.class);
-        Call<MdlDalalWiseSales> callGodownStck = apiDalalwsSls.getDalalwisesales(API_METHOD_GETDSALESSUMM, mReqstFromDT, mReqstToDt, mReqstDalal);
+        Call<MdlDalalWiseSales> callGodownStck = apiDalalwsSls.getDalalwisesales(
+                API_METHOD_GETDSALESSUMM, mReqstFromDT, mReqstToDt, mReqstDalal, mReqstMobile
+        );
         callGodownStck.enqueue(new Callback<MdlDalalWiseSales>() {
             @Override
             public void onResponse(Call<MdlDalalWiseSales> call, Response<MdlDalalWiseSales> response) {
@@ -207,10 +214,16 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
 
                                 if(!mArrylstDalal.contains(objMdlGodownStockData.getDalal()))
                                     mArrylstDalal.add(objMdlGodownStockData.getDalal());
+                                if(!mArrylstMobile.contains(objMdlGodownStockData.getMobile()))
+                                    mArrylstMobile.add(objMdlGodownStockData.getMobile());
                             }
 
-                            mAppcmptAutocmplttvSlctdFltrVal.setAdapter(
+                            mAppcmptAutocmplttvFltrDalal.setAdapter(
                                     new ArrayAdapter<> (getActivity(),android.R.layout.simple_list_item_1, mArrylstDalal)
+                            );
+
+                            mAppcmptAutocmplttvFltrMobile.setAdapter(
+                                    new ArrayAdapter<> (getActivity(),android.R.layout.simple_list_item_1, mArrylstMobile)
                             );
 
                             mAdapter.setFilter(arrylstDalalwsSlsData);
@@ -241,7 +254,8 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
                 break;
             case R.id.fab_dalalwssls_apply:
 
-                mReqstDalal = mAppcmptAutocmplttvSlctdFltrVal.getText().toString().trim();
+                mReqstDalal = mAppcmptAutocmplttvFltrDalal.getText().toString().trim();
+                mReqstMobile = mAppcmptAutocmplttvFltrMobile.getText().toString().trim();
 
                 if (!GeneralFuncations.isNetConnected(getActivity())) {
 
@@ -265,6 +279,7 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
                         + "-" + mToYear;
 
                 mReqstDalal = "";
+                mReqstMobile = "";
 
                 // Set filter selected date to TextView
                 setFilterSlctdDateTv();
