@@ -17,6 +17,8 @@
 
 package com.jalotsav.sarvamsugar.navgtndrawer;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,6 +26,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
@@ -95,6 +98,7 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
     ArrayList<MdlMasterDtlsData> mArrylstMasterDtlsData;
     ArrayList<String> mArrylstPartyCode, mArrylstPartyName, mArrylstDalal, mArrylstArea, mArrylstMobile, mArrylstPhone;
     String mQueryPcode = "", mQueryPname = "", mQueryDalal = "", mQueryArea = "", mQueryMobile = "", mQueryPhone = "";
+    boolean isAPICall = false;
 
     @Nullable
     @Override
@@ -146,8 +150,12 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
         mArrylstMobile = new ArrayList<>();
         mArrylstPhone = new ArrayList<>();
 
-        // AsynTask through get JSON data of API from device storage file
-        new getAllMasterDtlsFromFileAsync().execute();
+        // Check Storage permission before call AsyncTask for data
+        isAPICall = false;
+        checkStoragePermission();
+
+        // AsyncTask through get JSON data of API from device storage file
+//        new getAllMasterDtlsFromFileAsync().execute();
 
         mSpnrFltrBy.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -171,6 +179,41 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
         });
 
         return rootView;
+    }
+
+    private void checkStoragePermission() {
+
+        try {
+
+            if(ActivityCompat.checkSelfPermission(getActivity(),
+                    Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+
+                LogManager.printLog(LOGTYPE_INFO, "Permission Granted");
+                if(isAPICall)
+                    getAllMasterDtlsAPI(); // Call API through Retrofit and store response JSON into device storage file
+                else
+                    new getAllMasterDtlsFromFileAsync().execute(); // AsyncTask through get JSON data of API from device storage file
+            } else {
+
+                if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION))
+                    showMySnackBar(getString(R.string.you_must_allow_permsn));
+
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMSN_STORAGE);
+            }
+        } catch (Exception e) { e.printStackTrace(); }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == REQUEST_PERMSN_STORAGE) {
+
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                checkStoragePermission();
+            else
+                showMySnackBar(getString(R.string.permsn_denied));
+        }
     }
 
     @Override
@@ -495,7 +538,10 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
 
                     // Show SnackBar with given message
                     showMySnackBar(getResources().getString(R.string.no_intrnt_cnctn));
-                } else getAllMasterDtlsAPI(); // Call API through Retrofit and store response JSON into device storage file
+                } else {
+                    isAPICall = true;
+                    checkStoragePermission();
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -59,6 +59,9 @@ public interface AppConstants {
     String RESULT_ZERO = "0";
     String RESULT_ONE = "1";
 
+    // Request Code
+    int REQUEST_PERMSN_STORAGE = 101;
+
     // Key of Database Tables Columns
     // Master Details Table
 //    int TABLE_BALLS_ID = 11;

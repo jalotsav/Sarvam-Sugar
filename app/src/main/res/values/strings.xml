@@ -6,6 +6,8 @@
     <string name="there_are_some_server_prblm">There are some server problems.</string>
     <string name="there_are_some_prblm">There are some problems for fetching data</string>
     <string name="sync_data_msg">No data found, Please Sync data.</string>
+    <string name="you_must_allow_permsn">You must have to allow permission</string>
+    <string name="permsn_denied">Permission Denied, You cannot access device storage.</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
