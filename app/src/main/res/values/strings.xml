@@ -54,20 +54,13 @@
         <item>Area</item>
         <item>Party</item>
     </string-array>
-    <string-array name="arry_temp">
-        <item>Jaldeep Asodariya</item>
-        <item>JD Patel</item>
-        <item>Nilesh Thakor</item>
-        <item>Hirendra Rathod</item>
-        <item>Vipul Kava</item>
-    </string-array>
-    <string name="slct_fromto_date">Select From-To date</string>
-    <string name="slct_colctn_fromto_date">Select Collection From-To date</string>
-    <string name="from_date_sml">From date</string>
-    <string name="to_date_sml">To date</string>
-    <string name="slct_from_date">Select from date</string>
-    <string name="slct_to_date">Select to date</string>
-    <string name="save_sml">Save</string>
+    <string name="outstanding_coln">Outstanding:</string>
+    <string name="amount_coln">Amount:</string>
+    <string name="recvd_amnt_coln">Received Amnt:</string>
+    <string name="days_coln">Days</string>
+    <string name="invno_coln">InvNo.:</string>
+    <string name="date_sml">Date:</string>
+    <string name="duedate_coln">Due date:</string>
 
     <!--All Master Details-->
     <string name="refresh_sml">Refresh</string>
@@ -76,12 +69,12 @@
     <string name="phone_coln">Phone:</string>
     <string name="dalal_coln">Dalal:</string>
     <string name="contact_person_coln">Contact Person:</string>
-    <string name="cr_limit_coln">CR Limit</string>
-    <string name="bori_coln">Bori</string>
-    <string name="count_coln">Count</string>
+    <string name="cr_limit_coln">CR Limit:</string>
+    <string name="bori_coln">Bori:</string>
+    <string name="count_coln">Count:</string>
     <string name="avg_coln">Avg.:</string>
-    <string name="last_bill_days_coln">Last bill days</string>
-    <string name="last_item_coln">Last item</string>
+    <string name="last_bill_days_coln">Last bill days:</string>
+    <string name="last_item_coln">Last item:</string>
     <string name="last_avg_coln">Last Avg.:</string>
     <string name="masterdtls_appear_here">Master details report appear here</string>
     <string name="value_records_sml">%d records.</string>

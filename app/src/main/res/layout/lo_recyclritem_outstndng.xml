@@ -31,7 +31,7 @@
     tools:ignore="Missingprefix">
 
     <RelativeLayout
-        android:id="@+id/rltvlyot_recylrvw_allmasterdtls_main"
+        android:id="@+id/rltvlyot_recylrvw_outstndng_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -40,7 +40,7 @@
         android:paddingTop="@dimen/_10jdp">
 
         <TextView
-            android:id="@+id/tv_recylrvw_allmasterdtls_firstchr"
+            android:id="@+id/tv_recylrvw_outstndng_firstchr"
             android:layout_width="@dimen/_40jdp"
             android:layout_height="@dimen/_40jdp"
             android:layout_margin="@dimen/_8jdp"
@@ -56,8 +56,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/tv_recylrvw_allmasterdtls_firstchr"
-            android:layout_toRightOf="@id/tv_recylrvw_allmasterdtls_firstchr"
+            android:layout_toEndOf="@id/tv_recylrvw_outstndng_firstchr"
+            android:layout_toRightOf="@id/tv_recylrvw_outstndng_firstchr"
             android:orientation="vertical">
 
             <!--Collapse content-->
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:id="@+id/lnrlyot_allmasterdtls_arrow"
+                    android:id="@+id/lnrlyot_outstndng_arrow"
                     android:layout_width="@dimen/_30jdp"
                     android:layout_height="@dimen/_30jdp"
                     android:layout_alignParentEnd="true"
@@ -76,7 +76,7 @@
                     android:padding="@dimen/_5jdp">
 
                     <ImageView
-                        android:id="@+id/imgvw_allmasterdtls_arrow"
+                        android:id="@+id/imgvw_outstndng_arrow"
                         android:layout_width="@dimen/_15jdp"
                         android:layout_height="@dimen/_15jdp"
                         android:layout_marginEnd="5dp"
@@ -93,13 +93,13 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/_8jdp"
                     android:layout_marginStart="@dimen/_8jdp"
-                    android:layout_toLeftOf="@id/lnrlyot_allmasterdtls_arrow"
-                    android:layout_toStartOf="@id/lnrlyot_allmasterdtls_arrow"
+                    android:layout_toLeftOf="@id/lnrlyot_outstndng_arrow"
+                    android:layout_toStartOf="@id/lnrlyot_outstndng_arrow"
                     android:orientation="vertical">
 
                     <!--Party Name-->
                     <TextView
-                        android:id="@+id/tv_recylrvw_allmasterdtls_partyname"
+                        android:id="@+id/tv_recylrvw_outstndng_partyname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAllCaps="true"
@@ -131,7 +131,7 @@
                                 android:textSize="@dimen/_12jdp" />
 
                             <TextView
-                                android:id="@+id/tv_recylrvw_allmasterdtls_mobiles"
+                                android:id="@+id/tv_recylrvw_outstndng_mobiles"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="@dimen/_3jdp"
@@ -163,13 +163,13 @@
                                 android:textSize="@dimen/_12jdp" />
 
                             <TextView
-                                android:id="@+id/tv_recylrvw_allmasterdtls_phone"
+                                android:id="@+id/tv_recylrvw_outstndng_phone"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/_5jdp"
                                 android:layout_marginStart="@dimen/_5jdp"
                                 android:gravity="end"
-                                android:textColor="@color/colorPrimaryDeepOrange"
+                                android:textColor="@color/colorPrimaryTeal"
                                 android:textSize="@dimen/_12jdp"
                                 android:textStyle="bold"
                                 tools:text="9662675372" />
@@ -193,7 +193,7 @@
                             android:textSize="@dimen/_12jdp" />
 
                         <TextView
-                            android:id="@+id/tv_recylrvw_allmasterdtls_dalal"
+                            android:id="@+id/tv_recylrvw_outstndng_dalal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_5jdp"
@@ -204,31 +204,33 @@
                     </LinearLayout>
                     <!--END Dalal-->
 
-                    <!--Contact Person-->
+                    <!--Outstanding Amount-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5jdp"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/contact_person_coln"
-                            android:textColor="@color/gray72"
-                            android:textSize="@dimen/_12jdp" />
+                            android:text="@string/outstanding_coln"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14jdp" />
 
                         <TextView
-                            android:id="@+id/tv_recylrvw_allmasterdtls_cntctprsn"
-                            android:layout_width="match_parent"
+                            android:id="@+id/tv_recylrvw_outstndng_amntoutstndng"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_5jdp"
                             android:layout_marginStart="@dimen/_5jdp"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_12jdp"
-                            tools:text="Jaldeep Asodariya" />
+                            android:textColor="@color/colorPrimaryDeepOrange"
+                            android:textSize="@dimen/_14jdp"
+                            tools:text="8275"
+                            android:textStyle="bold"/>
                     </LinearLayout>
-                    <!--END Contact Person-->
+                    <!--END Outstanding Amount-->
                 </LinearLayout>
 
             </RelativeLayout>
@@ -236,7 +238,7 @@
 
             <!--Expand Content-->
             <LinearLayout
-                android:id="@+id/lnrlyot_allmasterdtls_expandvw"
+                android:id="@+id/lnrlyot_outstndng_expandvw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_35jdp"
@@ -244,7 +246,7 @@
                 android:layout_marginRight="@dimen/_35jdp"
                 android:layout_marginStart="@dimen/_8jdp"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -253,7 +255,7 @@
                     android:layout_marginTop="@dimen/_5jdp"
                     android:background="@color/grayA8" />
 
-                <!--CR Limit & Bori-->
+                <!--Amount & Received Amnt-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -261,7 +263,7 @@
                     android:orientation="horizontal"
                     android:weightSum="2">
 
-                    <!--CR Limit-->
+                    <!--Amount-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -271,12 +273,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/cr_limit_coln"
+                            android:text="@string/amount_coln"
                             android:textColor="@color/gray72"
                             android:textSize="@dimen/_12jdp" />
 
                         <TextView
-                            android:id="@+id/tv_recylrvw_allmasterdtls_crlimit"
+                            android:id="@+id/tv_recylrvw_outstndng_amount"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/_3jdp"
@@ -291,7 +293,7 @@
                     </LinearLayout>
                     <!--END CR Limit-->
 
-                    <!--Bori-->
+                    <!--Received Amnt-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -303,12 +305,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/bori_coln"
+                            android:text="@string/recvd_amnt_coln"
                             android:textColor="@color/gray72"
                             android:textSize="@dimen/_12jdp" />
 
                         <TextView
-                            android:id="@+id/tv_recylrvw_allmasterdtls_bori"
+                            android:id="@+id/tv_recylrvw_outstndng_amntrcvd"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_5jdp"
@@ -319,11 +321,11 @@
                             android:textSize="@dimen/_12jdp"
                             tools:text="6.00" />
                     </LinearLayout>
-                    <!--END Bori-->
+                    <!--END Received Amnt-->
                 </LinearLayout>
-                <!--END CR Limit & Bori-->
+                <!--END Amount & Received Amnt-->
 
-                <!--Count & Avg.-->
+                <!--InvNo. & Days-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -332,7 +334,7 @@
                     android:orientation="horizontal"
                     android:weightSum="2">
 
-                    <!--Count-->
+                    <!--InvNo.-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -342,12 +344,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/count_coln"
+                            android:text="@string/invno_coln"
                             android:textColor="@color/gray72"
                             android:textSize="@dimen/_12jdp" />
 
                         <TextView
-                            android:id="@+id/tv_recylrvw_allmasterdtls_count"
+                            android:id="@+id/tv_recylrvw_outstndng_invno"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/_3jdp"
@@ -358,11 +360,11 @@
                             android:textAllCaps="true"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12jdp"
-                            tools:text="0.00" />
+                            tools:text="16S/007451" />
                     </LinearLayout>
-                    <!--END Count-->
+                    <!--END InvNo.-->
 
-                    <!--Avg.-->
+                    <!--Days-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -374,12 +376,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/avg_coln"
+                            android:text="@string/days_coln"
                             android:textColor="@color/gray72"
                             android:textSize="@dimen/_12jdp" />
 
                         <TextView
-                            android:id="@+id/tv_recylrvw_allmasterdtls_avg"
+                            android:id="@+id/tv_recylrvw_outstndng_days"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_5jdp"
@@ -388,13 +390,13 @@
                             android:textAllCaps="true"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12jdp"
-                            tools:text="6.00" />
+                            tools:text="7" />
                     </LinearLayout>
-                    <!--END Avg.-->
+                    <!--END Days-->
                 </LinearLayout>
-                <!--END Count & Avg.-->
+                <!--END InvNo. & Days-->
 
-                <!--Last Bill Days & Last Item-->
+                <!--Date & DueDate-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -403,7 +405,7 @@
                     android:orientation="horizontal"
                     android:weightSum="2">
 
-                    <!--Last Bill Day-->
+                    <!--Date-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -413,12 +415,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/last_bill_days_coln"
+                            android:text="@string/date_sml"
                             android:textColor="@color/gray72"
                             android:textSize="@dimen/_12jdp" />
 
                         <TextView
-                            android:id="@+id/tv_recylrvw_allmasterdtls_lastbillday"
+                            android:id="@+id/tv_recylrvw_outstndng_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/_3jdp"
@@ -429,11 +431,11 @@
                             android:textAllCaps="true"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12jdp"
-                            tools:text="0.00" />
+                            tools:text="13-09-2016" />
                     </LinearLayout>
-                    <!--END Last Bill Day-->
+                    <!--END Date-->
 
-                    <!--Last Item-->
+                    <!--DueDate-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -445,12 +447,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/last_item_coln"
+                            android:text="@string/duedate_coln"
                             android:textColor="@color/gray72"
                             android:textSize="@dimen/_12jdp" />
 
                         <TextView
-                            android:id="@+id/tv_recylrvw_allmasterdtls_lastitem"
+                            android:id="@+id/tv_recylrvw_outstndng_duedate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_5jdp"
@@ -459,82 +461,11 @@
                             android:textAllCaps="true"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12jdp"
-                            tools:text="0.00" />
+                            tools:text="13-09-2016" />
                     </LinearLayout>
-                    <!--END Last Item-->
+                    <!--END DueDate-->
                 </LinearLayout>
-                <!--END Last Bill Days & Last Item-->
-
-                <!--Last Avg.-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5jdp"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <!--Last Avg.-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/last_avg_coln"
-                            android:textColor="@color/gray72"
-                            android:textSize="@dimen/_12jdp" />
-
-                        <TextView
-                            android:id="@+id/tv_recylrvw_allmasterdtls_lastavg"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/_3jdp"
-                            android:layout_marginLeft="@dimen/_5jdp"
-                            android:layout_marginRight="@dimen/_3jdp"
-                            android:layout_marginStart="@dimen/_5jdp"
-                            android:gravity="end"
-                            android:textAllCaps="true"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_12jdp"
-                            tools:text="0.00" />
-                    </LinearLayout>
-                    <!--END Last Avg.-->
-
-                    <!--Avg.-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_2jdp"
-                        android:layout_marginStart="@dimen/_2jdp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <!--<TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/avg_coln"
-                            android:textColor="@color/gray72"
-                            android:textSize="@dimen/_12jdp" />
-
-                        <TextView
-                            android:id="@+id/tv_recylrvw_allmasterdtls_avg"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_5jdp"
-                            android:layout_marginStart="@dimen/_5jdp"
-                            android:gravity="end"
-                            android:textAllCaps="true"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_12jdp"
-                            tools:text="6.00" />-->
-                    </LinearLayout>
-                    <!--END Avg.-->
-                </LinearLayout>
-                <!--END Last Avg.-->
+                <!--END Date & DueDate-->
             </LinearLayout>
             <!--END Expand content-->
         </LinearLayout>

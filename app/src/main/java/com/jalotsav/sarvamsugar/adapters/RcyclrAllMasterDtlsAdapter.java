@@ -19,6 +19,7 @@ package com.jalotsav.sarvamsugar.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,14 +112,18 @@ public class RcyclrAllMasterDtlsAdapter extends RecyclerView.Adapter<RcyclrAllMa
         holder.tvMobile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GeneralFuncations.openDialerToCall(mContext, holder.tvMobile.getText().toString().trim());
+
+                if(!TextUtils.isEmpty(holder.tvMobile.getText().toString().trim()))
+                    GeneralFuncations.openDialerToCall(mContext, holder.tvMobile.getText().toString().trim());
             }
         });
 
         holder.tvPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GeneralFuncations.openDialerToCall(mContext, holder.tvPhone.getText().toString().trim());
+
+                if(!TextUtils.isEmpty(holder.tvPhone.getText().toString().trim()))
+                    GeneralFuncations.openDialerToCall(mContext, holder.tvPhone.getText().toString().trim());
             }
         });
     }
