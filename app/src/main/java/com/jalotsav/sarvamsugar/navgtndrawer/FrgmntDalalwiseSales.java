@@ -47,7 +47,7 @@ import com.jalotsav.sarvamsugar.common.AppConstants;
 import com.jalotsav.sarvamsugar.common.GeneralFuncations;
 import com.jalotsav.sarvamsugar.common.RecyclerViewEmptySupport;
 import com.jalotsav.sarvamsugar.model.MdlDalalWiseSales;
-import com.jalotsav.sarvamsugar.model.MdlDalalwsSlsData;
+import com.jalotsav.sarvamsugar.model.MdlDalalWiseSalesData;
 import com.jalotsav.sarvamsugar.retrofitapihelper.RetroAPI;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -136,7 +136,7 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
 
         mArrylstDalal = new ArrayList<>();
         mArrylstMobile = new ArrayList<>();
-        ArrayList<MdlDalalwsSlsData> arrylstDalalwsSlsData = new ArrayList<>();
+        ArrayList<MdlDalalWiseSalesData> arrylstDalalwsSlsData = new ArrayList<>();
         mAdapter = new RcyclrDalalwiseSalesAdapter(getActivity(), arrylstDalalwsSlsData);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -202,7 +202,7 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
                     String result = objMdlDalalWiseSales.getResult();
                     String message = objMdlDalalWiseSales.getMessage();
 
-                    ArrayList<MdlDalalwsSlsData> arrylstDalalwsSlsData = objMdlDalalWiseSales.getData();
+                    ArrayList<MdlDalalWiseSalesData> arrylstDalalwsSlsData = objMdlDalalWiseSales.getData();
 
                     try {
 
@@ -210,7 +210,7 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
                             showMySnackBar(message);
                         else {
 
-                            for(MdlDalalwsSlsData objMdlGodownStockData : arrylstDalalwsSlsData) {
+                            for(MdlDalalWiseSalesData objMdlGodownStockData : arrylstDalalwsSlsData) {
 
                                 if(!mArrylstDalal.contains(objMdlGodownStockData.getDalal()))
                                     mArrylstDalal.add(objMdlGodownStockData.getDalal());
@@ -284,7 +284,7 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
                 // Set filter selected date to TextView
                 setFilterSlctdDateTv();
 
-                ArrayList<MdlDalalwsSlsData> arrylstDalalwsSlsData = new ArrayList<>();
+                ArrayList<MdlDalalWiseSalesData> arrylstDalalwsSlsData = new ArrayList<>();
                 mAdapter.setFilter(arrylstDalalwsSlsData);
 
                 if (!GeneralFuncations.isNetConnected(getActivity())) {

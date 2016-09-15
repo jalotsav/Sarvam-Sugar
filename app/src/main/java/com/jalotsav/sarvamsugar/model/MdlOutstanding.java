@@ -22,9 +22,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 /**
- * Created by JALOTSAV Dev. on 27/8/16.
+ * Created by JALOTSAV Dev. on 15/9/16.
  */
-public class MdlDalalWiseSales {
+public class MdlOutstanding {
 
     @SerializedName("method")
     String method;
@@ -36,7 +36,7 @@ public class MdlDalalWiseSales {
     String message;
 
     @SerializedName("data")
-    ArrayList<MdlDalalWiseSalesData> data;
+    ArrayList<MdlOutstandingData> data;
 
     public String getMethod() {
         return method;
@@ -62,11 +62,11 @@ public class MdlDalalWiseSales {
         this.message = message;
     }
 
-    public ArrayList<MdlDalalWiseSalesData> getData() {
+    public ArrayList<MdlOutstandingData> getData() {
         return data;
     }
 
-    public void setData(ArrayList<MdlDalalWiseSalesData> data) {
+    public void setData(ArrayList<MdlOutstandingData> data) {
         this.data = data;
     }
 }

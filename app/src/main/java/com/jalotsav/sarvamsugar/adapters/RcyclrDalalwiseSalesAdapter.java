@@ -28,7 +28,7 @@ import android.widget.TextView;
 
 import com.jalotsav.sarvamsugar.R;
 import com.jalotsav.sarvamsugar.common.GeneralFuncations;
-import com.jalotsav.sarvamsugar.model.MdlDalalwsSlsData;
+import com.jalotsav.sarvamsugar.model.MdlDalalWiseSalesData;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -40,10 +40,10 @@ public class RcyclrDalalwiseSalesAdapter extends RecyclerView.Adapter<RcyclrDala
 
 
     Context mContext;
-    ArrayList<MdlDalalwsSlsData> mArrylstDalalwsSlsData;
+    ArrayList<MdlDalalWiseSalesData> mArrylstDalalwsSlsData;
     ArrayList<Integer> mArrylstPrmryclrs;
 
-    public RcyclrDalalwiseSalesAdapter(Context context, ArrayList<MdlDalalwsSlsData> arrylstDalalwsSlsData) {
+    public RcyclrDalalwiseSalesAdapter(Context context, ArrayList<MdlDalalWiseSalesData> arrylstDalalwsSlsData) {
 
         mContext = context;
         mArrylstDalalwsSlsData = arrylstDalalwsSlsData;
@@ -69,7 +69,7 @@ public class RcyclrDalalwiseSalesAdapter extends RecyclerView.Adapter<RcyclrDala
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        MdlDalalwsSlsData objMdlData = mArrylstDalalwsSlsData.get(position);
+        MdlDalalWiseSalesData objMdlData = mArrylstDalalwsSlsData.get(position);
         holder.tvFirstChar.setText(objMdlData.getDalal().substring(0,1));
         holder.tvDalalName.setText(mContext.getResources().getString(R.string.partyname_bracket_pcode, objMdlData.getDalal(), objMdlData.getDpCode()));
         holder.tvMadhur.setText(objMdlData.getMadhur());
@@ -108,10 +108,10 @@ public class RcyclrDalalwiseSalesAdapter extends RecyclerView.Adapter<RcyclrDala
         }
     }
 
-    public void setFilter(ArrayList<MdlDalalwsSlsData> arrylstMdlDalalwsSlsData) {
+    public void setFilter(ArrayList<MdlDalalWiseSalesData> arrylstMdlDalalWiseSalesData) {
 
         mArrylstDalalwsSlsData = new ArrayList<>();
-        mArrylstDalalwsSlsData.addAll(arrylstMdlDalalwsSlsData);
+        mArrylstDalalwsSlsData.addAll(arrylstMdlDalalWiseSalesData);
         notifyDataSetChanged();
     }
 }

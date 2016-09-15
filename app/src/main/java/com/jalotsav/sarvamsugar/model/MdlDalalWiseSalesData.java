@@ -22,7 +22,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by JALOTSAV Dev. on 27/8/16.
  */
-public class MdlDalalwsSlsData {
+public class MdlDalalWiseSalesData {
 
     @SerializedName("DCODE")
     String dpCode;
