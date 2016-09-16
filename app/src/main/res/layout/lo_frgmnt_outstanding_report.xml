@@ -106,6 +106,53 @@
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:visibility="gone" />
+
+            <!--Select To Date-->
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/appcmptbtn_outstndng_slcttodate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5jdp"
+                android:text="@string/to_date_sml"
+                android:textColor="@color/white"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5jdp"
+                android:weightSum="2"
+                android:orientation="horizontal">
+
+                <!--Date Type-->
+                <Spinner
+                    android:id="@+id/spnr_outstndng_datetype"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/_5jdp"
+                    android:layout_marginRight="@dimen/_5jdp"
+                    android:layout_marginEnd="@dimen/_5jdp"
+                    android:entries="@array/arry_datetype" />
+
+                <!--Separator-->
+                <TextView
+                    android:layout_width="@dimen/_1jdp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_2jdp"
+                    android:layout_marginBottom="@dimen/_2jdp"
+                    android:background="@color/white"/>
+
+                <!--Sort By-->
+                <Spinner
+                    android:id="@+id/spnr_outstndng_sortby"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5jdp"
+                    android:layout_marginStart="@dimen/_5jdp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/_5jdp"
+                    android:entries="@array/arry_sortby" />
+            </LinearLayout>
         </LinearLayout>
 
         <com.jalotsav.sarvamsugar.common.RecyclerViewEmptySupport

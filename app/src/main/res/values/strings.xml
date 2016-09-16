@@ -52,10 +52,21 @@
         <item>Area</item>
         <item>Zone</item>
     </string-array>
+    <string-array name="arry_datetype">
+        <item>Select date type</item>
+        <item>Date</item>
+        <item>Due date</item>
+    </string-array>
+    <string-array name="arry_sortby">
+        <item>Select sort by</item>
+        <item>Area</item>
+        <item>Days</item>
+    </string-array>
     <string name="slct_fromto_date">Select From-To date</string>
     <string name="slct_colctn_fromto_date">Select Collection From-To date</string>
     <string name="from_date_sml">From date</string>
     <string name="to_date_sml">To date</string>
+    <string name="to_date_val">To date - %s</string>
     <string name="slct_from_date">Select from date</string>
     <string name="slct_to_date">Select to date</string>
     <string name="save_sml">Save</string>

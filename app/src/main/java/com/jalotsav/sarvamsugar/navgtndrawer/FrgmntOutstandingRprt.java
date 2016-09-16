@@ -27,6 +27,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -38,6 +39,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -84,8 +86,9 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
     FloatingActionButton mFabFilters, mFabApply;
     LinearLayout mLnrlyotFilters;
     ImageView mImgvwFltrRemove, mImgvwFltrClose;
-    Spinner mSpnrFltrBy;
+    Spinner mSpnrFltrBy, mSpnrDateType, mSpnrSortby;
     AppCompatAutoCompleteTextView mAppcmptAutocmplttvSlctdFltrVal;
+    AppCompatButton mAppcmptbtnToDate;
 
     DatePickerDialog mToDatePckrDlg;
     ArrayList<String> mArrylstParty, mArrylstDalal, mArrylstArea, mArrylstZone;
@@ -112,7 +115,10 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
         mImgvwFltrRemove = (ImageView) rootView.findViewById(R.id.imgvw_outstndng_fltrremove);
         mImgvwFltrClose = (ImageView) rootView.findViewById(R.id.imgvw_outstndng_fltrclose);
         mSpnrFltrBy = (Spinner) rootView.findViewById(R.id.spnr_outstndng_filterby);
+        mSpnrDateType = (Spinner) rootView.findViewById(R.id.spnr_outstndng_datetype);
+        mSpnrSortby = (Spinner) rootView.findViewById(R.id.spnr_outstndng_sortby);
         mAppcmptAutocmplttvSlctdFltrVal = (AppCompatAutoCompleteTextView) rootView.findViewById(R.id.apcmptautocmplttv_outstndng_slctdfilterval);
+        mAppcmptbtnToDate = (AppCompatButton) rootView.findViewById(R.id.appcmptbtn_outstndng_slcttodate);
 
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setHasFixedSize(true);
@@ -132,6 +138,7 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
         mFabApply.setOnClickListener(this);
         mImgvwFltrRemove.setOnClickListener(this);
         mImgvwFltrClose.setOnClickListener(this);
+        mAppcmptbtnToDate.setOnClickListener(this);
 
         mTvAppearHere.setText(getString(R.string.outstndng_appear_here));
 
@@ -151,7 +158,9 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
 
         mReqstToDt = GeneralFuncations.setDateIn2Digit(mToDay)
                 + "-" + GeneralFuncations.setDateIn2Digit(mToMonth+1)
-                + "-" + mToYear; // Format "27-07-2016"
+                + "-" + mToYear; // Format "15-09-2016"
+        mAppcmptbtnToDate.setText(getResources().getString(R.string.to_date_val, mReqstToDt));
+
         mReqstParty = "";
         mReqstDalal = "";
         mReqstArea = "";
@@ -174,6 +183,36 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
                     mFabApply.setVisibility(View.VISIBLE);
                     setAutoCompltTvAdapter(position);
                 }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+        mSpnrDateType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+
+                ((TextView) adapterView.getChildAt(0)).setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryAmber));
+
+                if (position == 2) mReqstType = "1";
+                else mReqstType = "0";
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+        mSpnrSortby.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+
+                ((TextView) adapterView.getChildAt(0)).setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryAmber));
+
+                if (position == 2) mReqstSortby = "1";
+                else mReqstSortby = "0";
             }
 
             @Override
@@ -325,6 +364,15 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
                 break;
             case R.id.imgvw_outstndng_fltrremove:
 
+                mToDay = mCrntDay;
+                mToMonth = mCrntMonth;
+                mToYear = mCrntYear;
+
+                mReqstToDt = GeneralFuncations.setDateIn2Digit(mToDay)
+                        + "-" + GeneralFuncations.setDateIn2Digit(mToMonth+1)
+                        + "-" + mToYear; // Format "15-09-2016"
+                mAppcmptbtnToDate.setText(getResources().getString(R.string.to_date_val, mReqstToDt));
+
                 ArrayList<MdlOutstandingData> arrylstOutstndngData = new ArrayList<>();
                 mAdapter.setFilter(arrylstOutstndngData);
 
@@ -348,6 +396,22 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
             case R.id.imgvw_outstndng_fltrclose:
 
                 hideFiltersView(); // Hide Filters View
+                break;
+            case R.id.appcmptbtn_outstndng_slcttodate:
+
+                DatePickerDialog mToDatePckrDlg = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
+                        mToYear = year;
+                        mToMonth = month;
+                        mToDay = day;
+                        month++;
+                        mReqstToDt = GeneralFuncations.setDateIn2Digit(day) + "-" + GeneralFuncations.setDateIn2Digit(month) + "-" + year;
+                        mAppcmptbtnToDate.setText(getResources().getString(R.string.to_date_val, mReqstToDt));
+                    }
+                }, mToYear, mToMonth, mToDay);
+                mToDatePckrDlg.show();
                 break;
         }
     }
