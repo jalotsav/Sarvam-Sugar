@@ -338,7 +338,8 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
                             if (!mArrylstPhone.contains(objMdlMasterDtlsData.getPhone()))
                                 mArrylstPhone.add(objMdlMasterDtlsData.getPhone());
                         }
-                        setAutoCompltTvAdapter(0);
+                        if(isAdded())
+                            setAutoCompltTvAdapter(0);
                     }
                 } else showMySnackBar(getString(R.string.there_are_some_prblm));
             }
@@ -349,13 +350,15 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            mPrgrsbrMain.setVisibility(View.GONE);
-            if (!mArrylstMasterDtlsData.isEmpty()) {
-                showMySnackBar(getResources().getString(R.string.value_records_sml, mArrylstMasterDtlsData.size()));
-                mFabFilters.setVisibility(View.VISIBLE);
+            if(isAdded()) {
+                mPrgrsbrMain.setVisibility(View.GONE);
+                if (!mArrylstMasterDtlsData.isEmpty()) {
+                    showMySnackBar(getResources().getString(R.string.value_records_sml, mArrylstMasterDtlsData.size()));
+                    mFabFilters.setVisibility(View.VISIBLE);
+                }
+                mAdapter = new RcyclrAllMasterDtlsAdapter(getActivity(), mArrylstMasterDtlsData);
+                mRecyclerView.setAdapter(mAdapter);
             }
-            mAdapter = new RcyclrAllMasterDtlsAdapter(getActivity(), mArrylstMasterDtlsData);
-            mRecyclerView.setAdapter(mAdapter);
         }
     }
 

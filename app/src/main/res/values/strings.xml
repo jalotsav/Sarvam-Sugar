@@ -25,7 +25,7 @@
 
     <!--Navigation Drawer Menu-->
     <string name="outstanding_sml">Outstanding</string>
-    <string name="allinone_sml">All In One</string>
+    <string name="pendngsauda_sml">Pending Sauda</string>
     <string name="all_master_dtls_sml">All Master Details</string>
     <string name="godownwise_stock_sml">Godown Wise Stock</string>
     <string name="dalal_sml">Dalal</string>
@@ -78,6 +78,22 @@
     <string name="date_sml">Date:</string>
     <string name="duedate_coln">Due date:</string>
     <string name="outstndng_appear_here">Outstanding report appear here</string>
+
+    <!--Pending Sauda-->
+    <string name="saudano_coln">Sauda No.:</string>
+    <string name="item_coln">Item:</string>
+    <string name="qtyinbori_coln">Qty in Bori:</string>
+    <string name="qty_coln">Qty:</string>
+    <string name="rate_coln">Rate:</string>
+    <string name="marketrate_coln">Market Rate:</string>
+    <string name="pendngsauda_appear_here">Pending Sauda report appear here</string>
+    <string-array name="arry_filterby_pendngsauda">
+        <item>Select filter by</item>
+        <item>Party name</item>
+        <item>Dalal</item>
+        <item>Item</item>
+        <item>Area</item>
+    </string-array>
 
     <!--All Master Details-->
     <string name="refresh_sml">Refresh</string>

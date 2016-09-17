@@ -75,7 +75,7 @@
                     android:gravity="center"
                     android:text="@string/godownwisestck_appear_here"
                     android:textColor="@color/gray800"
-                    android:textSize="@dimen/_20jdp" />
+                    android:textSize="@dimen/_18jdp" />
             </LinearLayout>
         </android.support.v4.widget.SwipeRefreshLayout>
 

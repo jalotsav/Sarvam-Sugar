@@ -84,10 +84,10 @@ public class NavgtnDrwrMain extends AppCompatActivity
 
             fragment = new FrgmntOutstandingRprt();
             toolbarTitle = getString(R.string.outstanding_sml);
-        } else if (id == R.id.nav_allinone) {
+        } else if (id == R.id.nav_pendngsauda) {
 
-            fragment = new FrgmntUndrDevlpmnt();
-            toolbarTitle = getString(R.string.allinone_sml);
+            fragment = new FrgmntPendingSauda();
+            toolbarTitle = getString(R.string.pendngsauda_sml);
         } else if (id == R.id.nav_allmasterdtls) {
 
             fragment = new FrgmntAllMasterDtls();

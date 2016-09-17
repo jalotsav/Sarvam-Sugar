@@ -7,9 +7,9 @@
             android:icon="@drawable/ic_menu_report"
             android:title="@string/outstanding_sml" />
         <item
-            android:id="@+id/nav_allinone"
-            android:icon="@drawable/ic_menu_allinone"
-            android:title="@string/allinone_sml" />
+            android:id="@+id/nav_pendngsauda"
+            android:icon="@drawable/ic_menu_pendngsauda"
+            android:title="@string/pendngsauda_sml" />
         <item
             android:id="@+id/nav_allmasterdtls"
             android:icon="@drawable/ic_menu_mastrdtls"

@@ -12,7 +12,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 
 package com.jalotsav.sarvamsugar.navgtndrawer;
@@ -27,7 +26,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -47,24 +45,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.jalotsav.sarvamsugar.R;
-import com.jalotsav.sarvamsugar.adapters.RcyclrOutstandingAdapter;
+import com.jalotsav.sarvamsugar.adapters.RcyclrPendngSaudaAdapter;
 import com.jalotsav.sarvamsugar.common.AppConstants;
 import com.jalotsav.sarvamsugar.common.GeneralFuncations;
 import com.jalotsav.sarvamsugar.common.RecyclerViewEmptySupport;
-import com.jalotsav.sarvamsugar.model.MdlOutstanding;
-import com.jalotsav.sarvamsugar.model.MdlOutstandingData;
+import com.jalotsav.sarvamsugar.model.MdlPendngSauda;
+import com.jalotsav.sarvamsugar.model.MdlPendngSaudaData;
 import com.jalotsav.sarvamsugar.retrofitapihelper.RetroAPI;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 
-import okhttp3.ResponseBody;
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -72,52 +67,53 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by JALOTSAV Dev. on 20/7/16.
+ * Created by JALOTSAV Dev. on 18/9/16.
  */
-public class FrgmntOutstandingRprt extends Fragment implements AppConstants, View.OnClickListener {
+public class FrgmntPendingSauda extends Fragment implements AppConstants, View.OnClickListener {
 
     CoordinatorLayout mCordntrlyotMain;
     ProgressBar mPrgrsbrMain;
     LinearLayout mLnrlyotAppearHere;
-    TextView mTvAppearHere;
+    TextView mTvAppearHere, mTvSlctdFromDt, mTvSlctdToDt;
     RecyclerViewEmptySupport mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
-    RcyclrOutstandingAdapter mAdapter;
+    RcyclrPendngSaudaAdapter mAdapter;
     FloatingActionButton mFabFilters, mFabApply;
     LinearLayout mLnrlyotFilters;
     ImageView mImgvwFltrRemove, mImgvwFltrClose;
-    Spinner mSpnrFltrBy, mSpnrDateType, mSpnrSortby;
+    Spinner mSpnrFltrBy;
     AppCompatAutoCompleteTextView mAppcmptAutocmplttvSlctdFltrVal;
-    AppCompatButton mAppcmptbtnToDate;
+    LinearLayout mLnrlyotFromDt, mLnrlyotToDt;
 
-    ArrayList<String> mArrylstParty, mArrylstDalal, mArrylstArea, mArrylstZone;
+    ArrayList<String> mArrylstParty, mArrylstDalal, mArrylstItem, mArrylstArea;
     Calendar mCalndr;
-    int mCrntYear, mCrntMonth, mCrntDay, mToYear, mToMonth, mToDay;
-    String mReqstToDt, mReqstParty, mReqstDalal, mReqstArea, mReqstZone, mReqstType, mReqstSortby;
+    int mCrntYear, mCrntMonth, mCrntDay, mFromYear, mFromMonth, mFromDay, mToYear, mToMonth, mToDay;
+    String mReqstFromDt, mReqstToDt, mReqstParty, mReqstDalal, mReqstItem, mReqstArea;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.lo_frgmnt_outstanding_report, container, false);
+        View rootView = inflater.inflate(R.layout.lo_frgmnt_pendngsauda, container, false);
 
         setHasOptionsMenu(true);
 
-        mCordntrlyotMain = (CoordinatorLayout) rootView.findViewById(R.id.cordntrlyot_outstndng);
-        mPrgrsbrMain = (ProgressBar) rootView.findViewById(R.id.prgrsbr_outstndng_main);
+        mCordntrlyotMain = (CoordinatorLayout) rootView.findViewById(R.id.cordntrlyot_pendngsauda);
+        mPrgrsbrMain = (ProgressBar) rootView.findViewById(R.id.prgrsbr_pendngsauda_main);
         mLnrlyotAppearHere = (LinearLayout) rootView.findViewById(R.id.lnrlyot_recyclremptyvw_appearhere);
         mTvAppearHere = (TextView) rootView.findViewById(R.id.tv_recyclremptyvw_appearhere);
-        mRecyclerView = (RecyclerViewEmptySupport) rootView.findViewById(R.id.rcyclrvw_outstndng);
-        mFabFilters = (FloatingActionButton) rootView.findViewById(R.id.fab_outstndng_filters);
-        mFabApply = (FloatingActionButton) rootView.findViewById(R.id.fab_outstndng_apply);
-        mLnrlyotFilters = (LinearLayout) rootView.findViewById(R.id.lnrlyot_outstndng_filtersvw);
-        mImgvwFltrRemove = (ImageView) rootView.findViewById(R.id.imgvw_outstndng_fltrremove);
-        mImgvwFltrClose = (ImageView) rootView.findViewById(R.id.imgvw_outstndng_fltrclose);
-        mSpnrFltrBy = (Spinner) rootView.findViewById(R.id.spnr_outstndng_filterby);
-        mSpnrDateType = (Spinner) rootView.findViewById(R.id.spnr_outstndng_datetype);
-        mSpnrSortby = (Spinner) rootView.findViewById(R.id.spnr_outstndng_sortby);
-        mAppcmptAutocmplttvSlctdFltrVal = (AppCompatAutoCompleteTextView) rootView.findViewById(R.id.apcmptautocmplttv_outstndng_slctdfilterval);
-        mAppcmptbtnToDate = (AppCompatButton) rootView.findViewById(R.id.appcmptbtn_outstndng_slcttodate);
+        mTvSlctdFromDt = (TextView) rootView.findViewById(R.id.tv_pendngsauda_slctdfromdt);
+        mTvSlctdToDt = (TextView) rootView.findViewById(R.id.tv_pendngsauda_slctdtodt);
+        mRecyclerView = (RecyclerViewEmptySupport) rootView.findViewById(R.id.rcyclrvw_pendngsauda);
+        mFabFilters = (FloatingActionButton) rootView.findViewById(R.id.fab_pendngsauda_filters);
+        mFabApply = (FloatingActionButton) rootView.findViewById(R.id.fab_pendngsauda_apply);
+        mLnrlyotFilters = (LinearLayout) rootView.findViewById(R.id.lnrlyot_pendngsauda_filtersvw);
+        mImgvwFltrRemove = (ImageView) rootView.findViewById(R.id.imgvw_pendngsauda_fltrremove);
+        mImgvwFltrClose = (ImageView) rootView.findViewById(R.id.imgvw_pendngsauda_fltrclose);
+        mSpnrFltrBy = (Spinner) rootView.findViewById(R.id.spnr_pendngsauda_filterby);
+        mAppcmptAutocmplttvSlctdFltrVal = (AppCompatAutoCompleteTextView) rootView.findViewById(R.id.apcmptautocmplttv_pendngsauda_slctdfilterval);
+        mLnrlyotFromDt = (LinearLayout) rootView.findViewById(R.id.lnrlyot_pendngsauda_fromdt);
+        mLnrlyotToDt = (LinearLayout) rootView.findViewById(R.id.lnrlyot_pendngsauda_todt);
 
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setHasFixedSize(true);
@@ -137,35 +133,39 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
         mFabApply.setOnClickListener(this);
         mImgvwFltrRemove.setOnClickListener(this);
         mImgvwFltrClose.setOnClickListener(this);
-        mAppcmptbtnToDate.setOnClickListener(this);
+        mLnrlyotFromDt.setOnClickListener(this);
+        mLnrlyotToDt.setOnClickListener(this);
 
-        mTvAppearHere.setText(getString(R.string.outstndng_appear_here));
+        mTvAppearHere.setText(getString(R.string.pendngsauda_appear_here));
 
         mArrylstParty = new ArrayList<>();
         mArrylstDalal = new ArrayList<>();
+        mArrylstItem = new ArrayList<>();
         mArrylstArea = new ArrayList<>();
-        mArrylstZone = new ArrayList<>();
 
-        ArrayList<MdlOutstandingData> arrylstOutstndngData = new ArrayList<>();
-        mAdapter = new RcyclrOutstandingAdapter(getActivity(), arrylstOutstndngData);
+        ArrayList<MdlPendngSaudaData> arrylstpendngsaudaData = new ArrayList<>();
+        mAdapter = new RcyclrPendngSaudaAdapter(getActivity(), arrylstpendngsaudaData);
         mRecyclerView.setAdapter(mAdapter);
 
         mCalndr = Calendar.getInstance();
-        mCrntYear = mToYear = mCalndr.get(Calendar.YEAR);
-        mCrntMonth = mToMonth = mCalndr.get(Calendar.MONTH);
-        mCrntDay = mToDay = mCalndr.get(Calendar.DAY_OF_MONTH);
+        mCrntYear = mFromYear = mToYear = mCalndr.get(Calendar.YEAR);
+        mCrntMonth = mFromMonth = mToMonth = mCalndr.get(Calendar.MONTH);
+        mCrntDay = mFromDay = mToDay = mCalndr.get(Calendar.DAY_OF_MONTH);
 
+        mReqstFromDt = GeneralFuncations.setDateIn2Digit(mFromDay)
+                + "-" + GeneralFuncations.setDateIn2Digit(mFromMonth+1)
+                + "-" + mFromYear; // Format "18-09-2016"
         mReqstToDt = GeneralFuncations.setDateIn2Digit(mToDay)
                 + "-" + GeneralFuncations.setDateIn2Digit(mToMonth+1)
-                + "-" + mToYear; // Format "15-09-2016"
-        mAppcmptbtnToDate.setText(getResources().getString(R.string.to_date_val, mReqstToDt));
+                + "-" + mToYear;
 
         mReqstParty = "";
         mReqstDalal = "";
+        mReqstItem = "";
         mReqstArea = "";
-        mReqstZone = "";
-        mReqstType = "";
-        mReqstSortby = "";
+
+        // Set filter selected date to TextView
+        setFilterSlctdDateTv();
 
         mSpnrFltrBy.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -189,36 +189,6 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
             }
         });
 
-        mSpnrDateType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-
-                ((TextView) adapterView.getChildAt(0)).setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryAmber));
-
-                if (position == 2) mReqstType = "1";
-                else mReqstType = "0";
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-
-        mSpnrSortby.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-
-                ((TextView) adapterView.getChildAt(0)).setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryAmber));
-
-                if (position == 2) mReqstSortby = "1";
-                else mReqstSortby = "0";
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-
         if (!GeneralFuncations.isNetConnected(getActivity())) {
 
             // Show SnackBar with given message
@@ -228,34 +198,45 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
         return rootView;
     }
 
+    // Set filter selected date to TextView
+    private void setFilterSlctdDateTv() {
+
+        mTvSlctdFromDt.setText(mReqstFromDt);
+        mTvSlctdToDt.setText(mReqstToDt);
+    }
+
     private void getOutstandingList() {
 
         mPrgrsbrMain.setVisibility(View.VISIBLE);
         mFabFilters.setVisibility(View.GONE);
 
+        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
+        clientBuilder.connectTimeout(2, TimeUnit.MINUTES);
+        clientBuilder.readTimeout(2, TimeUnit.MINUTES);
         Retrofit objRetrofit = new Retrofit.Builder()
                 .baseUrl(API_ROOT_URL)
+                .client(clientBuilder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         RetroAPI apiDalalwsSls = objRetrofit.create(RetroAPI.class);
-        Call<MdlOutstanding> callGodownStck = apiDalalwsSls.getOutstanding(
-                API_METHOD_GETOUTSTAND, mReqstToDt, mReqstType, mReqstParty, mReqstDalal, mReqstArea, mReqstZone, mReqstSortby
+        Call<MdlPendngSauda> callGodownStck = apiDalalwsSls.getPendingSauda(
+                API_METHOD_GETPSAUDA, mReqstFromDt, mReqstToDt, mReqstParty, mReqstDalal, mReqstItem, mReqstArea
         );
-        callGodownStck.enqueue(new Callback<MdlOutstanding>() {
+        callGodownStck.enqueue(new Callback<MdlPendngSauda>() {
             @Override
-            public void onResponse(Call<MdlOutstanding> call, Response<MdlOutstanding> response) {
+            public void onResponse(Call<MdlPendngSauda> call, Response<MdlPendngSauda> response) {
 
                 mPrgrsbrMain.setVisibility(View.GONE);
                 if (!mFabFilters.isShown()) mFabFilters.setVisibility(View.VISIBLE);
 
                 if (response.isSuccessful()) {
 
-                    MdlOutstanding objMdlOutstanding = response.body();
+                    MdlPendngSauda objMdlOutstanding = response.body();
                     String result = objMdlOutstanding.getResult();
                     String message = objMdlOutstanding.getMessage();
 
-                    ArrayList<MdlOutstandingData> arrylstOutstndngData = objMdlOutstanding.getData();
+                    ArrayList<MdlPendngSaudaData> arrylstOutstndngData = objMdlOutstanding.getData();
 
                     try {
 
@@ -263,16 +244,16 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
                             showMySnackBar(message);
                         else {
 
-                            for(MdlOutstandingData objMdlGodownStockData : arrylstOutstndngData) {
+                            for(MdlPendngSaudaData objMdlGodownStockData : arrylstOutstndngData) {
 
                                 if(!mArrylstParty.contains(objMdlGodownStockData.getPname()))
                                     mArrylstParty.add(objMdlGodownStockData.getPname());
-                                if(!mArrylstDalal.contains(objMdlGodownStockData.getDalalName()))
-                                    mArrylstDalal.add(objMdlGodownStockData.getDalalName());
+                                if(!mArrylstDalal.contains(objMdlGodownStockData.getDalal()))
+                                    mArrylstDalal.add(objMdlGodownStockData.getDalal());
+                                if(!mArrylstItem.contains(objMdlGodownStockData.getItem()))
+                                    mArrylstItem.add(objMdlGodownStockData.getItem());
                                 if(!mArrylstArea.contains(objMdlGodownStockData.getArea()))
                                     mArrylstArea.add(objMdlGodownStockData.getArea());
-                                if(!mArrylstZone.contains(objMdlGodownStockData.getZone()))
-                                    mArrylstZone.add(objMdlGodownStockData.getZone());
                             }
                             setAutoCompltTvAdapter(0);
 
@@ -284,7 +265,7 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
             }
 
             @Override
-            public void onFailure(Call<MdlOutstanding> call, Throwable t) {
+            public void onFailure(Call<MdlPendngSauda> call, Throwable t) {
 
                 t.printStackTrace();
                 mPrgrsbrMain.setVisibility(View.GONE);
@@ -304,8 +285,8 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
                 (getActivity(), android.R.layout.simple_list_item_1, mArrylstDalal);
         ArrayAdapter<String> adapterArea = new ArrayAdapter<>
                 (getActivity(), android.R.layout.simple_list_item_1, mArrylstArea);
-        ArrayAdapter<String> adapterZone = new ArrayAdapter<>
-                (getActivity(), android.R.layout.simple_list_item_1, mArrylstZone);
+        ArrayAdapter<String> adapterItem = new ArrayAdapter<>
+                (getActivity(), android.R.layout.simple_list_item_1, mArrylstItem);
 
         switch (spnrSlctdPosition) {
             case 1:
@@ -318,7 +299,7 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
                 mAppcmptAutocmplttvSlctdFltrVal.setAdapter(adapterArea);
                 break;
             case 4:
-                mAppcmptAutocmplttvSlctdFltrVal.setAdapter(adapterZone);
+                mAppcmptAutocmplttvSlctdFltrVal.setAdapter(adapterItem);
                 break;
         }
     }
@@ -327,11 +308,11 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
     public void onClick(View view) {
 
         switch (view.getId()) {
-            case R.id.fab_outstndng_filters:
+            case R.id.fab_pendngsauda_filters:
 
                 showFiltersView(); // Show Filters View
                 break;
-            case R.id.fab_outstndng_apply:
+            case R.id.fab_pendngsauda_apply:
 
                 String slctdFltrVal = mAppcmptAutocmplttvSlctdFltrVal.getText().toString().trim();
                 if (!TextUtils.isEmpty(slctdFltrVal)) {
@@ -347,7 +328,7 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
                             mReqstArea = slctdFltrVal;
                             break;
                         case 4:
-                            mReqstZone = slctdFltrVal;
+                            mReqstItem= slctdFltrVal;
                             break;
                     }
                 } /*else
@@ -361,28 +342,31 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
 
                 hideFiltersView(); // Hide Filters View
                 break;
-            case R.id.imgvw_outstndng_fltrremove:
+            case R.id.imgvw_pendngsauda_fltrremove:
 
-                mToDay = mCrntDay;
-                mToMonth = mCrntMonth;
-                mToYear = mCrntYear;
+                mFromDay = mToDay = mCrntDay;
+                mFromMonth = mToMonth = mCrntMonth;
+                mFromYear = mToYear = mCrntYear;
 
+                mReqstFromDt = GeneralFuncations.setDateIn2Digit(mFromDay)
+                        + "-" + GeneralFuncations.setDateIn2Digit(mFromMonth+1)
+                        + "-" + mFromYear; // Format "18-09-2016"
                 mReqstToDt = GeneralFuncations.setDateIn2Digit(mToDay)
                         + "-" + GeneralFuncations.setDateIn2Digit(mToMonth+1)
-                        + "-" + mToYear; // Format "15-09-2016"
-                mAppcmptbtnToDate.setText(getResources().getString(R.string.to_date_val, mReqstToDt));
+                        + "-" + mToYear;
 
-                ArrayList<MdlOutstandingData> arrylstOutstndngData = new ArrayList<>();
+                // Set filter selected date to TextView
+                setFilterSlctdDateTv();
+
+                ArrayList<MdlPendngSaudaData> arrylstOutstndngData = new ArrayList<>();
                 mAdapter.setFilter(arrylstOutstndngData);
 
                 mSpnrFltrBy.setSelection(0);
                 mAppcmptAutocmplttvSlctdFltrVal.setText("");
                 mReqstParty = "";
                 mReqstDalal = "";
+                mReqstItem = "";
                 mReqstArea = "";
-                mReqstZone = "";
-                mReqstType = "";
-                mReqstSortby = "";
 
                 if (!GeneralFuncations.isNetConnected(getActivity())) {
 
@@ -392,11 +376,27 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
 
                 hideFiltersView(); // Hide Filters View
                 break;
-            case R.id.imgvw_outstndng_fltrclose:
+            case R.id.imgvw_pendngsauda_fltrclose:
 
                 hideFiltersView(); // Hide Filters View
                 break;
-            case R.id.appcmptbtn_outstndng_slcttodate:
+            case R.id.lnrlyot_pendngsauda_fromdt:
+
+                DatePickerDialog mFromDatePckrDlg = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
+                        mFromYear = year;
+                        mFromMonth = month;
+                        mFromDay = day;
+                        month++;
+                        mReqstFromDt = GeneralFuncations.setDateIn2Digit(day) + "-" + GeneralFuncations.setDateIn2Digit(month) + "-" + year;
+                        mTvSlctdFromDt.setText(mReqstFromDt);
+                    }
+                }, mFromYear, mFromMonth, mFromDay);
+                mFromDatePckrDlg.show();
+                break;
+            case R.id.lnrlyot_pendngsauda_todt:
 
                 DatePickerDialog mToDatePckrDlg = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -407,7 +407,7 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
                         mToDay = day;
                         month++;
                         mReqstToDt = GeneralFuncations.setDateIn2Digit(day) + "-" + GeneralFuncations.setDateIn2Digit(month) + "-" + year;
-                        mAppcmptbtnToDate.setText(getResources().getString(R.string.to_date_val, mReqstToDt));
+                        mTvSlctdToDt.setText(mReqstToDt);
                     }
                 }, mToYear, mToMonth, mToDay);
                 mToDatePckrDlg.show();

@@ -21,6 +21,7 @@ import com.jalotsav.sarvamsugar.model.MdlDalalWiseSales;
 import com.jalotsav.sarvamsugar.model.MdlDalalWiseSauda;
 import com.jalotsav.sarvamsugar.model.MdlGodownStock;
 import com.jalotsav.sarvamsugar.model.MdlOutstanding;
+import com.jalotsav.sarvamsugar.model.MdlPendngSauda;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -41,6 +42,15 @@ public interface RetroAPI {
                                         @Query("area") String area,
                                         @Query("zone") String zone,
                                         @Query("sortby") String sortby);
+
+    @GET("index.aspx")
+    Call<MdlPendngSauda> getPendingSauda(@Query("method") String method,
+                                         @Query("fromdate") String fromDate,
+                                         @Query("todate") String toDate,
+                                         @Query("party") String party,
+                                         @Query("dalal") String dalal,
+                                         @Query("item") String item,
+                                         @Query("area") String area);
 
     @GET("index.aspx")
     Call<ResponseBody> getGodownStock(@Query("method") String method,

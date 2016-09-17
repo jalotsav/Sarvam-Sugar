@@ -82,7 +82,7 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
     ArrayList<String> mArrylstDalal, mArrylstMobile;
     Calendar mCalndr;
     int mCrntYear, mCrntMonth, mCrntDay, mFromYear, mFromMonth, mFromDay, mToYear, mToMonth, mToDay;
-    String mReqstFromDT, mReqstToDt, mReqstDalal, mReqstMobile;
+    String mReqstFromDt, mReqstToDt, mReqstDalal, mReqstMobile;
 
     @Nullable
     @Override
@@ -96,6 +96,8 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
         mPrgrsbrMain = (ProgressBar) rootView.findViewById(R.id.prgrsbr_dalalwssls_main);
         mLnrlyotAppearHere = (LinearLayout) rootView.findViewById(R.id.lnrlyot_recyclremptyvw_appearhere);
         mTvAppearHere = (TextView) rootView.findViewById(R.id.tv_recyclremptyvw_appearhere);
+        mTvSlctdFromDt = (TextView) rootView.findViewById(R.id.tv_dalalwssls_slctdfromdt);
+        mTvSlctdToDt = (TextView) rootView.findViewById(R.id.tv_dalalwssls_slctdtodt);
         mRecyclerView = (RecyclerViewEmptySupport) rootView.findViewById(R.id.rcyclrvw_dalalwssls);
         mFabFilters = (FloatingActionButton) rootView.findViewById(R.id.fab_dalalwssls_filters);
         mFabApply = (FloatingActionButton) rootView.findViewById(R.id.fab_dalalwssls_apply);
@@ -104,8 +106,6 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
         mImgvwFltrClose = (ImageView) rootView.findViewById(R.id.imgvw_dalalwssls_fltrclose);
         mAppcmptAutocmplttvFltrDalal = (AppCompatAutoCompleteTextView) rootView.findViewById(R.id.apcmptautocmplttv_dalalwssls_fltr_dalal);
         mAppcmptAutocmplttvFltrMobile = (AppCompatAutoCompleteTextView) rootView.findViewById(R.id.apcmptautocmplttv_dalalwssls_fltr_mobile);
-        mTvSlctdFromDt = (TextView) rootView.findViewById(R.id.tv_dalalwssls_slctdfromdt);
-        mTvSlctdToDt = (TextView) rootView.findViewById(R.id.tv_dalalwssls_slctdtodt);
         mLnrlyotFromDt = (LinearLayout) rootView.findViewById(R.id.lnrlyot_dalalwssls_fromdt);
         mLnrlyotToDt = (LinearLayout) rootView.findViewById(R.id.lnrlyot_dalalwssls_todt);
 
@@ -145,7 +145,7 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
         mCrntMonth = mFromMonth = mToMonth = mCalndr.get(Calendar.MONTH);
         mCrntDay = mFromDay = mToDay = mCalndr.get(Calendar.DAY_OF_MONTH);
 
-        mReqstFromDT = GeneralFuncations.setDateIn2Digit(mFromDay)
+        mReqstFromDt = GeneralFuncations.setDateIn2Digit(mFromDay)
                 + "-" + GeneralFuncations.setDateIn2Digit(mFromMonth+1)
                 + "-" + mFromYear; // Format "27-07-2016"
         mReqstToDt = GeneralFuncations.setDateIn2Digit(mToDay)
@@ -169,7 +169,7 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
     // Set filter selected date to TextView
     private void setFilterSlctdDateTv() {
 
-        mTvSlctdFromDt.setText(mReqstFromDT);
+        mTvSlctdFromDt.setText(mReqstFromDt);
         mTvSlctdToDt.setText(mReqstToDt);
         mAppcmptAutocmplttvFltrDalal.setText(mReqstDalal);
         mAppcmptAutocmplttvFltrMobile.setText(mReqstMobile);
@@ -187,7 +187,7 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
 
         RetroAPI apiDalalwsSls = objRetrofit.create(RetroAPI.class);
         Call<MdlDalalWiseSales> callGodownStck = apiDalalwsSls.getDalalwisesales(
-                API_METHOD_GETDSALESSUMM, mReqstFromDT, mReqstToDt, mReqstDalal, mReqstMobile
+                API_METHOD_GETDSALESSUMM, mReqstFromDt, mReqstToDt, mReqstDalal, mReqstMobile
         );
         callGodownStck.enqueue(new Callback<MdlDalalWiseSales>() {
             @Override
@@ -271,7 +271,7 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
                 mFromMonth = mToMonth = mCrntMonth;
                 mFromYear = mToYear = mCrntYear;
 
-                mReqstFromDT = GeneralFuncations.setDateIn2Digit(mFromDay)
+                mReqstFromDt = GeneralFuncations.setDateIn2Digit(mFromDay)
                         + "-" + GeneralFuncations.setDateIn2Digit(mFromMonth+1)
                         + "-" + mFromYear; // Format "27-07-2016"
                 mReqstToDt = GeneralFuncations.setDateIn2Digit(mToDay)
@@ -309,8 +309,8 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
                         mFromMonth = month;
                         mFromDay = day;
                         month++;
-                        mReqstFromDT = GeneralFuncations.setDateIn2Digit(day) + "-" + GeneralFuncations.setDateIn2Digit(month) + "-" + year;
-                        mTvSlctdFromDt.setText(mReqstFromDT);
+                        mReqstFromDt = GeneralFuncations.setDateIn2Digit(day) + "-" + GeneralFuncations.setDateIn2Digit(month) + "-" + year;
+                        mTvSlctdFromDt.setText(mReqstFromDt);
 //                        mTvSlctdFromDt.setText(new StringBuilder().append(day).append("-").append(month).append("-").append(year));
                     }
                 }, mFromYear, mFromMonth, mFromDay);

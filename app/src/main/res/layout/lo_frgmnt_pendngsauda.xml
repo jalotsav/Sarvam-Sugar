@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Copyright 2016 Jalotsav
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,17 +13,16 @@
   ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
-  ~
   -->
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cordntrlyot_dalalwssauda_stock"
+    android:id="@+id/cordntrlyot_pendngsauda"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".navgtndrawer.FrgmntDalalwiseSauda"
+    tools:context=".navgtndrawer.FrgmntPendingSauda"
     tools:ignore="Missingprefix">
 
     <RelativeLayout
@@ -30,7 +30,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/lnrlyot_dalalwssauda_filtersvw"
+            android:id="@+id/lnrlyot_pendngsauda_filtersvw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
@@ -65,7 +65,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/imgvw_dalalwssauda_fltrremove"
+                        android:id="@+id/imgvw_pendngsauda_fltrremove"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:contentDescription="@string/imgcd_image"
@@ -74,7 +74,7 @@
                         app:ico_size="24dp" />
 
                     <ImageView
-                        android:id="@+id/imgvw_dalalwssauda_fltrclose"
+                        android:id="@+id/imgvw_pendngsauda_fltrclose"
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:layout_gravity="center"
@@ -88,20 +88,28 @@
             </RelativeLayout>
             <!--END Title & Cancel button-->
 
+            <Spinner
+                android:id="@+id/spnr_pendngsauda_filterby"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5jdp"
+                android:entries="@array/arry_filterby_pendngsauda" />
+
             <android.support.v7.widget.AppCompatAutoCompleteTextView
-                android:id="@+id/apcmptautocmplttv_dalalwssauda_slctdfilterval"
+                android:id="@+id/apcmptautocmplttv_pendngsauda_slctdfilterval"
                 style="@style/AppCompatEdittext.Pink"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2jdp"
+                android:layout_marginTop="@dimen/_5jdp"
                 android:ems="10"
-                android:hint="@string/slct_dalal"
+                android:hint="@string/slct_from_list_sml"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white"
+                android:visibility="gone" />
 
             <!--From & To Date-->
             <LinearLayout
-                android:id="@+id/lnrlyot_dalalwssauda_fromtodate"
+                android:id="@+id/lnrlyot_pendngsauda_fromtodate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2jdp"
@@ -123,7 +131,7 @@
                         android:textSize="@dimen/_14jdp" />
 
                     <LinearLayout
-                        android:id="@+id/lnrlyot_dalalwssauda_fromdt"
+                        android:id="@+id/lnrlyot_pendngsauda_fromdt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5jdp"
@@ -142,7 +150,7 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/tv_dalalwssauda_slctdfromdt"
+                        android:id="@+id/tv_pendngsauda_slctdfromdt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5jdp"
@@ -170,7 +178,7 @@
                         android:textSize="@dimen/_14jdp" />
 
                     <LinearLayout
-                        android:id="@+id/lnrlyot_dalalwssauda_todt"
+                        android:id="@+id/lnrlyot_pendngsauda_todt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5jdp"
@@ -189,7 +197,7 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/tv_dalalwssauda_slctdtodt"
+                        android:id="@+id/tv_pendngsauda_slctdtodt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5jdp"
@@ -204,20 +212,20 @@
         </LinearLayout>
 
         <com.jalotsav.sarvamsugar.common.RecyclerViewEmptySupport
-            android:id="@+id/rcyclrvw_dalalwssauda"
+            android:id="@+id/rcyclrvw_pendngsauda"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/lnrlyot_dalalwssauda_filtersvw"
-            tools:listitem="@layout/lo_recyclritem_dalalwisesales" />
+            android:layout_below="@id/lnrlyot_pendngsauda_filtersvw"
+            tools:listitem="@layout/lo_recyclritem_pendngsauda" />
 
         <include
             layout="@layout/lo_recyclremptyvw_appearhere"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/lnrlyot_dalalwssauda_filtersvw" />
+            android:layout_below="@id/lnrlyot_pendngsauda_filtersvw" />
 
         <ProgressBar
-            android:id="@+id/prgrsbr_dalalwssauda_main"
+            android:id="@+id/prgrsbr_pendngsauda_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -226,24 +234,24 @@
 
     <!--Filters FAB-->
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_dalalwssauda_filters"
+        android:id="@+id/fab_pendngsauda_filters"
         style="@style/AppCompatButton.Red"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
+        android:layout_gravity="right|end|bottom"
         android:layout_margin="@dimen/_16jdp"
         android:clickable="true"
         android:visibility="visible" />
 
     <!--Filter Apply FAB-->
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_dalalwssauda_apply"
+        android:id="@+id/fab_pendngsauda_apply"
         style="@style/AppCompatButton.GreenSpeech"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:visibility="gone"
-        app:layout_anchor="@id/lnrlyot_dalalwssauda_filtersvw"
-        app:layout_anchorGravity="end|bottom"
+        app:layout_anchor="@id/lnrlyot_pendngsauda_filtersvw"
+        app:layout_anchorGravity="right|end|bottom"
         app:useCompatPadding="true" />
 </android.support.design.widget.CoordinatorLayout>

@@ -88,15 +88,6 @@
             </RelativeLayout>
             <!--END Title & Cancel button-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_16jdp"
-                android:text="Select filter by"
-                android:textColor="@color/gray72"
-                android:textSize="18sp"
-                android:visibility="gone" />
-
             <Spinner
                 android:id="@+id/spnr_allmasterdtls_filterby"
                 android:layout_width="wrap_content"

@@ -44,6 +44,7 @@ public interface AppConstants {
     String API_METHOD_GETDSALESSUMM = "getDSalesSumm";
     String API_METHOD_GETDSAUDASUMM = "getDSaudaSumm";
     String API_METHOD_GETOUTSTAND = "getOutstand";
+    String API_METHOD_GETPSAUDA = "getPSauda";
 
     // Login static Credentials
     String LOGIN_USERNAME = "jsp";
