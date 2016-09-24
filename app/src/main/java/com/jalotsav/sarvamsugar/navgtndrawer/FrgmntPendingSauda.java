@@ -240,7 +240,7 @@ public class FrgmntPendingSauda extends Fragment implements AppConstants, View.O
 
                     try {
 
-                        if (result.equals("0"))
+                        if (result.equals(RESULT_ZERO))
                             showMySnackBar(message);
                         else {
 

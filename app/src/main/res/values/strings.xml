@@ -72,7 +72,7 @@
     <string name="save_sml">Save</string>
     <string name="outstanding_coln">Outstanding:</string>
     <string name="amount_coln">Amount:</string>
-    <string name="recvd_amnt_coln">Received Amnt:</string>
+    <string name="rec_amt_coln">Rec. Amt:</string>
     <string name="days_coln">Days</string>
     <string name="invno_coln">InvNo.:</string>
     <string name="date_sml">Date:</string>
@@ -85,7 +85,7 @@
     <string name="qtyinbori_coln">Qty in Bori:</string>
     <string name="qty_coln">Qty:</string>
     <string name="rate_coln">Rate:</string>
-    <string name="marketrate_coln">Market Rate:</string>
+    <string name="mrate_coln">M. Rate:</string>
     <string name="pendngsauda_appear_here">Pending Sauda report appear here</string>
     <string-array name="arry_filterby_pendngsauda">
         <item>Select filter by</item>

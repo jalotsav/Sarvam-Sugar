@@ -45,6 +45,7 @@ public interface AppConstants {
     String API_METHOD_GETDSAUDASUMM = "getDSaudaSumm";
     String API_METHOD_GETOUTSTAND = "getOutstand";
     String API_METHOD_GETPSAUDA = "getPSauda";
+    String API_METHOD_USERLOGIN = "userLogin";
 
     // Login static Credentials
     String LOGIN_USERNAME = "jsp";
@@ -60,13 +61,13 @@ public interface AppConstants {
     // API response
     String RESULT_ZERO = "0";
     String RESULT_ONE = "1";
+    String RESULT_TWO = "2";
 
     // Request Code
     int REQUEST_PERMSN_STORAGE = 101;
 
     // Key of Database Tables Columns
     // Master Details Table
-//    int TABLE_BALLS_ID = 11;
     String TABLE_MASTER_DETAILS = "master_details";
     // Columns
     String KEY_MASTERDTLS_MDID = "md_id";
@@ -85,8 +86,4 @@ public interface AppConstants {
     String KEY_MASTERDTLS_LASTAVG = "last_avg";
     String KEY_MASTERDTLS_ADD_DATE = "add_date";
     String KEY_MASTERDTLS_MODIFY_DATE = "modify_date";
-
-    // Key for DatePicker
-    int FROM_DATE_DTPICKER = 71;
-    int TO_DATE_DTPICKER = 72;
 }

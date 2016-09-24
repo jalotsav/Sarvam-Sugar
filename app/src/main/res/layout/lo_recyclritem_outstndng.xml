@@ -305,7 +305,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/recvd_amnt_coln"
+                            android:text="@string/rec_amt_coln"
                             android:textColor="@color/gray72"
                             android:textSize="@dimen/_12jdp" />
 

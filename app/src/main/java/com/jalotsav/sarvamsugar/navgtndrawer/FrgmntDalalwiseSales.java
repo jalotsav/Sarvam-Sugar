@@ -206,7 +206,7 @@ public class FrgmntDalalwiseSales extends Fragment implements AppConstants, View
 
                     try {
 
-                        if (result.equals("0"))
+                        if (result.equals(RESULT_ZERO))
                             showMySnackBar(message);
                         else {
 

@@ -204,7 +204,7 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
                         JSONObject jsnObj = new JSONObject(websrvcRespns);
                         String result = jsnObj.getString("result");
                         String message = jsnObj.getString("message");
-                        if (result.equals("0"))
+                        if (result.equals(RESULT_ZERO))
                             showMySnackBar(message);
                         else {
 

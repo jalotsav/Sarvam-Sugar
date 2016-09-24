@@ -22,6 +22,7 @@ import com.jalotsav.sarvamsugar.model.MdlDalalWiseSauda;
 import com.jalotsav.sarvamsugar.model.MdlGodownStock;
 import com.jalotsav.sarvamsugar.model.MdlOutstanding;
 import com.jalotsav.sarvamsugar.model.MdlPendngSauda;
+import com.jalotsav.sarvamsugar.model.MdlUserLogin;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -32,6 +33,11 @@ import retrofit2.http.Query;
  * Created by JALOTSAV Dev. on 27/7/16.
  */
 public interface RetroAPI {
+
+    @GET("index.aspx")
+    Call<MdlUserLogin> userLogin(@Query("method") String method,
+                                 @Query("username") String username,
+                                 @Query("password") String password);
 
     @GET("index.aspx")
     Call<MdlOutstanding> getOutstanding(@Query("method") String method,

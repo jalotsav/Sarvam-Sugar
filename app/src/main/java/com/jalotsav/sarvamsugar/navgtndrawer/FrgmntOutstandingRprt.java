@@ -259,7 +259,7 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
 
                     try {
 
-                        if (result.equals("0"))
+                        if (result.equals(RESULT_ZERO))
                             showMySnackBar(message);
                         else {
 

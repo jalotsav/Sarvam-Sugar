@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2016 Jalotsav
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,6 +18,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cordntrlyot_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -83,7 +83,7 @@
                         android:layout_marginTop="@dimen/_20jdp"
                         android:contentDescription="@string/imgcd_image"
                         android:src="@drawable/img_logo_withname"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                     <!--Username or Email-->
                     <android.support.design.widget.TextInputLayout
@@ -125,15 +125,22 @@
                     <!--Remember me & Forgot Password-->
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/swtchcmpt_login_rembrme"
+                        style="@style/AppCompatSwitch.Red"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/AppCompatSwitch.Red"
                         android:layout_marginTop="@dimen/_10jdp"
                         android:text="@string/rembr_me_sml"
                         android:textColor="@color/grayA8"
-                        android:textSize="@dimen/_14jdp"/>
+                        android:textSize="@dimen/_14jdp" />
                     <!--END Remember me & Forgot Password-->
                 </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/prgrsbr_login_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"/>
             </android.support.v7.widget.CardView>
         </RelativeLayout>
     </android.support.design.widget.AppBarLayout>
@@ -141,11 +148,11 @@
     <!--SignIn FAB Button-->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_login_signin"
+        style="@style/AppCompatButton.Blue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/AppCompatButton.Blue"
-        android:layout_marginRight="@dimen/_32jdp"
         android:layout_marginEnd="@dimen/_32jdp"
+        android:layout_marginRight="@dimen/_32jdp"
         android:clickable="true"
         app:layout_anchor="@id/cardvw_login_main"
         app:layout_anchorGravity="right|end|bottom" />

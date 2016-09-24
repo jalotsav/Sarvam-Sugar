@@ -21,7 +21,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.view.LayoutInflaterCompat;
@@ -31,22 +33,30 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.CheckBox;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
 import com.jalotsav.sarvamsugar.common.AppConstants;
 import com.jalotsav.sarvamsugar.common.UserSessionManager;
+import com.jalotsav.sarvamsugar.model.MdlUserLogin;
 import com.jalotsav.sarvamsugar.navgtndrawer.NavgtnDrwrMain;
+import com.jalotsav.sarvamsugar.retrofitapihelper.RetroAPI;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.context.IconicsLayoutInflater;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by JALOTSAV Dev. on 16/7/16.
  */
 public class Login extends AppCompatActivity implements AppConstants, View.OnClickListener {
 
+    CoordinatorLayout mCordntrlyotMain;
+    ProgressBar mPrgrsbrMain;
     TextInputLayout mTxtInptLyotUsernmEmail, mTxtInptLyotPswrd;
     TextInputEditText mTxtInptEtUsernmEmail, mTxtInptEtPswrd;
     FloatingActionButton mFabSignin;
@@ -58,6 +68,8 @@ public class Login extends AppCompatActivity implements AppConstants, View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lo_login);
 
+        mCordntrlyotMain = (CoordinatorLayout) findViewById(R.id.cordntrlyot_login);
+        mPrgrsbrMain = (ProgressBar) findViewById(R.id.prgrsbr_login_main);
         mTxtInptLyotUsernmEmail = (TextInputLayout) findViewById(R.id.txtinputlyot_login_usernmemail);
         mTxtInptLyotPswrd = (TextInputLayout) findViewById(R.id.txtinputlyot_login_paswrd);
         mTxtInptEtUsernmEmail = (TextInputEditText) findViewById(R.id.et_login_usernmemail);
@@ -157,25 +169,74 @@ public class Login extends AppCompatActivity implements AppConstants, View.OnCli
         if (!validatePassword()) {
             return;
         }
-        if (!mTxtInptEtUsernmEmail.getText().toString().trim().equals(LOGIN_USERNAME)) {
-            mTxtInptLyotUsernmEmail.setErrorEnabled(true);
-            mTxtInptLyotUsernmEmail.setError(getString(R.string.invalid_usernm_or_email_sml));
-            requestFocus(mTxtInptEtUsernmEmail);
-            return;
-        }
-        if (!mTxtInptEtPswrd.getText().toString().trim().equals(LOGIN_PASSWORD)) {
-            mTxtInptLyotPswrd.setErrorEnabled(true);
-            mTxtInptLyotPswrd.setError(getString(R.string.invalid_pswrd_sml));
-            requestFocus(mTxtInptEtPswrd);
-            return;
-        }
 
-        UserSessionManager session = new UserSessionManager(this);
-        if(mSwtchCmptRembrme.isChecked()) {
-            session.setUserName(mTxtInptEtUsernmEmail.getText().toString().trim());
-            finish();
-        }
+        mPrgrsbrMain.setVisibility(View.VISIBLE);
 
-        startActivity(new Intent(this, NavgtnDrwrMain.class));
+        Retrofit objRetrofit = new Retrofit.Builder()
+                .baseUrl(API_ROOT_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetroAPI apiUserLogin = objRetrofit.create(RetroAPI.class);
+        Call<MdlUserLogin> callUserLogin = apiUserLogin.userLogin(API_METHOD_USERLOGIN,
+                mTxtInptEtUsernmEmail.getText().toString().trim(),
+                mTxtInptEtPswrd.getText().toString().trim());
+        callUserLogin.enqueue(new Callback<MdlUserLogin>() {
+            @Override
+            public void onResponse(Call<MdlUserLogin> call, Response<MdlUserLogin> response) {
+
+                mPrgrsbrMain.setVisibility(View.GONE);
+                if (response.isSuccessful()) {
+
+                    MdlUserLogin objMdlUserLogin = response.body();
+                    String result = objMdlUserLogin.getResult();
+//                    String message = objMdlUserLogin.getMessage();
+
+                    switch (result) {
+                        case RESULT_ZERO:
+
+                            mTxtInptLyotUsernmEmail.setErrorEnabled(true);
+                            mTxtInptLyotUsernmEmail.setError(getString(R.string.invalid_usernm_or_email_sml));
+                            requestFocus(mTxtInptEtUsernmEmail);
+                            break;
+                        case RESULT_TWO:
+
+                            mTxtInptLyotPswrd.setErrorEnabled(true);
+                            mTxtInptLyotPswrd.setError(getString(R.string.invalid_pswrd_sml));
+                            requestFocus(mTxtInptEtPswrd);
+                            break;
+                        case RESULT_ONE:
+
+                            UserSessionManager session = new UserSessionManager(Login.this);
+                            if (mSwtchCmptRembrme.isChecked()) {
+                                session.setUserName(mTxtInptEtUsernmEmail.getText().toString().trim());
+                                finish();
+                            }
+
+                            startActivity(new Intent(Login.this, NavgtnDrwrMain.class));
+                            break;
+                        default:
+
+                            showMySnackBar(getString(R.string.there_are_some_server_prblm));
+                            break;
+                    }
+                } else
+                    showMySnackBar(getString(R.string.there_are_some_server_prblm));
+            }
+
+            @Override
+            public void onFailure(Call<MdlUserLogin> call, Throwable t) {
+
+                t.printStackTrace();
+                mPrgrsbrMain.setVisibility(View.GONE);
+                showMySnackBar(getString(R.string.there_are_some_prblm));
+            }
+        });
+    }
+
+    // Show SnackBar with given message
+    private void showMySnackBar(String message) {
+
+        Snackbar.make(mCordntrlyotMain, message, Snackbar.LENGTH_LONG).show();
     }
 }
