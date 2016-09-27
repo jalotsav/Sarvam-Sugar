@@ -24,10 +24,12 @@
     <string name="forgt_paswrd_questnmrk">Forgot your password \?</string>
 
     <!--Navigation Drawer Menu-->
-    <string name="outstanding_sml">Outstanding</string>
-    <string name="pendngsauda_sml">Pending Sauda</string>
+    <string name="master_sml">Master</string>
     <string name="all_master_dtls_sml">All Master Details</string>
+    <string name="outstanding_sml">Outstanding</string>
+    <string name="stock_sml">Stock</string>
     <string name="godownwise_stock_sml">Godown Wise Stock</string>
+    <string name="pendngsauda_sml">Pending Sauda</string>
     <string name="dalal_sml">Dalal</string>
     <string name="dalalwisesales_sml">Dalal Wise Sales</string>
     <string name="dalalwisesauda_sml">Dalal Wise Sauda</string>
@@ -70,8 +72,8 @@
     <string name="slct_from_date">Select from date</string>
     <string name="slct_to_date">Select to date</string>
     <string name="save_sml">Save</string>
-    <string name="outstanding_coln">Outstanding:</string>
-    <string name="amount_coln">Amount:</string>
+    <string name="outstanding_amt_coln">Outstanding Amt:</string>
+    <string name="total_amt_coln">Total Amt:</string>
     <string name="rec_amt_coln">Rec. Amt:</string>
     <string name="days_coln">Days</string>
     <string name="invno_coln">InvNo.:</string>

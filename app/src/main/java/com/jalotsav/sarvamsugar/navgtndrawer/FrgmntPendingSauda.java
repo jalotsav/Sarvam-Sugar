@@ -211,8 +211,8 @@ public class FrgmntPendingSauda extends Fragment implements AppConstants, View.O
         mFabFilters.setVisibility(View.GONE);
 
         OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
-        clientBuilder.connectTimeout(2, TimeUnit.MINUTES);
-        clientBuilder.readTimeout(2, TimeUnit.MINUTES);
+        clientBuilder.connectTimeout(3, TimeUnit.MINUTES);
+        clientBuilder.readTimeout(3, TimeUnit.MINUTES);
         Retrofit objRetrofit = new Retrofit.Builder()
                 .baseUrl(API_ROOT_URL)
                 .client(clientBuilder.build())

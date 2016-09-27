@@ -66,10 +66,10 @@ public class NavgtnDrwrMain extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         // Select First option on Launch
-        navigationView.getMenu().getItem(0).setChecked(true);
-        onNavigationItemSelected(navigationView.getMenu().getItem(0));
+//        navigationView.getMenu().getItem(0).setChecked(true);
+//        onNavigationItemSelected(navigationView.getMenu().getItem(0));
 
-        setTitle(getResources().getString(R.string.outstanding_sml));
+//        setTitle(getResources().getString(R.string.outstanding_sml));
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

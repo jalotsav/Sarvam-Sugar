@@ -56,7 +56,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -178,8 +180,12 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
         });
         mFabFilters.setVisibility(View.GONE);
 
+        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
+        clientBuilder.connectTimeout(3, TimeUnit.MINUTES);
+        clientBuilder.readTimeout(3, TimeUnit.MINUTES);
         Retrofit objRetrofit = new Retrofit.Builder()
                 .baseUrl(API_ROOT_URL)
+                .client(clientBuilder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -191,6 +197,7 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
 
                 mSwiperfrshlyot.setRefreshing(false);
                 mSwiperfrshlyotEmptyvw.setRefreshing(false);
+                if (!mFabFilters.isShown()) mFabFilters.setVisibility(View.VISIBLE);
 
                 if (response.isSuccessful()) {
 
@@ -207,8 +214,6 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
                         if (result.equals(RESULT_ZERO))
                             showMySnackBar(message);
                         else {
-
-                            if (!mFabFilters.isShown()) mFabFilters.setVisibility(View.VISIBLE);
 
                             JSONArray jsnArrayData = jsnObj.getJSONArray("data");
                             for (int i = 0; i < jsnArrayData.length(); i++) {

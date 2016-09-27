@@ -132,68 +132,11 @@
                     </LinearLayout>
                     <!--END Dalal-->
 
-                    <!--Sauda No-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5jdp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/saudano_coln"
-                            android:textColor="@color/gray72"
-                            android:textSize="@dimen/_12jdp" />
-
-                        <TextView
-                            android:id="@+id/tv_recylrvw_pendngsauda_saudano"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_5jdp"
-                            android:layout_marginStart="@dimen/_5jdp"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_12jdp"
-                            tools:text="S/270716/089" />
-                    </LinearLayout>
-                    <!--END Contact Person-->
-                </LinearLayout>
-
-            </RelativeLayout>
-            <!--END Collapse content-->
-
-            <!--Expand Content-->
-            <LinearLayout
-                android:id="@+id/lnrlyot_pendngsauda_expandvw"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_35jdp"
-                android:layout_marginLeft="@dimen/_8jdp"
-                android:layout_marginRight="@dimen/_35jdp"
-                android:layout_marginStart="@dimen/_8jdp"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_1jdp"
-                    android:layout_marginBottom="@dimen/_5jdp"
-                    android:layout_marginTop="@dimen/_5jdp"
-                    android:background="@color/grayA8" />
-
-                <!--Item & MarketRate-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
                     <!--Item-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_marginTop="@dimen/_5jdp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -207,11 +150,8 @@
                             android:id="@+id/tv_recylrvw_pendngsauda_item"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/_3jdp"
                             android:layout_marginLeft="@dimen/_5jdp"
-                            android:layout_marginRight="@dimen/_3jdp"
                             android:layout_marginStart="@dimen/_5jdp"
-                            android:gravity="end"
                             android:textAllCaps="true"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12jdp"
@@ -219,114 +159,103 @@
                     </LinearLayout>
                     <!--END Item-->
 
-                    <!--MarketRate-->
+                    <!--Qty & QtyInBori-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_2jdp"
-                        android:layout_marginStart="@dimen/_2jdp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:layout_marginTop="@dimen/_5jdp"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/mrate_coln"
-                            android:textColor="@color/gray72"
-                            android:textSize="@dimen/_12jdp" />
-
-                        <TextView
-                            android:id="@+id/tv_recylrvw_pendngsauda_mrktrate"
+                        <!--Qty-->
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_5jdp"
-                            android:layout_marginStart="@dimen/_5jdp"
-                            android:gravity="end"
-                            android:textAllCaps="true"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_12jdp"
-                            tools:text="4100" />
-                    </LinearLayout>
-                    <!--END MarketRate-->
-                </LinearLayout>
-                <!--END Item & MarketRate-->
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
 
-                <!--QtyInBori & Qty-->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/qty_coln"
+                                android:textColor="@color/gray72"
+                                android:textSize="@dimen/_12jdp" />
+
+                            <TextView
+                                android:id="@+id/tv_recylrvw_pendngsauda_qty"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_5jdp"
+                                android:layout_marginStart="@dimen/_5jdp"
+                                android:gravity="end"
+                                android:textAllCaps="true"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12jdp"
+                                tools:text="1" />
+                        </LinearLayout>
+                        <!--END Qty-->
+
+                        <!--QtyInBori-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_2jdp"
+                            android:layout_marginStart="@dimen/_2jdp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/qtyinbori_coln"
+                                android:textColor="@color/gray72"
+                                android:textSize="@dimen/_12jdp" />
+
+                            <TextView
+                                android:id="@+id/tv_recylrvw_pendngsauda_qtyinbori"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_3jdp"
+                                android:layout_marginLeft="@dimen/_5jdp"
+                                android:layout_marginRight="@dimen/_3jdp"
+                                android:layout_marginStart="@dimen/_5jdp"
+                                android:gravity="end"
+                                android:textAllCaps="true"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12jdp"
+                                tools:text="0.25" />
+                        </LinearLayout>
+                        <!--END QtyInBori-->
+                    </LinearLayout>
+                    <!--END Qty & QtyInBori-->
+                </LinearLayout>
+            </RelativeLayout>
+            <!--END Collapse content-->
+
+            <!--Expand Content-->
+            <LinearLayout
+                android:id="@+id/lnrlyot_pendngsauda_expandvw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_35jdp"
+                android:layout_marginLeft="@dimen/_8jdp"
+                android:layout_marginRight="@dimen/_35jdp"
+                android:layout_marginStart="@dimen/_8jdp"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1jdp"
+                    android:layout_marginBottom="@dimen/_5jdp"
+                    android:layout_marginTop="@dimen/_5jdp"
+                    android:background="@color/grayA8" />
+
+                <!--Rate & MarketRate-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5jdp"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <!--QtyInBori-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/qtyinbori_coln"
-                            android:textColor="@color/gray72"
-                            android:textSize="@dimen/_12jdp" />
-
-                        <TextView
-                            android:id="@+id/tv_recylrvw_pendngsauda_qtyinbori"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/_3jdp"
-                            android:layout_marginLeft="@dimen/_5jdp"
-                            android:layout_marginRight="@dimen/_3jdp"
-                            android:layout_marginStart="@dimen/_5jdp"
-                            android:gravity="end"
-                            android:textAllCaps="true"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_12jdp"
-                            tools:text="0.25" />
-                    </LinearLayout>
-                    <!--END QtyInBori-->
-
-                    <!--Qty-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_2jdp"
-                        android:layout_marginStart="@dimen/_2jdp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/qty_coln"
-                            android:textColor="@color/gray72"
-                            android:textSize="@dimen/_12jdp" />
-
-                        <TextView
-                            android:id="@+id/tv_recylrvw_pendngsauda_qty"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_5jdp"
-                            android:layout_marginStart="@dimen/_5jdp"
-                            android:gravity="end"
-                            android:textAllCaps="true"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_12jdp"
-                            tools:text="1" />
-                    </LinearLayout>
-                    <!--END Qty-->
-                </LinearLayout>
-                <!--END QtyInBori & Qty-->
-
-                <!--Rate & Amount-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5jdp"
                     android:baselineAligned="false"
                     android:orientation="horizontal"
                     android:weightSum="2">
@@ -361,7 +290,7 @@
                     </LinearLayout>
                     <!--END Rate-->
 
-                    <!--Amount-->
+                    <!--MarketRate-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -373,12 +302,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/amount_coln"
+                            android:text="@string/mrate_coln"
                             android:textColor="@color/gray72"
                             android:textSize="@dimen/_12jdp" />
 
                         <TextView
-                            android:id="@+id/tv_recylrvw_pendngsauda_amount"
+                            android:id="@+id/tv_recylrvw_pendngsauda_mrktrate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_5jdp"
@@ -387,11 +316,65 @@
                             android:textAllCaps="true"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12jdp"
-                            tools:text="4175" />
+                            tools:text="4100" />
                     </LinearLayout>
-                    <!--END Amount-->
+                    <!--END MarketRate-->
                 </LinearLayout>
-                <!--END Last Bill Days & Last Item-->
+                <!--END Rate & MarketRate-->
+
+                <!--Sauda No-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5jdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/saudano_coln"
+                        android:textColor="@color/gray72"
+                        android:textSize="@dimen/_12jdp" />
+
+                    <TextView
+                        android:id="@+id/tv_recylrvw_pendngsauda_saudano"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5jdp"
+                        android:layout_marginStart="@dimen/_5jdp"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12jdp"
+                        tools:text="S/270716/089" />
+                </LinearLayout>
+                <!--END Sauda No-->
+
+                <!--Amount-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5jdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/total_amt_coln"
+                        android:textColor="@color/gray72"
+                        android:textSize="@dimen/_12jdp" />
+
+                    <TextView
+                        android:id="@+id/tv_recylrvw_pendngsauda_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5jdp"
+                        android:layout_marginStart="@dimen/_5jdp"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12jdp"
+                        tools:text="4175" />
+                </LinearLayout>
+                <!--END SAmount-->
             </LinearLayout>
             <!--END Expand content-->
         </LinearLayout>
