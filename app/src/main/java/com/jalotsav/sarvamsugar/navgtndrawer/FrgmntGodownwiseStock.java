@@ -191,6 +191,7 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
 
                 mSwiperfrshlyot.setRefreshing(false);
                 mSwiperfrshlyotEmptyvw.setRefreshing(false);
+                if (!mFabFilters.isShown()) mFabFilters.setVisibility(View.VISIBLE);
 
                 if (response.isSuccessful()) {
 
@@ -207,8 +208,6 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
                         if (result.equals(RESULT_ZERO))
                             showMySnackBar(message);
                         else {
-
-                            if (!mFabFilters.isShown()) mFabFilters.setVisibility(View.VISIBLE);
 
                             JSONArray jsnArrayData = jsnObj.getJSONArray("data");
                             for (int i = 0; i < jsnArrayData.length(); i++) {
