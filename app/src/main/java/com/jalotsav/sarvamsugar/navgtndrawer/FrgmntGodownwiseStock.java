@@ -56,7 +56,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -178,8 +180,12 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants,
         });
         mFabFilters.setVisibility(View.GONE);
 
+        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
+        clientBuilder.connectTimeout(3, TimeUnit.MINUTES);
+        clientBuilder.readTimeout(3, TimeUnit.MINUTES);
         Retrofit objRetrofit = new Retrofit.Builder()
                 .baseUrl(API_ROOT_URL)
+                .client(clientBuilder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
