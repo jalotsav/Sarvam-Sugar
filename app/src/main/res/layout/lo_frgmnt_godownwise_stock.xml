@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2016 Jalotsav
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,65 +29,33 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipwrfrshlyot_godownwise_stock"
+        <com.jalotsav.sarvamsugar.common.RecyclerViewEmptySupport
+            android:id="@+id/rcyclrvw_godownwise_stock"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:listitem="@layout/lo_recyclritem_godownwise_stock" />
 
-            <com.jalotsav.sarvamsugar.common.RecyclerViewEmptySupport
-                android:id="@+id/rcyclrvw_godownwise_stock"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:listitem="@layout/lo_recyclritem_godownwise_stock" />
-        </android.support.v4.widget.SwipeRefreshLayout>
-
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipwrfrshlyot_godownwise_stock_emptyvw"
+        <include
+            layout="@layout/lo_recyclremptyvw_appearhere"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent" />
 
-            <LinearLayout
-                android:id="@+id/lnrlyot_matches_tabfrgmnt_appearhere"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/_16jdp"
-                android:layout_marginLeft="@dimen/_16jdp"
-                android:layout_marginRight="@dimen/_16jdp"
-                android:layout_marginStart="@dimen/_16jdp"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="@dimen/_80jdp"
-                    android:layout_height="@dimen/_80jdp"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/imgcd_image"
-                    app:ico_color="@color/grayA8"
-                    app:ico_icon="cmd-format-list-bulleted-type"
-                    app:ico_size="@dimen/_80jdp" />
-
-                <TextView
-                    android:id="@+id/tv_matches_tabfrgmnt_appearhere"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5jdp"
-                    android:gravity="center"
-                    android:text="@string/godownwisestck_appear_here"
-                    android:textColor="@color/gray800"
-                    android:textSize="@dimen/_18jdp" />
-            </LinearLayout>
-        </android.support.v4.widget.SwipeRefreshLayout>
-
-        <!--Filters FAB-->
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_godownwise_stock_filters"
-            style="@style/AppCompatButton.Red"
+        <ProgressBar
+            android:id="@+id/prgrsbr_godownwise_stock_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:clickable="true"
-            app:useCompatPadding="true" />
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
     </RelativeLayout>
+
+    <!--Filters FAB-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_godownwise_stock_filters"
+        style="@style/AppCompatButton.Red"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|end|bottom"
+        android:layout_margin="@dimen/_16jdp"
+        android:clickable="true"
+        app:useCompatPadding="true" />
 </android.support.design.widget.CoordinatorLayout>
