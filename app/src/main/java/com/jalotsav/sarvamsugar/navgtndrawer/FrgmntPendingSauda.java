@@ -16,13 +16,17 @@
 
 package com.jalotsav.sarvamsugar.navgtndrawer;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
@@ -44,10 +48,13 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.jalotsav.sarvamsugar.R;
 import com.jalotsav.sarvamsugar.adapters.RcyclrPendngSaudaAdapter;
 import com.jalotsav.sarvamsugar.common.AppConstants;
 import com.jalotsav.sarvamsugar.common.GeneralFuncations;
+import com.jalotsav.sarvamsugar.common.LogManager;
 import com.jalotsav.sarvamsugar.common.RecyclerViewEmptySupport;
 import com.jalotsav.sarvamsugar.model.MdlPendngSauda;
 import com.jalotsav.sarvamsugar.model.MdlPendngSaudaData;
@@ -55,11 +62,18 @@ import com.jalotsav.sarvamsugar.retrofitapihelper.RetroAPI;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -85,10 +99,14 @@ public class FrgmntPendingSauda extends Fragment implements AppConstants, View.O
     AppCompatAutoCompleteTextView mAppcmptAutocmplttvSlctdFltrVal;
     LinearLayout mLnrlyotFromDt, mLnrlyotToDt;
 
+    MdlPendngSauda mObjMdlPndngSauda;
+    ArrayList<MdlPendngSaudaData> mArrylstPndngSaudaData;
     ArrayList<String> mArrylstParty, mArrylstDalal, mArrylstItem, mArrylstArea;
     Calendar mCalndr;
     int mCrntYear, mCrntMonth, mCrntDay, mFromYear, mFromMonth, mFromDay, mToYear, mToMonth, mToDay;
-    String mReqstFromDt, mReqstToDt, mReqstParty, mReqstDalal, mReqstItem, mReqstArea;
+    String mReqstFromDt, mReqstToDt, mReqstParty, mReqstDalal, mReqstItem, mReqstArea,
+            mQueryParty = "", mQueryDalal = "", mQueryItem = "", mQueryArea = "";
+    boolean isAPICall = false;
 
     @Nullable
     @Override
@@ -167,6 +185,10 @@ public class FrgmntPendingSauda extends Fragment implements AppConstants, View.O
         // Set filter selected date to TextView
         setFilterSlctdDateTv();
 
+        // Check Storage permission before call AsyncTask for data
+        isAPICall = false;
+        checkStoragePermission();
+
         mSpnrFltrBy.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
@@ -189,12 +211,6 @@ public class FrgmntPendingSauda extends Fragment implements AppConstants, View.O
             }
         });
 
-        if (!GeneralFuncations.isNetConnected(getActivity())) {
-
-            // Show SnackBar with given message
-            showMySnackBar(getResources().getString(R.string.no_intrnt_cnctn));
-        } else getOutstandingList();
-
         return rootView;
     }
 
@@ -205,7 +221,45 @@ public class FrgmntPendingSauda extends Fragment implements AppConstants, View.O
         mTvSlctdToDt.setText(mReqstToDt);
     }
 
-    private void getOutstandingList() {
+    private void checkStoragePermission() {
+
+        try {
+
+            if (ActivityCompat.checkSelfPermission(getActivity(),
+                    Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+
+                LogManager.printLog(LOGTYPE_INFO, "Permission Granted");
+                if (isAPICall)
+                    getPendingSaudaAPI(false); // Call API through Retrofit and store response JSON into device storage file
+                else
+                    new getPendingSaudaFromFileAsync().execute(); // AsyncTask through get JSON data of API from device storage file
+            } else {
+
+                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE))
+                    GeneralFuncations.showtoastLngthlong(getActivity(), getString(R.string.you_must_allow_permsn));
+
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMSN_STORAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == REQUEST_PERMSN_STORAGE) {
+
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                checkStoragePermission();
+            else
+                showMySnackBar(getString(R.string.permsn_denied));
+        }
+    }
+
+    // Call API through Retrofit and store response JSON into device storage file
+    private void getPendingSaudaAPI(final boolean isWithFilter) {
 
         mPrgrsbrMain.setVisibility(View.VISIBLE);
         mFabFilters.setVisibility(View.GONE);
@@ -220,59 +274,156 @@ public class FrgmntPendingSauda extends Fragment implements AppConstants, View.O
                 .build();
 
         RetroAPI apiDalalwsSls = objRetrofit.create(RetroAPI.class);
-        Call<MdlPendngSauda> callGodownStck = apiDalalwsSls.getPendingSauda(
+        Call<ResponseBody> callGodownStck = apiDalalwsSls.getPendingSauda(
                 API_METHOD_GETPSAUDA, mReqstFromDt, mReqstToDt, mReqstParty, mReqstDalal, mReqstItem, mReqstArea
         );
-        callGodownStck.enqueue(new Callback<MdlPendngSauda>() {
+        callGodownStck.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<MdlPendngSauda> call, Response<MdlPendngSauda> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                mPrgrsbrMain.setVisibility(View.GONE);
-                if (!mFabFilters.isShown()) mFabFilters.setVisibility(View.VISIBLE);
+                if (mPrgrsbrMain.isShown()) mPrgrsbrMain.setVisibility(View.GONE);
 
                 if (response.isSuccessful()) {
 
-                    MdlPendngSauda objMdlOutstanding = response.body();
-                    String result = objMdlOutstanding.getResult();
-                    String message = objMdlOutstanding.getMessage();
-
-                    ArrayList<MdlPendngSaudaData> arrylstOutstndngData = objMdlOutstanding.getData();
-
+                    String[] strArray = new String[1];
                     try {
 
-                        if (result.equals(RESULT_ZERO))
-                            showMySnackBar(message);
-                        else {
+                        LogManager.printLog(LOGTYPE_INFO, "Reponse is successful: " + response.isSuccessful());
 
-                            for(MdlPendngSaudaData objMdlGodownStockData : arrylstOutstndngData) {
+                        strArray[0] = response.body().string();
 
-                                if(!mArrylstParty.contains(objMdlGodownStockData.getPname()))
-                                    mArrylstParty.add(objMdlGodownStockData.getPname());
-                                if(!mArrylstDalal.contains(objMdlGodownStockData.getDalal()))
-                                    mArrylstDalal.add(objMdlGodownStockData.getDalal());
-                                if(!mArrylstItem.contains(objMdlGodownStockData.getItem()))
-                                    mArrylstItem.add(objMdlGodownStockData.getItem());
-                                if(!mArrylstArea.contains(objMdlGodownStockData.getArea()))
-                                    mArrylstArea.add(objMdlGodownStockData.getArea());
-                            }
-                            setAutoCompltTvAdapter(0);
+                        // Create and save API response in device storage in .json file
+                        storeJSONDataToStorage(strArray[0]);
 
-                            mAdapter.setFilter(arrylstOutstndngData);
-                        }
-                    } catch (Exception e) {e.printStackTrace();}
-                } else
-                    showMySnackBar(getString(R.string.there_are_some_server_prblm));
+                        // AsynTask through get JSON data of API from device storage file
+                        new getPendingSaudaFromFileAsync().execute();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else showMySnackBar(getString(R.string.there_are_some_server_prblm));
             }
 
             @Override
-            public void onFailure(Call<MdlPendngSauda> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
 
                 t.printStackTrace();
-                mPrgrsbrMain.setVisibility(View.GONE);
-                if (!mFabFilters.isShown()) mFabFilters.setVisibility(View.VISIBLE);
+                if (mPrgrsbrMain.isShown()) mPrgrsbrMain.setVisibility(View.GONE);
                 showMySnackBar(getString(R.string.there_are_some_prblm));
             }
         });
+    }
+
+    // Create and save API response in device storage in .json file
+    private void storeJSONDataToStorage(String strResponse) {
+
+        try {
+
+            File filesDirectory = PATH_SARVAMSUGAR_FILES;
+            if (!filesDirectory.exists()) filesDirectory.mkdirs();
+
+            File fileJson = new File(filesDirectory, PENDING_SAUDA_JSON);
+            if (fileJson.exists()) fileJson.delete();
+            fileJson.createNewFile();
+
+            FileOutputStream fOut = new FileOutputStream(fileJson);
+            OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+            myOutWriter.append(strResponse);
+            myOutWriter.close();
+            fOut.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // AsynTask through get JSON data of API from device storage file
+    public class getPendingSaudaFromFileAsync extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mPrgrsbrMain.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            mObjMdlPndngSauda = getJSONDataFromStorage();
+            if (mObjMdlPndngSauda != null) {
+
+                if (TextUtils.isEmpty(mObjMdlPndngSauda.getResult())
+                        || mObjMdlPndngSauda.getData() == null) {
+
+                    showMySnackBar(getString(R.string.sync_data_msg));
+                } else if (mObjMdlPndngSauda.getResult().equalsIgnoreCase(RESULT_ONE)) {
+
+                    mArrylstPndngSaudaData = mObjMdlPndngSauda.getData();
+                    if (!mArrylstPndngSaudaData.isEmpty()) {
+
+                        for (MdlPendngSaudaData objMdlPndngSaudaData : mArrylstPndngSaudaData) {
+
+                            if(!mArrylstParty.contains(objMdlPndngSaudaData.getPname()))
+                                mArrylstParty.add(objMdlPndngSaudaData.getPname());
+                            if(!mArrylstDalal.contains(objMdlPndngSaudaData.getDalal()))
+                                mArrylstDalal.add(objMdlPndngSaudaData.getDalal());
+                            if(!mArrylstItem.contains(objMdlPndngSaudaData.getItem()))
+                                mArrylstItem.add(objMdlPndngSaudaData.getItem());
+                            if(!mArrylstArea.contains(objMdlPndngSaudaData.getArea()))
+                                mArrylstArea.add(objMdlPndngSaudaData.getArea());
+                        }
+                        if(isAdded())
+                            setAutoCompltTvAdapter(0);
+                    }
+                } else showMySnackBar(getString(R.string.there_are_some_prblm));
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if(isAdded()) {
+                mPrgrsbrMain.setVisibility(View.GONE);
+                if (!mArrylstPndngSaudaData.isEmpty()) {
+                    showMySnackBar(getResources().getString(R.string.value_records_sml, mArrylstPndngSaudaData.size()));
+                    mFabFilters.setVisibility(View.VISIBLE);
+                }
+                mAdapter.setFilter(mArrylstPndngSaudaData);
+            }
+        }
+    }
+
+    // Create and save API response in device storage in .json file
+    private MdlPendngSauda getJSONDataFromStorage() {
+
+        try {
+
+            mObjMdlPndngSauda = new MdlPendngSauda();
+
+            File filesDirectory = PATH_SARVAMSUGAR_FILES;
+            if (!filesDirectory.exists()) filesDirectory.mkdirs();
+
+            File fileJson = new File(filesDirectory, PENDING_SAUDA_JSON);
+            if (fileJson.exists()) {
+
+                FileInputStream fIn = new FileInputStream(fileJson);
+                BufferedReader myReader = new BufferedReader(
+                        new InputStreamReader(fIn));
+                String aDataRow = "";
+                String aBuffer = "";
+                while ((aDataRow = myReader.readLine()) != null) {
+                    aBuffer += aDataRow + "\n";
+                }
+                myReader.close();
+
+                Gson mGson = new GsonBuilder().create();
+                mObjMdlPndngSauda = mGson.fromJson(aBuffer, MdlPendngSauda.class);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return mObjMdlPndngSauda;
     }
 
     private void setAutoCompltTvAdapter(int spnrSlctdPosition) {
@@ -319,26 +470,24 @@ public class FrgmntPendingSauda extends Fragment implements AppConstants, View.O
 
                     switch (mSpnrFltrBy.getSelectedItemPosition()) {
                         case 1:
-                            mReqstParty = slctdFltrVal;
+                            mQueryParty = slctdFltrVal;
                             break;
                         case 2:
-                            mReqstDalal = slctdFltrVal;
+                            mQueryDalal = slctdFltrVal;
                             break;
                         case 3:
-                            mReqstArea = slctdFltrVal;
+                            mQueryArea = slctdFltrVal;
                             break;
                         case 4:
-                            mReqstItem= slctdFltrVal;
+                            mQueryItem= slctdFltrVal;
                             break;
                     }
-                } /*else
-                    showMySnackBar(getString(R.string.enter_atleast_1char_fltr));*/
+                }
 
                 if (!GeneralFuncations.isNetConnected(getActivity())) {
 
-                    // Show SnackBar with given message
-                    showMySnackBar(getResources().getString(R.string.no_intrnt_cnctn));
-                } else getOutstandingList();
+                    mAdapter.setFilter(filters(mArrylstPndngSaudaData));
+                } else getPendingSaudaAPI(true);
 
                 hideFiltersView(); // Hide Filters View
                 break;
@@ -372,7 +521,7 @@ public class FrgmntPendingSauda extends Fragment implements AppConstants, View.O
 
                     // Show SnackBar with given message
                     showMySnackBar(getResources().getString(R.string.no_intrnt_cnctn));
-                } else getOutstandingList();
+                } else getPendingSaudaAPI(false);
 
                 hideFiltersView(); // Hide Filters View
                 break;
@@ -431,6 +580,28 @@ public class FrgmntPendingSauda extends Fragment implements AppConstants, View.O
         mFabApply.setVisibility(View.GONE);
     }
 
+    private ArrayList<MdlPendngSaudaData> filters(ArrayList<MdlPendngSaudaData> arrylstMdlMasterDtlsData) {
+
+        ArrayList<MdlPendngSaudaData> fltrdPndngSaudaData = new ArrayList<>();
+        for (MdlPendngSaudaData objMdlPndngSaudaData : arrylstMdlMasterDtlsData) {
+
+            String targetParty = objMdlPndngSaudaData.getPname().toLowerCase();
+            String targetDalal = objMdlPndngSaudaData.getDalal().toLowerCase();
+            String targetArea = objMdlPndngSaudaData.getArea().toLowerCase();
+            String targetItem = objMdlPndngSaudaData.getItem().toLowerCase();
+
+            if (targetParty.contains(mQueryParty.toLowerCase())
+                    && targetDalal.contains(mQueryDalal.toLowerCase())
+                    && targetArea.contains(mQueryArea.toLowerCase())
+                    && targetItem.contains(mQueryItem.toLowerCase())) {
+
+                fltrdPndngSaudaData.add(objMdlPndngSaudaData);
+            }
+        }
+
+        return fltrdPndngSaudaData;
+    }
+
     // Show SnackBar with given message
     private void showMySnackBar(String message) {
 
@@ -452,7 +623,10 @@ public class FrgmntPendingSauda extends Fragment implements AppConstants, View.O
 
                     // Show SnackBar with given message
                     showMySnackBar(getResources().getString(R.string.no_intrnt_cnctn));
-                } else getOutstandingList();
+                } else {
+                    isAPICall = true;
+                    checkStoragePermission();
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -221,6 +221,214 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
         }
     }
 
+    // Call API through Retrofit and store response JSON into device storage file
+    private void getAllMasterDtlsAPI() {
+
+        mPrgrsbrMain.setVisibility(View.VISIBLE);
+
+        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
+        clientBuilder.connectTimeout(3, TimeUnit.MINUTES);
+        clientBuilder.readTimeout(3, TimeUnit.MINUTES);
+        Retrofit objRetrofit = new Retrofit.Builder()
+                .baseUrl(API_ROOT_URL)
+                .client(clientBuilder.build())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RetroAPI apiMasterDtls = objRetrofit.create(RetroAPI.class);
+        Call<ResponseBody> callGodownStck = apiMasterDtls.getMasterDtls(API_METHOD_GETMASTERRPT);
+        callGodownStck.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                if (mPrgrsbrMain.isShown()) mPrgrsbrMain.setVisibility(View.GONE);
+
+                if (response.isSuccessful()) {
+
+                    String[] strArray = new String[1];
+                    try {
+
+                        LogManager.printLog(LOGTYPE_INFO, "Reponse is successful: " + response.isSuccessful());
+
+                        strArray[0] = response.body().string();
+
+                        // Create and save API response in device storage in .json file
+                        storeJSONDataToStorage(strArray[0]);
+
+                        // AsynTask through get JSON data of API from device storage file
+                        new getAllMasterDtlsFromFileAsync().execute();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else showMySnackBar(getString(R.string.there_are_some_server_prblm));
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                t.printStackTrace();
+                if (mPrgrsbrMain.isShown()) mPrgrsbrMain.setVisibility(View.GONE);
+                showMySnackBar(getString(R.string.there_are_some_prblm));
+            }
+        });
+    }
+
+    // Create and save API response in device storage in .json file
+    private void storeJSONDataToStorage(String strResponse) {
+
+        try {
+
+            File filesDirectory = PATH_SARVAMSUGAR_FILES;
+            if (!filesDirectory.exists()) filesDirectory.mkdirs();
+
+            File fileJson = new File(filesDirectory, ALL_MASTER_DTLS_JSON);
+            if (fileJson.exists()) fileJson.delete();
+            fileJson.createNewFile();
+
+            FileOutputStream fOut = new FileOutputStream(fileJson);
+            OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+            myOutWriter.append(strResponse);
+            myOutWriter.close();
+            fOut.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // AsynTask through get JSON data of API from device storage file
+    public class getAllMasterDtlsFromFileAsync extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mPrgrsbrMain.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            mObjMdlMasterDtls = getJSONDataFromStorage();
+            if (mObjMdlMasterDtls != null) {
+
+                if (TextUtils.isEmpty(mObjMdlMasterDtls.getResult())
+                        || mObjMdlMasterDtls.getData() == null) {
+
+                    showMySnackBar(getString(R.string.sync_data_msg));
+                } else if (mObjMdlMasterDtls.getResult().equalsIgnoreCase(RESULT_ONE)) {
+
+                    mArrylstMasterDtlsData = mObjMdlMasterDtls.getData();
+                    if (!mArrylstMasterDtlsData.isEmpty()) {
+                        for (MdlMasterDtlsData objMdlMasterDtlsData : mArrylstMasterDtlsData) {
+                            if (!mArrylstPartyCode.contains(objMdlMasterDtlsData.getPcode()))
+                                mArrylstPartyCode.add(objMdlMasterDtlsData.getPcode());
+                            if (!mArrylstPartyName.contains(objMdlMasterDtlsData.getPname()))
+                                mArrylstPartyName.add(objMdlMasterDtlsData.getPname());
+                            if (!mArrylstDalal.contains(objMdlMasterDtlsData.getDalal()))
+                                mArrylstDalal.add(objMdlMasterDtlsData.getDalal());
+                            if (!mArrylstArea.contains(objMdlMasterDtlsData.getArea()))
+                                mArrylstArea.add(objMdlMasterDtlsData.getArea());
+                            if (!mArrylstMobile.contains(objMdlMasterDtlsData.getMobile()))
+                                mArrylstMobile.add(objMdlMasterDtlsData.getMobile());
+                            if (!mArrylstPhone.contains(objMdlMasterDtlsData.getPhone()))
+                                mArrylstPhone.add(objMdlMasterDtlsData.getPhone());
+                        }
+                        if(isAdded())
+                            setAutoCompltTvAdapter(0);
+                    }
+                } else showMySnackBar(getString(R.string.there_are_some_prblm));
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if(isAdded()) {
+                mPrgrsbrMain.setVisibility(View.GONE);
+                if (!mArrylstMasterDtlsData.isEmpty()) {
+                    showMySnackBar(getResources().getString(R.string.value_records_sml, mArrylstMasterDtlsData.size()));
+                    mFabFilters.setVisibility(View.VISIBLE);
+                }
+                mAdapter = new RcyclrAllMasterDtlsAdapter(getActivity(), mArrylstMasterDtlsData);
+                mRecyclerView.setAdapter(mAdapter);
+            }
+        }
+    }
+
+    // Create and save API response in device storage in .json file
+    private MdlMasterDtls getJSONDataFromStorage() {
+
+        try {
+
+            mObjMdlMasterDtls = new MdlMasterDtls();
+
+            File filesDirectory = PATH_SARVAMSUGAR_FILES;
+            if (!filesDirectory.exists()) filesDirectory.mkdirs();
+
+            File fileJson = new File(filesDirectory, ALL_MASTER_DTLS_JSON);
+            if (fileJson.exists()) {
+
+                FileInputStream fIn = new FileInputStream(fileJson);
+                BufferedReader myReader = new BufferedReader(
+                        new InputStreamReader(fIn));
+                String aDataRow = "";
+                String aBuffer = "";
+                while ((aDataRow = myReader.readLine()) != null) {
+                    aBuffer += aDataRow + "\n";
+                }
+                myReader.close();
+
+                Gson mGson = new GsonBuilder().create();
+                mObjMdlMasterDtls = mGson.fromJson(aBuffer, MdlMasterDtls.class);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return mObjMdlMasterDtls;
+    }
+
+    private void setAutoCompltTvAdapter(int spnrSlctdPosition) {
+
+        mAppcmptAutocmplttvSlctdFltrVal.setThreshold(1);
+
+        ArrayAdapter<String> adapterPCode = new ArrayAdapter<>
+                (getActivity(), android.R.layout.simple_list_item_1, mArrylstPartyCode);
+        ArrayAdapter<String> adapterPName = new ArrayAdapter<>
+                (getActivity(), android.R.layout.simple_list_item_1, mArrylstPartyName);
+        ArrayAdapter<String> adapterDalal = new ArrayAdapter<>
+                (getActivity(), android.R.layout.simple_list_item_1, mArrylstDalal);
+        ArrayAdapter<String> adapterArea = new ArrayAdapter<>
+                (getActivity(), android.R.layout.simple_list_item_1, mArrylstArea);
+        ArrayAdapter<String> adapterMobile = new ArrayAdapter<>
+                (getActivity(), android.R.layout.simple_list_item_1, mArrylstMobile);
+        ArrayAdapter<String> adapterPhone = new ArrayAdapter<>
+                (getActivity(), android.R.layout.simple_list_item_1, mArrylstPhone);
+
+        switch (spnrSlctdPosition) {
+            case 1:
+                mAppcmptAutocmplttvSlctdFltrVal.setAdapter(adapterPCode);
+                break;
+            case 2:
+                mAppcmptAutocmplttvSlctdFltrVal.setAdapter(adapterPName);
+                break;
+            case 3:
+                mAppcmptAutocmplttvSlctdFltrVal.setAdapter(adapterDalal);
+                break;
+            case 4:
+                mAppcmptAutocmplttvSlctdFltrVal.setAdapter(adapterArea);
+                break;
+            case 5:
+                mAppcmptAutocmplttvSlctdFltrVal.setAdapter(adapterMobile);
+                break;
+            case 6:
+                mAppcmptAutocmplttvSlctdFltrVal.setAdapter(adapterPhone);
+                break;
+        }
+
+    }
+
     @Override
     public void onClick(View view) {
 
@@ -299,214 +507,6 @@ public class FrgmntAllMasterDtls extends Fragment implements AppConstants, View.
         mFabFilters.setVisibility(View.VISIBLE);
         mLnrlyotFilters.setVisibility(View.GONE);
         mFabApply.setVisibility(View.GONE);
-    }
-
-    // AsynTask through get JSON data of API from device storage file
-    public class getAllMasterDtlsFromFileAsync extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            mPrgrsbrMain.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            mObjMdlMasterDtls = getJSONDataFromStorage();
-            if (mObjMdlMasterDtls != null) {
-
-                if (TextUtils.isEmpty(mObjMdlMasterDtls.getResult())
-                        || mObjMdlMasterDtls.getData() == null) {
-
-                    showMySnackBar(getString(R.string.sync_data_msg));
-                } else if (mObjMdlMasterDtls.getResult().equalsIgnoreCase(RESULT_ONE)) {
-
-                    mArrylstMasterDtlsData = mObjMdlMasterDtls.getData();
-                    if (!mArrylstMasterDtlsData.isEmpty()) {
-                        for (MdlMasterDtlsData objMdlMasterDtlsData : mArrylstMasterDtlsData) {
-                            if (!mArrylstPartyCode.contains(objMdlMasterDtlsData.getPcode()))
-                                mArrylstPartyCode.add(objMdlMasterDtlsData.getPcode());
-                            if (!mArrylstPartyName.contains(objMdlMasterDtlsData.getPname()))
-                                mArrylstPartyName.add(objMdlMasterDtlsData.getPname());
-                            if (!mArrylstDalal.contains(objMdlMasterDtlsData.getDalal()))
-                                mArrylstDalal.add(objMdlMasterDtlsData.getDalal());
-                            if (!mArrylstArea.contains(objMdlMasterDtlsData.getArea()))
-                                mArrylstArea.add(objMdlMasterDtlsData.getArea());
-                            if (!mArrylstMobile.contains(objMdlMasterDtlsData.getMobile()))
-                                mArrylstMobile.add(objMdlMasterDtlsData.getMobile());
-                            if (!mArrylstPhone.contains(objMdlMasterDtlsData.getPhone()))
-                                mArrylstPhone.add(objMdlMasterDtlsData.getPhone());
-                        }
-                        if(isAdded())
-                            setAutoCompltTvAdapter(0);
-                    }
-                } else showMySnackBar(getString(R.string.there_are_some_prblm));
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-            if(isAdded()) {
-                mPrgrsbrMain.setVisibility(View.GONE);
-                if (!mArrylstMasterDtlsData.isEmpty()) {
-                    showMySnackBar(getResources().getString(R.string.value_records_sml, mArrylstMasterDtlsData.size()));
-                    mFabFilters.setVisibility(View.VISIBLE);
-                }
-                mAdapter = new RcyclrAllMasterDtlsAdapter(getActivity(), mArrylstMasterDtlsData);
-                mRecyclerView.setAdapter(mAdapter);
-            }
-        }
-    }
-
-    private void setAutoCompltTvAdapter(int spnrSlctdPosition) {
-
-        mAppcmptAutocmplttvSlctdFltrVal.setThreshold(1);
-
-        ArrayAdapter<String> adapterPCode = new ArrayAdapter<>
-                (getActivity(), android.R.layout.simple_list_item_1, mArrylstPartyCode);
-        ArrayAdapter<String> adapterPName = new ArrayAdapter<>
-                (getActivity(), android.R.layout.simple_list_item_1, mArrylstPartyName);
-        ArrayAdapter<String> adapterDalal = new ArrayAdapter<>
-                (getActivity(), android.R.layout.simple_list_item_1, mArrylstDalal);
-        ArrayAdapter<String> adapterArea = new ArrayAdapter<>
-                (getActivity(), android.R.layout.simple_list_item_1, mArrylstArea);
-        ArrayAdapter<String> adapterMobile = new ArrayAdapter<>
-                (getActivity(), android.R.layout.simple_list_item_1, mArrylstMobile);
-        ArrayAdapter<String> adapterPhone = new ArrayAdapter<>
-                (getActivity(), android.R.layout.simple_list_item_1, mArrylstPhone);
-
-        switch (spnrSlctdPosition) {
-            case 1:
-                mAppcmptAutocmplttvSlctdFltrVal.setAdapter(adapterPCode);
-                break;
-            case 2:
-                mAppcmptAutocmplttvSlctdFltrVal.setAdapter(adapterPName);
-                break;
-            case 3:
-                mAppcmptAutocmplttvSlctdFltrVal.setAdapter(adapterDalal);
-                break;
-            case 4:
-                mAppcmptAutocmplttvSlctdFltrVal.setAdapter(adapterArea);
-                break;
-            case 5:
-                mAppcmptAutocmplttvSlctdFltrVal.setAdapter(adapterMobile);
-                break;
-            case 6:
-                mAppcmptAutocmplttvSlctdFltrVal.setAdapter(adapterPhone);
-                break;
-        }
-
-    }
-
-    // Call API through Retrofit and store response JSON into device storage file
-    private void getAllMasterDtlsAPI() {
-
-        mPrgrsbrMain.setVisibility(View.VISIBLE);
-
-        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
-        clientBuilder.connectTimeout(3, TimeUnit.MINUTES);
-        clientBuilder.readTimeout(3, TimeUnit.MINUTES);
-        Retrofit objRetrofit = new Retrofit.Builder()
-                .baseUrl(API_ROOT_URL)
-                .client(clientBuilder.build())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        RetroAPI apiMasterDtls = objRetrofit.create(RetroAPI.class);
-        Call<ResponseBody> callGodownStck = apiMasterDtls.getMasterDtls(API_METHOD_GETMASTERRPT);
-        callGodownStck.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                if (mPrgrsbrMain.isShown()) mPrgrsbrMain.setVisibility(View.GONE);
-
-                if (response.isSuccessful()) {
-
-                    String[] strArray = new String[1];
-                    try {
-
-                        LogManager.printLog(LOGTYPE_INFO, "Reponse is successful: " + response.isSuccessful());
-
-                        strArray[0] = response.body().string();
-
-                        // Create and save API response in device storage in .json file
-                        storeJSONDataToStorage(strArray[0]);
-
-                        // AsynTask through get JSON data of API from device storage file
-                        new getAllMasterDtlsFromFileAsync().execute();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else showMySnackBar(getString(R.string.there_are_some_server_prblm));
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                t.printStackTrace();
-                if (mPrgrsbrMain.isShown()) mPrgrsbrMain.setVisibility(View.GONE);
-                showMySnackBar(getString(R.string.there_are_some_prblm));
-            }
-        });
-    }
-
-    // Create and save API response in device storage in .json file
-    private void storeJSONDataToStorage(String strResponse) {
-
-        try {
-
-            File filesDirectory = PATH_SARVAMSUGAR_FILES;
-            if (!filesDirectory.exists()) filesDirectory.mkdirs();
-
-            File fileJson = new File(filesDirectory, ALL_MASTER_DTLS_JSON);
-            if (fileJson.exists()) fileJson.delete();
-            fileJson.createNewFile();
-
-            FileOutputStream fOut = new FileOutputStream(fileJson);
-            OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
-            myOutWriter.append(strResponse);
-            myOutWriter.close();
-            fOut.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Create and save API response in device storage in .json file
-    private MdlMasterDtls getJSONDataFromStorage() {
-
-        try {
-
-            mObjMdlMasterDtls = new MdlMasterDtls();
-
-            File filesDirectory = PATH_SARVAMSUGAR_FILES;
-            if (!filesDirectory.exists()) filesDirectory.mkdirs();
-
-            File fileJson = new File(filesDirectory, ALL_MASTER_DTLS_JSON);
-            if (fileJson.exists()) {
-
-                FileInputStream fIn = new FileInputStream(fileJson);
-                BufferedReader myReader = new BufferedReader(
-                        new InputStreamReader(fIn));
-                String aDataRow = "";
-                String aBuffer = "";
-                while ((aDataRow = myReader.readLine()) != null) {
-                    aBuffer += aDataRow + "\n";
-                }
-                myReader.close();
-
-                Gson mGson = new GsonBuilder().create();
-                mObjMdlMasterDtls = mGson.fromJson(aBuffer, MdlMasterDtls.class);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return mObjMdlMasterDtls;
     }
 
     private ArrayList<MdlMasterDtlsData> filters(ArrayList<MdlMasterDtlsData> arrylstMdlMasterDtlsData) {

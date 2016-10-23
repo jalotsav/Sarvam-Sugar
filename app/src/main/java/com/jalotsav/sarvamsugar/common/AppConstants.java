@@ -58,6 +58,7 @@ public interface AppConstants {
     // Storage File name
     String ALL_MASTER_DTLS_JSON = "allMasterDtls.json";
     String GODOWN_WISE_STOCK_JSON = "godownwisestock.json";
+    String PENDING_SAUDA_JSON = "pendingsauda.json";
 
     // API response
     String RESULT_ZERO = "0";

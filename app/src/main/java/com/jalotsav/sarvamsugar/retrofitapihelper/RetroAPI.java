@@ -50,7 +50,7 @@ public interface RetroAPI {
                                         @Query("sortby") String sortby);
 
     @GET("index.aspx")
-    Call<MdlPendngSauda> getPendingSauda(@Query("method") String method,
+    Call<ResponseBody> getPendingSauda(@Query("method") String method,
                                          @Query("fromdate") String fromDate,
                                          @Query("todate") String toDate,
                                          @Query("party") String party,

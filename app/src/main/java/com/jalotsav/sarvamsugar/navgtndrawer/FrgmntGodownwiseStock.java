@@ -30,7 +30,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -46,8 +45,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.jalotsav.sarvamsugar.R;
 import com.jalotsav.sarvamsugar.adapters.RcyclrGodownwiseStockAdapter;
 import com.jalotsav.sarvamsugar.common.AppConstants;
@@ -105,7 +102,6 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants, Vie
     String mReqstFromDT, mReqstToDt;
     ArrayList<MdlGodownStockData> mArrylstGodownStckData;
     MdlGodownStockData mObjMdlGodownStockData;
-    MdlGodownStock mObjMdlGodownStock;
     boolean isAPICall = false;
 
     @Nullable
@@ -131,9 +127,10 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants, Vie
         mFabFilters.setImageDrawable(new IconicsDrawable(getActivity())
                 .icon(CommunityMaterial.Icon.cmd_filter)
                 .color(Color.WHITE));
-        mFabFilters.setVisibility(View.GONE);
 
         mArrylstGodownStckData = new ArrayList<>();
+        mAdapter = new RcyclrGodownwiseStockAdapter(getActivity(), mArrylstGodownStckData);
+        mRecyclerView.setAdapter(mAdapter);
 
         // Check Storage permission before call AsyncTask for data
         isAPICall = false;
@@ -157,7 +154,17 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants, Vie
 
         mTvAppearHere.setText(getString(R.string.godownwisestck_appear_here));
 
+        checkInternetVisibleFilterFAB();
+
         return rootView;
+    }
+
+    private void checkInternetVisibleFilterFAB() {
+
+        if (!GeneralFuncations.isNetConnected(getActivity()))
+            mFabFilters.setVisibility(View.GONE);
+        else
+            mFabFilters.setVisibility(View.VISIBLE);
     }
 
     private void checkStoragePermission() {
@@ -169,7 +176,7 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants, Vie
 
                 LogManager.printLog(LOGTYPE_INFO, "Permission Granted");
                 if (isAPICall)
-                    getGodownStockAPI(); // Call API through Retrofit and store response JSON into device storage file
+                    getGodownStockAPI(false); // Call API through Retrofit and store response JSON into device storage file
                 else
                     new getGodownStockFromFileAsync().execute(); // AsyncTask through get JSON data of API from device storage file
             } else {
@@ -197,89 +204,7 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants, Vie
         }
     }
 
-    // AsynTask through get JSON data of API from device storage file
-    public class getGodownStockFromFileAsync extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            mPrgrsbrMain.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            mArrylstGodownStckData = new ArrayList<>();
-
-            try {
-
-                String websrvcRespns = getJSONDataFromStorage();
-                if(TextUtils.isEmpty(websrvcRespns))
-                    showMySnackBar(getString(R.string.sync_data_msg));
-                else {
-                    JSONObject jsnObj = new JSONObject(websrvcRespns);
-                    String result = jsnObj.getString("result");
-                    String message = jsnObj.getString("message");
-                    if (result.equals(RESULT_ZERO))
-                        showMySnackBar(message);
-                    else {
-
-                        JSONArray jsnArrayData = jsnObj.getJSONArray("data");
-                        for (int i = 0; i < jsnArrayData.length(); i++) {
-
-                            mObjMdlGodownStockData = new MdlGodownStockData();
-                            ArrayList<MdlAllGodowns> arrylstMdlAllGodowns = new ArrayList<>();
-
-                            JSONObject jsonobjData = jsnArrayData.getJSONObject(i);
-                            mObjMdlGodownStockData.setItemName(jsonobjData.getString("Item Name"));
-                            mObjMdlGodownStockData.setPacking(jsonobjData.getString("Packing"));
-                            mObjMdlGodownStockData.setTotalStock(jsonobjData.getString("Total Stk."));
-                            mObjMdlGodownStockData.setPendingSauda(jsonobjData.getString("Pend.Sauda"));
-                            mObjMdlGodownStockData.setNetStock(jsonobjData.getString("Net Stk."));
-                            mObjMdlGodownStockData.setStkBori(jsonobjData.getString("Stk.Bori"));
-                            JSONArray jsnArryGoDowns = jsonobjData.getJSONArray("goDowns");
-
-                            for (int j = 0; j < jsnArryGoDowns.length(); j++) {
-
-                                JSONObject jsnGoDowns = jsnArryGoDowns.getJSONObject(j);
-
-                                Iterator<String> iter = jsnGoDowns.keys();
-                                while (iter.hasNext()) {
-                                    String key = iter.next();
-                                    Object value = jsnGoDowns.get(key);
-
-                                    MdlAllGodowns objMdlAllGodowns = new MdlAllGodowns(key, value.toString());
-                                    arrylstMdlAllGodowns.add(objMdlAllGodowns);
-                                }
-
-                                mObjMdlGodownStockData.setArrylstAllGodowns(arrylstMdlAllGodowns);
-
-                                mArrylstGodownStckData.add(mObjMdlGodownStockData);
-                            }
-                        }
-                    }
-                }
-            } catch (Exception e) {e.printStackTrace();}
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-            if(isAdded()) {
-                mPrgrsbrMain.setVisibility(View.GONE);
-                if (!mArrylstGodownStckData.isEmpty()) {
-                    showMySnackBar(getResources().getString(R.string.value_records_sml, mArrylstGodownStckData.size()));
-                    mFabFilters.setVisibility(View.VISIBLE);
-                }
-                mAdapter = new RcyclrGodownwiseStockAdapter(getActivity(), mArrylstGodownStckData);
-                mRecyclerView.setAdapter(mAdapter);
-            }
-        }
-    }
-
-    private void getGodownStockAPI() {
+    private void getGodownStockAPI(final boolean isWithFilter) {
 
         mPrgrsbrMain.setVisibility(View.VISIBLE);
         mFabFilters.setVisibility(View.GONE);
@@ -311,11 +236,23 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants, Vie
 
                         strArray[0] = response.body().string();
 
-                        // Create and save API response in device storage in .json file
-                        storeJSONDataToStorage(strArray[0]);
+                        if(isWithFilter) {
 
-                        // AsynTask through get JSON data of API from device storage file
-                        new getGodownStockFromFileAsync().execute();
+                            setReposeDataOnArray(strArray[0]);
+
+                            if(isAdded()) {
+                                if (!mArrylstGodownStckData.isEmpty()) {
+                                    showMySnackBar(getResources().getString(R.string.value_records_sml, mArrylstGodownStckData.size()));
+                                }
+                                mAdapter.setFilter(mArrylstGodownStckData);
+                            }
+                        } else {
+                            // Create and save API response in device storage in .json file
+                            storeJSONDataToStorage(strArray[0]);
+
+                            // AsynTask through get JSON data of API from device storage file
+                            new getGodownStockFromFileAsync().execute();
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -332,6 +269,60 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants, Vie
                 showMySnackBar(getString(R.string.there_are_some_prblm));
             }
         });
+    }
+
+    private void setReposeDataOnArray(String responseData) {
+
+        mArrylstGodownStckData = new ArrayList<>();
+
+        try {
+
+            if(TextUtils.isEmpty(responseData))
+                showMySnackBar(getString(R.string.sync_data_msg));
+            else {
+                JSONObject jsnObj = new JSONObject(responseData);
+                String result = jsnObj.getString("result");
+                String message = jsnObj.getString("message");
+                if (result.equals(RESULT_ZERO))
+                    showMySnackBar(message);
+                else {
+
+                    JSONArray jsnArrayData = jsnObj.getJSONArray("data");
+                    for (int i = 0; i < jsnArrayData.length(); i++) {
+
+                        mObjMdlGodownStockData = new MdlGodownStockData();
+                        ArrayList<MdlAllGodowns> arrylstMdlAllGodowns = new ArrayList<>();
+
+                        JSONObject jsonobjData = jsnArrayData.getJSONObject(i);
+                        mObjMdlGodownStockData.setItemName(jsonobjData.getString("Item Name"));
+                        mObjMdlGodownStockData.setPacking(jsonobjData.getString("Packing"));
+                        mObjMdlGodownStockData.setTotalStock(jsonobjData.getString("Total Stk."));
+                        mObjMdlGodownStockData.setPendingSauda(jsonobjData.getString("Pend.Sauda"));
+                        mObjMdlGodownStockData.setNetStock(jsonobjData.getString("Net Stk."));
+                        mObjMdlGodownStockData.setStkBori(jsonobjData.getString("Stk.Bori"));
+                        JSONArray jsnArryGoDowns = jsonobjData.getJSONArray("goDowns");
+
+                        for (int j = 0; j < jsnArryGoDowns.length(); j++) {
+
+                            JSONObject jsnGoDowns = jsnArryGoDowns.getJSONObject(j);
+
+                            Iterator<String> iter = jsnGoDowns.keys();
+                            while (iter.hasNext()) {
+                                String key = iter.next();
+                                Object value = jsnGoDowns.get(key);
+
+                                MdlAllGodowns objMdlAllGodowns = new MdlAllGodowns(key, value.toString());
+                                arrylstMdlAllGodowns.add(objMdlAllGodowns);
+                            }
+
+                            mObjMdlGodownStockData.setArrylstAllGodowns(arrylstMdlAllGodowns);
+
+                            mArrylstGodownStckData.add(mObjMdlGodownStockData);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {e.printStackTrace();}
     }
 
     // Create and save API response in device storage in .json file
@@ -356,14 +347,42 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants, Vie
         }
     }
 
+    // AsynTask through get JSON data of API from device storage file
+    public class getGodownStockFromFileAsync extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mPrgrsbrMain.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            setReposeDataOnArray(getJSONDataFromStorage());
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if(isAdded()) {
+                mPrgrsbrMain.setVisibility(View.GONE);
+                if (!mArrylstGodownStckData.isEmpty()) {
+                    showMySnackBar(getResources().getString(R.string.value_records_sml, mArrylstGodownStckData.size()));
+                }
+                mAdapter.setFilter(mArrylstGodownStckData);
+            }
+        }
+    }
+
     // Create and save API response in device storage in .json file
     private String getJSONDataFromStorage() {
 
         String aDataRow = "";
         String aBuffer = "";
         try {
-
-            mObjMdlGodownStock = new MdlGodownStock();
 
             File filesDirectory = PATH_SARVAMSUGAR_FILES;
             if (!filesDirectory.exists()) filesDirectory.mkdirs();
@@ -386,28 +405,6 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants, Vie
         return aBuffer;
     }
 
-    private void showFiltersBottomSheets() {
-
-        View contnVw = getActivity().getLayoutInflater().inflate(R.layout.lo_bottomsheets_fromtodate, null);
-        mImgvwFltrRemove = (ImageView) contnVw.findViewById(R.id.imgvw_btmshts_frmtodt_fltrremove);
-        mImgvwFltrApply = (ImageView) contnVw.findViewById(R.id.imgvw_btmshts_frmtodt_fltrapply);
-        mTvSlctdFromDt = (TextView) contnVw.findViewById(R.id.tv_btmshts_frmtodt_slctdfromdt);
-        mTvSlctdToDt = (TextView) contnVw.findViewById(R.id.tv_btmshts_frmtodt_slctdtodt);
-        mLnrlyotFromDt = (LinearLayout) contnVw.findViewById(R.id.lnrlyot_btmshts_frmtodt_fromdt);
-        mLnrlyotToDt = (LinearLayout) contnVw.findViewById(R.id.lnrlyot_btmshts_frmtodt_todt);
-
-        // Set filter selected date to TextView
-        setFilterSlctdDateTv();
-
-        mBottomSheetDialog.setContentView(contnVw);
-        mBottomSheetDialog.show();
-
-        mImgvwFltrRemove.setOnClickListener(this);
-        mImgvwFltrApply.setOnClickListener(this);
-        mLnrlyotFromDt.setOnClickListener(this);
-        mLnrlyotToDt.setOnClickListener(this);
-    }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -419,9 +416,7 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants, Vie
 
                 mBottomSheetDialog.dismiss();
 
-                mAdapter.setFilter(filters(mArrylstGodownStckData));
-
-//                onRefresh();
+                getGodownStockAPI(true);
                 break;
             case R.id.imgvw_btmshts_frmtodt_fltrremove:
 
@@ -477,33 +472,33 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants, Vie
         }
     }
 
+    private void showFiltersBottomSheets() {
+
+        View contnVw = getActivity().getLayoutInflater().inflate(R.layout.lo_bottomsheets_fromtodate, null);
+        mImgvwFltrRemove = (ImageView) contnVw.findViewById(R.id.imgvw_btmshts_frmtodt_fltrremove);
+        mImgvwFltrApply = (ImageView) contnVw.findViewById(R.id.imgvw_btmshts_frmtodt_fltrapply);
+        mTvSlctdFromDt = (TextView) contnVw.findViewById(R.id.tv_btmshts_frmtodt_slctdfromdt);
+        mTvSlctdToDt = (TextView) contnVw.findViewById(R.id.tv_btmshts_frmtodt_slctdtodt);
+        mLnrlyotFromDt = (LinearLayout) contnVw.findViewById(R.id.lnrlyot_btmshts_frmtodt_fromdt);
+        mLnrlyotToDt = (LinearLayout) contnVw.findViewById(R.id.lnrlyot_btmshts_frmtodt_todt);
+
+        // Set filter selected date to TextView
+        setFilterSlctdDateTv();
+
+        mBottomSheetDialog.setContentView(contnVw);
+        mBottomSheetDialog.show();
+
+        mImgvwFltrRemove.setOnClickListener(this);
+        mImgvwFltrApply.setOnClickListener(this);
+        mLnrlyotFromDt.setOnClickListener(this);
+        mLnrlyotToDt.setOnClickListener(this);
+    }
+
     // Set filter selected date to TextView
     private void setFilterSlctdDateTv() {
 
         mTvSlctdFromDt.setText(mReqstFromDT);
         mTvSlctdToDt.setText(mReqstToDt);
-    }
-
-    private ArrayList<MdlGodownStockData> filters(ArrayList<MdlGodownStockData> arrylstMdlMasterDtlsData) {
-
-        ArrayList<MdlGodownStockData> fltrdMdlMasterDtlsData = new ArrayList<>();
-        /*for (MdlGodownStockData objMdlMasterDtlsData : arrylstMdlMasterDtlsData) {
-
-            String targetPcode = objMdlMasterDtlsData.getPcode().toLowerCase();
-            String targetPname = objMdlMasterDtlsData.getPname().toLowerCase();
-
-            if (targetPcode.contains(mQueryPcode.toLowerCase())
-                    && targetPname.contains(mQueryPname.toLowerCase())
-                    && targetDalal.contains(mQueryDalal.toLowerCase())
-                    && targetArea.contains(mQueryArea.toLowerCase())
-                    && targetMobile.contains(mQueryMobile.toLowerCase())
-                    && targetPhone.contains(mQueryPhone.toLowerCase())) {
-
-                fltrdMdlMasterDtlsData.add(objMdlMasterDtlsData);
-            }
-        }*/
-
-        return fltrdMdlMasterDtlsData;
     }
 
     // Show SnackBar with given message
