@@ -104,7 +104,7 @@ public class FrgmntPendingSauda extends Fragment implements AppConstants, View.O
     ArrayList<String> mArrylstParty, mArrylstDalal, mArrylstItem, mArrylstArea;
     Calendar mCalndr;
     int mCrntYear, mCrntMonth, mCrntDay, mFromYear, mFromMonth, mFromDay, mToYear, mToMonth, mToDay;
-    String mReqstFromDt, mReqstToDt, mReqstParty, mReqstDalal, mReqstItem, mReqstArea,
+    String mReqstFromDt, mReqstToDt,
             mQueryParty = "", mQueryDalal = "", mQueryItem = "", mQueryArea = "";
     boolean isAPICall = false;
 
@@ -156,6 +156,7 @@ public class FrgmntPendingSauda extends Fragment implements AppConstants, View.O
 
         mTvAppearHere.setText(getString(R.string.pendngsauda_appear_here));
 
+        mArrylstPndngSaudaData = new ArrayList<>();
         mArrylstParty = new ArrayList<>();
         mArrylstDalal = new ArrayList<>();
         mArrylstItem = new ArrayList<>();
@@ -176,11 +177,6 @@ public class FrgmntPendingSauda extends Fragment implements AppConstants, View.O
         mReqstToDt = GeneralFuncations.setDateIn2Digit(mToDay)
                 + "-" + GeneralFuncations.setDateIn2Digit(mToMonth+1)
                 + "-" + mToYear;
-
-        mReqstParty = "";
-        mReqstDalal = "";
-        mReqstItem = "";
-        mReqstArea = "";
 
         // Set filter selected date to TextView
         setFilterSlctdDateTv();
@@ -275,7 +271,7 @@ public class FrgmntPendingSauda extends Fragment implements AppConstants, View.O
 
         RetroAPI apiDalalwsSls = objRetrofit.create(RetroAPI.class);
         Call<ResponseBody> callGodownStck = apiDalalwsSls.getPendingSauda(
-                API_METHOD_GETPSAUDA, mReqstFromDt, mReqstToDt, mReqstParty, mReqstDalal, mReqstItem, mReqstArea
+                API_METHOD_GETPSAUDA, mReqstFromDt, mReqstToDt, mQueryParty, mQueryDalal, mQueryItem, mQueryArea
         );
         callGodownStck.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -479,7 +475,7 @@ public class FrgmntPendingSauda extends Fragment implements AppConstants, View.O
                             mQueryArea = slctdFltrVal;
                             break;
                         case 4:
-                            mQueryItem= slctdFltrVal;
+                            mQueryItem = slctdFltrVal;
                             break;
                     }
                 }
@@ -512,10 +508,10 @@ public class FrgmntPendingSauda extends Fragment implements AppConstants, View.O
 
                 mSpnrFltrBy.setSelection(0);
                 mAppcmptAutocmplttvSlctdFltrVal.setText("");
-                mReqstParty = "";
-                mReqstDalal = "";
-                mReqstItem = "";
-                mReqstArea = "";
+                mQueryParty = "";
+                mQueryDalal = "";
+                mQueryItem = "";
+                mQueryArea = "";
 
                 if (!GeneralFuncations.isNetConnected(getActivity())) {
 
