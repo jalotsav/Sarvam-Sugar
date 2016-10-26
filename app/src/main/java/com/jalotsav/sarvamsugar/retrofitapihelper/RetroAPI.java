@@ -40,7 +40,7 @@ public interface RetroAPI {
                                  @Query("password") String password);
 
     @GET("index.aspx")
-    Call<MdlOutstanding> getOutstanding(@Query("method") String method,
+    Call<ResponseBody> getOutstanding(@Query("method") String method,
                                         @Query("todate") String toDate,
                                         @Query("type") String type,
                                         @Query("party") String party,

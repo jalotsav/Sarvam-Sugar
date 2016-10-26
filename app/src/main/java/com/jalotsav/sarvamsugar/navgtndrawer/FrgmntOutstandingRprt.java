@@ -17,13 +17,17 @@
 
 package com.jalotsav.sarvamsugar.navgtndrawer;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
@@ -46,10 +50,13 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.jalotsav.sarvamsugar.R;
 import com.jalotsav.sarvamsugar.adapters.RcyclrOutstandingAdapter;
 import com.jalotsav.sarvamsugar.common.AppConstants;
 import com.jalotsav.sarvamsugar.common.GeneralFuncations;
+import com.jalotsav.sarvamsugar.common.LogManager;
 import com.jalotsav.sarvamsugar.common.RecyclerViewEmptySupport;
 import com.jalotsav.sarvamsugar.model.MdlOutstanding;
 import com.jalotsav.sarvamsugar.model.MdlOutstandingData;
@@ -57,12 +64,14 @@ import com.jalotsav.sarvamsugar.retrofitapihelper.RetroAPI;
 import com.mikepenz.community_material_typeface_library.CommunityMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -92,10 +101,13 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
     AppCompatAutoCompleteTextView mAppcmptAutocmplttvSlctdFltrVal;
     AppCompatButton mAppcmptbtnToDate;
 
+    MdlOutstanding mObjMdlOutstndng;
+    ArrayList<MdlOutstandingData> mArrylstOutstndngData;
     ArrayList<String> mArrylstParty, mArrylstDalal, mArrylstArea, mArrylstZone;
     Calendar mCalndr;
     int mCrntYear, mCrntMonth, mCrntDay, mToYear, mToMonth, mToDay;
-    String mReqstToDt, mReqstParty, mReqstDalal, mReqstArea, mReqstZone, mReqstType, mReqstSortby;
+    String mReqstToDt, mQueryParty, mQueryDalal, mQueryArea, mQueryZone, mReqstType, mReqstSortby;
+    boolean isAPICall = false;
 
     @Nullable
     @Override
@@ -162,12 +174,16 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
                 + "-" + mToYear; // Format "15-09-2016"
         mAppcmptbtnToDate.setText(getResources().getString(R.string.to_date_val, mReqstToDt));
 
-        mReqstParty = "";
-        mReqstDalal = "";
-        mReqstArea = "";
-        mReqstZone = "";
+        mQueryParty = "";
+        mQueryDalal = "";
+        mQueryArea = "";
+        mQueryZone = "";
         mReqstType = "";
         mReqstSortby = "";
+
+        // Check Storage permission before call AsyncTask for data
+        isAPICall = false;
+        checkStoragePermission();
 
         mSpnrFltrBy.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -221,16 +237,48 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
             }
         });
 
-        if (!GeneralFuncations.isNetConnected(getActivity())) {
-
-            // Show SnackBar with given message
-            showMySnackBar(getResources().getString(R.string.no_intrnt_cnctn));
-        } else getOutstandingList();
-
         return rootView;
     }
 
-    private void getOutstandingList() {
+    private void checkStoragePermission() {
+
+        try {
+
+            if (ActivityCompat.checkSelfPermission(getActivity(),
+                    Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+
+                LogManager.printLog(LOGTYPE_INFO, "Permission Granted");
+                if (isAPICall)
+                    getOutstandingAPI(); // Call API through Retrofit and store response JSON into device storage file
+                else
+                    new getOutstandingFromFileAsync().execute(); // AsyncTask through get JSON data of API from device storage file
+            } else {
+
+                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE))
+                    GeneralFuncations.showtoastLngthlong(getActivity(), getString(R.string.you_must_allow_permsn));
+
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMSN_STORAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == REQUEST_PERMSN_STORAGE) {
+
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                checkStoragePermission();
+            else
+                showMySnackBar(getString(R.string.permsn_denied));
+        }
+    }
+
+    // Call API through Retrofit and store response JSON into device storage file
+    private void getOutstandingAPI() {
 
         mPrgrsbrMain.setVisibility(View.VISIBLE);
         mFabFilters.setVisibility(View.GONE);
@@ -245,52 +293,37 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
                 .build();
 
         RetroAPI apiDalalwsSls = objRetrofit.create(RetroAPI.class);
-        Call<MdlOutstanding> callGodownStck = apiDalalwsSls.getOutstanding(
-                API_METHOD_GETOUTSTAND, mReqstToDt, mReqstType, mReqstParty, mReqstDalal, mReqstArea, mReqstZone, mReqstSortby
+        Call<ResponseBody> callGodownStck = apiDalalwsSls.getOutstanding(
+                API_METHOD_GETOUTSTAND, mReqstToDt, mReqstType, mQueryParty, mQueryDalal, mQueryArea, mQueryZone, mReqstSortby
         );
-        callGodownStck.enqueue(new Callback<MdlOutstanding>() {
+        callGodownStck.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<MdlOutstanding> call, Response<MdlOutstanding> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                mPrgrsbrMain.setVisibility(View.GONE);
-                if (!mFabFilters.isShown()) mFabFilters.setVisibility(View.VISIBLE);
+                if (mPrgrsbrMain.isShown()) mPrgrsbrMain.setVisibility(View.GONE);
 
                 if (response.isSuccessful()) {
 
-                    MdlOutstanding objMdlOutstanding = response.body();
-                    String result = objMdlOutstanding.getResult();
-                    String message = objMdlOutstanding.getMessage();
-
-                    ArrayList<MdlOutstandingData> arrylstOutstndngData = objMdlOutstanding.getData();
-
+                    String[] strArray = new String[1];
                     try {
 
-                        if (result.equals(RESULT_ZERO))
-                            showMySnackBar(message);
-                        else {
+                        LogManager.printLog(LOGTYPE_INFO, "Reponse is successful: " + response.isSuccessful());
 
-                            for(MdlOutstandingData objMdlGodownStockData : arrylstOutstndngData) {
+                        strArray[0] = response.body().string();
 
-                                if(!mArrylstParty.contains(objMdlGodownStockData.getPname()))
-                                    mArrylstParty.add(objMdlGodownStockData.getPname());
-                                if(!mArrylstDalal.contains(objMdlGodownStockData.getDalalName()))
-                                    mArrylstDalal.add(objMdlGodownStockData.getDalalName());
-                                if(!mArrylstArea.contains(objMdlGodownStockData.getArea()))
-                                    mArrylstArea.add(objMdlGodownStockData.getArea());
-                                if(!mArrylstZone.contains(objMdlGodownStockData.getZone()))
-                                    mArrylstZone.add(objMdlGodownStockData.getZone());
-                            }
-                            setAutoCompltTvAdapter(0);
+                        // Create and save API response in device storage in .json file
+                        storeJSONDataToStorage(strArray[0]);
 
-                            mAdapter.setFilter(arrylstOutstndngData);
-                        }
-                    } catch (Exception e) {e.printStackTrace();}
-                } else
-                    showMySnackBar(getString(R.string.there_are_some_server_prblm));
+                        // AsynTask through get JSON data of API from device storage file
+                        new getOutstandingFromFileAsync().execute();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else showMySnackBar(getString(R.string.there_are_some_server_prblm));
             }
 
             @Override
-            public void onFailure(Call<MdlOutstanding> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
 
                 t.printStackTrace();
                 mPrgrsbrMain.setVisibility(View.GONE);
@@ -298,6 +331,119 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
                 showMySnackBar(getString(R.string.there_are_some_prblm));
             }
         });
+    }
+
+    // Create and save API response in device storage in .json file
+    private void storeJSONDataToStorage(String strResponse) {
+
+        try {
+
+            File filesDirectory = PATH_SARVAMSUGAR_FILES;
+            if (!filesDirectory.exists()) filesDirectory.mkdirs();
+
+            File fileJson = new File(filesDirectory, OUTSTANDING_JSON);
+            if (fileJson.exists()) fileJson.delete();
+            fileJson.createNewFile();
+
+            FileOutputStream fOut = new FileOutputStream(fileJson);
+            OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+            myOutWriter.append(strResponse);
+            myOutWriter.close();
+            fOut.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // AsynTask through get JSON data of API from device storage file
+    public class getOutstandingFromFileAsync extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mPrgrsbrMain.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            mObjMdlOutstndng = getJSONDataFromStorage();
+            if (mObjMdlOutstndng != null) {
+
+                if (TextUtils.isEmpty(mObjMdlOutstndng.getResult())
+                        || mObjMdlOutstndng.getData() == null) {
+
+                    showMySnackBar(getString(R.string.sync_data_msg));
+                } else if (mObjMdlOutstndng.getResult().equalsIgnoreCase(RESULT_ONE)) {
+
+                    mArrylstOutstndngData = mObjMdlOutstndng.getData();
+                    if (!mArrylstOutstndngData.isEmpty()) {
+
+                        for(MdlOutstandingData objMdlOutstandingData : mArrylstOutstndngData) {
+
+                            if(!mArrylstParty.contains(objMdlOutstandingData.getPname()))
+                                mArrylstParty.add(objMdlOutstandingData.getPname());
+                            if(!mArrylstDalal.contains(objMdlOutstandingData.getDalalName()))
+                                mArrylstDalal.add(objMdlOutstandingData.getDalalName());
+                            if(!mArrylstArea.contains(objMdlOutstandingData.getArea()))
+                                mArrylstArea.add(objMdlOutstandingData.getArea());
+                            if(!mArrylstZone.contains(objMdlOutstandingData.getZone()))
+                                mArrylstZone.add(objMdlOutstandingData.getZone());
+                        }
+                        if(isAdded())
+                            setAutoCompltTvAdapter(0);
+                    }
+                } else showMySnackBar(getString(R.string.there_are_some_prblm));
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            if(isAdded()) {
+                mPrgrsbrMain.setVisibility(View.GONE);
+                if (!mArrylstOutstndngData.isEmpty()) {
+                    showMySnackBar(getResources().getString(R.string.value_records_sml, mArrylstOutstndngData.size()));
+                    mFabFilters.setVisibility(View.VISIBLE);
+                }
+                mAdapter.setFilter(mArrylstOutstndngData);
+            }
+        }
+    }
+
+    // Create and save API response in device storage in .json file
+    private MdlOutstanding getJSONDataFromStorage() {
+
+        try {
+
+            mObjMdlOutstndng = new MdlOutstanding();
+
+            File filesDirectory = PATH_SARVAMSUGAR_FILES;
+            if (!filesDirectory.exists()) filesDirectory.mkdirs();
+
+            File fileJson = new File(filesDirectory, OUTSTANDING_JSON);
+            if (fileJson.exists()) {
+
+                FileInputStream fIn = new FileInputStream(fileJson);
+                BufferedReader myReader = new BufferedReader(
+                        new InputStreamReader(fIn));
+                String aDataRow = "";
+                String aBuffer = "";
+                while ((aDataRow = myReader.readLine()) != null) {
+                    aBuffer += aDataRow + "\n";
+                }
+                myReader.close();
+
+                Gson mGson = new GsonBuilder().create();
+                mObjMdlOutstndng = mGson.fromJson(aBuffer, MdlOutstanding.class);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return mObjMdlOutstndng;
     }
 
     private void setAutoCompltTvAdapter(int spnrSlctdPosition) {
@@ -344,26 +490,24 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
 
                     switch (mSpnrFltrBy.getSelectedItemPosition()) {
                         case 1:
-                            mReqstParty = slctdFltrVal;
+                            mQueryParty = slctdFltrVal;
                             break;
                         case 2:
-                            mReqstDalal = slctdFltrVal;
+                            mQueryDalal = slctdFltrVal;
                             break;
                         case 3:
-                            mReqstArea = slctdFltrVal;
+                            mQueryArea = slctdFltrVal;
                             break;
                         case 4:
-                            mReqstZone = slctdFltrVal;
+                            mQueryZone = slctdFltrVal;
                             break;
                     }
-                } /*else
-                    showMySnackBar(getString(R.string.enter_atleast_1char_fltr));*/
+                }
 
                 if (!GeneralFuncations.isNetConnected(getActivity())) {
 
-                    // Show SnackBar with given message
-                    showMySnackBar(getResources().getString(R.string.no_intrnt_cnctn));
-                } else getOutstandingList();
+                    mAdapter.setFilter(filters(mArrylstOutstndngData));
+                } else getOutstandingAPI();
 
                 hideFiltersView(); // Hide Filters View
                 break;
@@ -383,18 +527,16 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
 
                 mSpnrFltrBy.setSelection(0);
                 mAppcmptAutocmplttvSlctdFltrVal.setText("");
-                mReqstParty = "";
-                mReqstDalal = "";
-                mReqstArea = "";
-                mReqstZone = "";
+                mQueryParty = "";
+                mQueryDalal = "";
+                mQueryArea = "";
+                mQueryZone = "";
                 mReqstType = "";
                 mReqstSortby = "";
 
-                if (!GeneralFuncations.isNetConnected(getActivity())) {
-
-                    // Show SnackBar with given message
-                    showMySnackBar(getResources().getString(R.string.no_intrnt_cnctn));
-                } else getOutstandingList();
+                // Check Storage permission before call AsyncTask for data
+                isAPICall = false;
+                checkStoragePermission();
 
                 hideFiltersView(); // Hide Filters View
                 break;
@@ -437,6 +579,28 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
         mFabApply.setVisibility(View.GONE);
     }
 
+    private ArrayList<MdlOutstandingData> filters(ArrayList<MdlOutstandingData> arrylstMdlOutstandingData) {
+
+        ArrayList<MdlOutstandingData> fltrdOutstandingData = new ArrayList<>();
+        for (MdlOutstandingData objMdlOutstandingData : arrylstMdlOutstandingData) {
+
+            String targetParty = objMdlOutstandingData.getPname().toLowerCase();
+            String targetDalal = objMdlOutstandingData.getDalalName().toLowerCase();
+            String targetArea = objMdlOutstandingData.getArea().toLowerCase();
+            String targetZone = objMdlOutstandingData.getZone().toLowerCase();
+
+            if (targetParty.contains(mQueryParty.toLowerCase())
+                    && targetDalal.contains(mQueryDalal.toLowerCase())
+                    && targetArea.contains(mQueryArea.toLowerCase())
+                    && targetZone.contains(mQueryZone.toLowerCase())) {
+
+                fltrdOutstandingData.add(objMdlOutstandingData);
+            }
+        }
+
+        return fltrdOutstandingData;
+    }
+
     // Show SnackBar with given message
     private void showMySnackBar(String message) {
 
@@ -458,7 +622,10 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
 
                     // Show SnackBar with given message
                     showMySnackBar(getResources().getString(R.string.no_intrnt_cnctn));
-                } else getOutstandingList();
+                } else {
+                    isAPICall = true;
+                    checkStoragePermission();
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);

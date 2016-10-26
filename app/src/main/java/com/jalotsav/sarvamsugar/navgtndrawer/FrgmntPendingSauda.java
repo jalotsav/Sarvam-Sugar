@@ -226,7 +226,7 @@ public class FrgmntPendingSauda extends Fragment implements AppConstants, View.O
 
                 LogManager.printLog(LOGTYPE_INFO, "Permission Granted");
                 if (isAPICall)
-                    getPendingSaudaAPI(false); // Call API through Retrofit and store response JSON into device storage file
+                    getPendingSaudaAPI(); // Call API through Retrofit and store response JSON into device storage file
                 else
                     new getPendingSaudaFromFileAsync().execute(); // AsyncTask through get JSON data of API from device storage file
             } else {
@@ -255,7 +255,7 @@ public class FrgmntPendingSauda extends Fragment implements AppConstants, View.O
     }
 
     // Call API through Retrofit and store response JSON into device storage file
-    private void getPendingSaudaAPI(final boolean isWithFilter) {
+    private void getPendingSaudaAPI() {
 
         mPrgrsbrMain.setVisibility(View.VISIBLE);
         mFabFilters.setVisibility(View.GONE);
@@ -483,7 +483,7 @@ public class FrgmntPendingSauda extends Fragment implements AppConstants, View.O
                 if (!GeneralFuncations.isNetConnected(getActivity())) {
 
                     mAdapter.setFilter(filters(mArrylstPndngSaudaData));
-                } else getPendingSaudaAPI(true);
+                } else getPendingSaudaAPI();
 
                 hideFiltersView(); // Hide Filters View
                 break;
@@ -513,11 +513,9 @@ public class FrgmntPendingSauda extends Fragment implements AppConstants, View.O
                 mQueryItem = "";
                 mQueryArea = "";
 
-                if (!GeneralFuncations.isNetConnected(getActivity())) {
-
-                    // Show SnackBar with given message
-                    showMySnackBar(getResources().getString(R.string.no_intrnt_cnctn));
-                } else getPendingSaudaAPI(false);
+                // Check Storage permission before call AsyncTask for data
+                isAPICall = false;
+                checkStoragePermission();
 
                 hideFiltersView(); // Hide Filters View
                 break;
@@ -576,10 +574,10 @@ public class FrgmntPendingSauda extends Fragment implements AppConstants, View.O
         mFabApply.setVisibility(View.GONE);
     }
 
-    private ArrayList<MdlPendngSaudaData> filters(ArrayList<MdlPendngSaudaData> arrylstMdlMasterDtlsData) {
+    private ArrayList<MdlPendngSaudaData> filters(ArrayList<MdlPendngSaudaData> arrylstMdlPendngSaudaData) {
 
         ArrayList<MdlPendngSaudaData> fltrdPndngSaudaData = new ArrayList<>();
-        for (MdlPendngSaudaData objMdlPndngSaudaData : arrylstMdlMasterDtlsData) {
+        for (MdlPendngSaudaData objMdlPndngSaudaData : arrylstMdlPendngSaudaData) {
 
             String targetParty = objMdlPndngSaudaData.getPname().toLowerCase();
             String targetDalal = objMdlPndngSaudaData.getDalal().toLowerCase();

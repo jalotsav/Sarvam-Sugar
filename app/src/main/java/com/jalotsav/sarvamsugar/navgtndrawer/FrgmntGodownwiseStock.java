@@ -431,8 +431,9 @@ public class FrgmntGodownwiseStock extends Fragment implements AppConstants, Vie
                         + "-" + GeneralFuncations.setDateIn2Digit(mToMonth+1)
                         + "-" + mToYear;
 
-                ArrayList<MdlGodownStockData> arrylstGodownStckData = new ArrayList<>();
-                mAdapter.setFilter(arrylstGodownStckData);
+                // Check Storage permission before call AsyncTask for data
+                isAPICall = false;
+                checkStoragePermission();
 
                 mBottomSheetDialog.dismiss();
                 break;
