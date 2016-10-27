@@ -155,6 +155,7 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
 
         mTvAppearHere.setText(getString(R.string.outstndng_appear_here));
 
+        mArrylstOutstndngData = new ArrayList<>();
         mArrylstParty = new ArrayList<>();
         mArrylstDalal = new ArrayList<>();
         mArrylstArea = new ArrayList<>();
