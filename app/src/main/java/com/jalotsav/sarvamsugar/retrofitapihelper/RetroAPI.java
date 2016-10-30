@@ -41,6 +41,8 @@ public interface RetroAPI {
 
     @GET("index.aspx")
     Call<ResponseBody> getOutstanding(@Query("method") String method,
+                                        @Query("userId") String userId,
+                                        @Query("userType") String userType,
                                         @Query("todate") String toDate,
                                         @Query("type") String type,
                                         @Query("party") String party,

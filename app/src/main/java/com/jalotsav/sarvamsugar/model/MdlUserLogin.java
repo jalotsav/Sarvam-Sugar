@@ -33,6 +33,12 @@ public class MdlUserLogin {
     @SerializedName("message")
     String message;
 
+    @SerializedName("userId")
+    String userId;
+
+    @SerializedName("userType")
+    String userType;
+
     public String getMethod() {
         return method;
     }
@@ -55,5 +61,21 @@ public class MdlUserLogin {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 }

@@ -33,6 +33,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.jalotsav.sarvamsugar.R;
+import com.jalotsav.sarvamsugar.common.AppConstants;
 import com.jalotsav.sarvamsugar.common.UserSessionManager;
 import com.mikepenz.iconics.context.IconicsLayoutInflater;
 
@@ -44,6 +45,7 @@ public class NavgtnDrwrMain extends AppCompatActivity
 
     Toolbar mToolbar;
     UserSessionManager session;
+    NavigationView mNavigationView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,57 +59,76 @@ public class NavgtnDrwrMain extends AppCompatActivity
         session = new UserSessionManager(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        setNavigationMenuItemsVisibility();
+        mNavigationView.setNavigationItemSelectedListener(this);
 
         // Select First option on Launch
-//        navigationView.getMenu().getItem(0).setChecked(true);
-//        onNavigationItemSelected(navigationView.getMenu().getItem(0));
+//        mNavigationView.getMenu().getItem(0).setChecked(true);
+//        onNavigationItemSelected(mNavigationView.getMenu().getItem(0));
 
 //        setTitle(getResources().getString(R.string.outstanding_sml));
+    }
+
+    private void setNavigationMenuItemsVisibility() {
+
+        if(!session.getUserType().equals(AppConstants.USERTYPE_ADMIN)) {
+
+            mNavigationView.getMenu().getItem(0).getSubMenu().getItem(0).setVisible(false);
+            mNavigationView.getMenu().getItem(1).setVisible(false);
+            mNavigationView.getMenu().getItem(2).setVisible(false);
+        }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
+
         Fragment fragment = null;
         CharSequence toolbarTitle = getString(R.string.app_name);
 
-        if (id == R.id.nav_outstanding) {
+        switch (item.getItemId()) {
+            case R.id.nav_outstanding:
 
-            fragment = new FrgmntOutstandingRprt();
-            toolbarTitle = getString(R.string.outstanding_sml);
-        } else if (id == R.id.nav_pendngsauda) {
+                fragment = new FrgmntOutstandingRprt();
+                toolbarTitle = getString(R.string.outstanding_sml);
+                break;
+            case R.id.nav_pendngsauda:
 
-            fragment = new FrgmntPendingSauda();
-            toolbarTitle = getString(R.string.pendngsauda_sml);
-        } else if (id == R.id.nav_allmasterdtls) {
+                fragment = new FrgmntPendingSauda();
+                toolbarTitle = getString(R.string.pendngsauda_sml);
+                break;
+            case R.id.nav_allmasterdtls:
 
-            fragment = new FrgmntAllMasterDtls();
-            toolbarTitle = getString(R.string.all_master_dtls_sml);
-        } else if (id == R.id.nav_godownwisestck) {
+                fragment = new FrgmntAllMasterDtls();
+                toolbarTitle = getString(R.string.all_master_dtls_sml);
+                break;
+            case R.id.nav_godownwisestck:
 
-            fragment = new FrgmntGodownwiseStock();
-            toolbarTitle = getString(R.string.godownwise_stock_sml);
-        } else if (id == R.id.nav_dalalwisesales) {
+                fragment = new FrgmntGodownwiseStock();
+                toolbarTitle = getString(R.string.godownwise_stock_sml);
+                break;
+            case R.id.nav_dalalwisesales:
 
-            fragment = new FrgmntDalalwiseSales();
-            toolbarTitle = getString(R.string.dalalwisesales_sml);
-        } else if (id == R.id.nav_dalalwisesauda) {
+                fragment = new FrgmntDalalwiseSales();
+                toolbarTitle = getString(R.string.dalalwisesales_sml);
+                break;
+            case R.id.nav_dalalwisesauda:
 
-            fragment = new FrgmntDalalwiseSauda();
-            toolbarTitle = getString(R.string.dalalwisesauda_sml);
-        } else if (id == R.id.nav_settings_logout) {
+                fragment = new FrgmntDalalwiseSauda();
+                toolbarTitle = getString(R.string.dalalwisesauda_sml);
+                break;
+            case R.id.nav_settings_logout:
 
-            // Show AlertDialog for confirm to Logout
-            confirmLogoutAlertDialog();
+                // Show AlertDialog for confirm to Logout
+                confirmLogoutAlertDialog();
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -118,10 +139,7 @@ public class NavgtnDrwrMain extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.framlyot_container, fragment).commit();
 
             setTitle(toolbarTitle);
-        }/* else {
-            // error in creating fragment
-            Log.e(TAG, "Error in creating fragment");
-        }*/
+        }
         return true;
     }
 

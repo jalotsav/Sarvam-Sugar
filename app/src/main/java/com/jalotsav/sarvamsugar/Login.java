@@ -198,6 +198,8 @@ public class Login extends AppCompatActivity implements AppConstants, View.OnCli
                     MdlUserLogin objMdlUserLogin = response.body();
                     String result = objMdlUserLogin.getResult();
 //                    String message = objMdlUserLogin.getMessage();
+                    String userId = objMdlUserLogin.getUserId();
+                    String userType = objMdlUserLogin.getUserType();
 
                     switch (result) {
                         case RESULT_ZERO:
@@ -215,6 +217,8 @@ public class Login extends AppCompatActivity implements AppConstants, View.OnCli
                         case RESULT_ONE:
 
                             UserSessionManager session = new UserSessionManager(Login.this);
+                            session.setUserId(userId);
+                            session.setUserType(userType);
                             if (mSwtchCmptRembrme.isChecked()) {
                                 session.setUserName(mTxtInptEtUsernmEmail.getText().toString().trim());
                                 finish();

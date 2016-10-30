@@ -50,6 +50,12 @@ public class UserSessionManager {
     // Username
     public static final String KEY_USERNAME = "username";
 
+    // UserId
+    public static final String KEY_USERID = "userId";
+
+    // UserType
+    public static final String KEY_USERTYPE = "userType";
+
     // Constructor
     public UserSessionManager(Context context) {
 
@@ -73,6 +79,31 @@ public class UserSessionManager {
         // Storing login value as TRUE
         editor.putBoolean(IS_USER_LOGIN, true);
         editor.putString(KEY_USERNAME, userName);
+        editor.commit();
+    }
+
+    // Get-Set UserId to SharedPreferences
+    public String getUserId() {
+
+        String userId = pref.getString(KEY_USERID, "");
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+
+        editor.putString(KEY_USERID, userId);
+        editor.commit();
+    }
+    // Get-Set UserType to SharedPreferences
+    public String getUserType() {
+
+        String userType = pref.getString(KEY_USERTYPE, "");
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+
+        editor.putString(KEY_USERTYPE, userType);
         editor.commit();
     }
 

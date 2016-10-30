@@ -50,6 +50,7 @@ public interface AppConstants {
     // Login static Credentials
     String LOGIN_USERNAME = "jsp";
     String LOGIN_PASSWORD = "19150";
+    String USERTYPE_ADMIN = "A";
 
     // Directory File paths
     String EXTRNL_STRG_PATH_STRING = Environment.getExternalStorageDirectory().getAbsolutePath();

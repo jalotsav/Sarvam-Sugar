@@ -58,6 +58,7 @@ import com.jalotsav.sarvamsugar.common.AppConstants;
 import com.jalotsav.sarvamsugar.common.GeneralFuncations;
 import com.jalotsav.sarvamsugar.common.LogManager;
 import com.jalotsav.sarvamsugar.common.RecyclerViewEmptySupport;
+import com.jalotsav.sarvamsugar.common.UserSessionManager;
 import com.jalotsav.sarvamsugar.model.MdlOutstanding;
 import com.jalotsav.sarvamsugar.model.MdlOutstandingData;
 import com.jalotsav.sarvamsugar.retrofitapihelper.RetroAPI;
@@ -87,6 +88,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class FrgmntOutstandingRprt extends Fragment implements AppConstants, View.OnClickListener {
 
+    UserSessionManager mSession;
     CoordinatorLayout mCordntrlyotMain;
     ProgressBar mPrgrsbrMain;
     LinearLayout mLnrlyotAppearHere;
@@ -137,6 +139,8 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setEmptyView(mLnrlyotAppearHere);
+
+        mSession = new UserSessionManager(getActivity());
 
         mFabFilters.setImageDrawable(new IconicsDrawable(getActivity())
                 .icon(CommunityMaterial.Icon.cmd_filter)
@@ -295,7 +299,8 @@ public class FrgmntOutstandingRprt extends Fragment implements AppConstants, Vie
 
         RetroAPI apiDalalwsSls = objRetrofit.create(RetroAPI.class);
         Call<ResponseBody> callGodownStck = apiDalalwsSls.getOutstanding(
-                API_METHOD_GETOUTSTAND, mReqstToDt, mReqstType, mQueryParty, mQueryDalal, mQueryArea, mQueryZone, mReqstSortby
+                API_METHOD_GETOUTSTAND, mSession.getUserId(), mSession.getUserType(),
+                mReqstToDt, mReqstType, mQueryParty, mQueryDalal, mQueryArea, mQueryZone, mReqstSortby
         );
         callGodownStck.enqueue(new Callback<ResponseBody>() {
             @Override
