@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.android.support\design\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.android.support-design-24.2.1_a88c2b7db3acdba901ae6e1efe47b1d85e5e72f0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-24.2.1_41fe91ad58a88b13763f330fffb93e3f7f4bce35.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\JBS C021\.android\build-cache\ad1dd5580abcd5498a34577c6c279ea52798707f\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="25f0ed3aa7988dc42d6c1008b20df420cc94d958">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_b77aef06323aec5a6f1982e35cdff411f4d48739\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\jalotsavappinit-110\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="808a12523b9840c88084b6fb601724dc7093b7c8">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\intermediates-exploded-aar-jalotsavappinit-110_dab4c7c4f63e543232cbba6d1b8453651d42fa6a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\24.2.1\support-annotations-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\support-annotations-24.2.1_a45405e82f9eb237681c9cf66b4eb54d7b88c9f6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\9.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="3627eacd7f7cafb5e8ae683992e7b2f9b7dcab1a">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-common-9.2.1_093aa9a1d7891c0b8f8dcae0b33f9acd7582002d.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\JBS C021\.android\build-cache\758c6b98d418b89c750812fae481719593174693\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="819c2c3a4fb135e085445d11131d069cf9c32b2a">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_414f96b036bb7d7960cff19d59e790be6595d8c2\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_17f8fe063cf0cbe22c53101fe0c43918c20005b0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.android.support-support-media-compat-24.2.1_32124f640bb165158535c48d4b241bdd30fa860b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.android.support-recyclerview-v7-24.2.1_36e016af06ac5bbd50fe0872c733a19f0fcc2f6e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.android.support-support-fragment-24.2.1_263737cf346aba4a208cfd62a1b9431fb7fa277a.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\JBS C021\.android\build-cache\0c9c5c31cc4105506b3fdf1b8f65d2ead535f38c\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6a0f2d219f82db499ac03d5a985c4eb3e83fc422">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_cab1b4d0dd0527a31cd6c5d5ccd68104563236bc\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\JBS C021\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\retrofit\2.0.2\43eeae0b9fb087bb3194ba59ab63a38a32fbf3e\retrofit-2.0.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="043eeae0b9fb087bb3194ba59ab63a38a32fbf3e">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\retrofit-2.0.2_9d643c96046fac64f3b31d37e3c891b46995fe89.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.mikepenz\community-material-typeface\1.3.41.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="25f0ed3aa7988dc42d6c1008b20df420cc94d958">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.mikepenz-community-material-typeface-1.3.41.1_68f15cccc704e53d6eca4eb580df6d05f2591b7e.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\JBS C021\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\logging-interceptor\3.3.1\99ce730034c6f5aaed710d1e0e9df95e8714ed5f\logging-interceptor-3.3.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="99ce730034c6f5aaed710d1e0e9df95e8714ed5f">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\transforms\dex\debug\folders\1000\10\logging-interceptor-3.3.1_3acd695f20160ef03c2db64e364a6208b98daf4d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\JBS C021\.android\build-cache\e282e73c274845c4cc2f3186ae3808e22239ea1d\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="808a12523b9840c88084b6fb601724dc7093b7c8">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_c1a572f5e571f252ec4853143ec4d4d54535a324\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\JBS C021\.android\build-cache\0297205b21539c0bc2f611a89db051344af8765c\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="421b36cf4f0d3bbd75e8f28647fccf36674ef049">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_fa7a252f1deb457b8ed4e6005e164ddc87b6a059\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_e59c5ca3df43adfe05fb518ffb8beee6fcc56cc6.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\JBS C021\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.6.2\f1bc476cc167b18e66c297df599b2377131a8947\gson-2.6.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="f1bc476cc167b18e66c297df599b2377131a8947">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\transforms\dex\debug\folders\1000\10\gson-2.6.2_e46500b5b68e8b7c62c067950d711ec881efff73\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\JBS C021\.android\build-cache\617a2193b311b02055a15294d92f302117db7c00\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6c09228ff931eb30b68dd27fe34ed90d978b6892">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_cd20bfda9d05b970cb0927fb0a76c825ceed8fd5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\JBS C021\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.8.0\5ea7af56cc7c567ed9856d99efb30740e9b17ff\okio-1.8.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="05ea7af56cc7c567ed9856d99efb30740e9b17ff">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\transforms\dex\debug\folders\1000\10\okio-1.8.0_351e852a25ad0c7d40ece6a57210f8f9669babb9\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\9.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="6b896c1067633db41e9c10a3a5d0919c5c4cfc8c">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-basement-9.2.1_8ec7c6bbb38986548d73e39add6dad87d95d5974.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\JBS C021\.android\build-cache\2c5c7cae60ee8b49495cf11598643c7986f066a1\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6b896c1067633db41e9c10a3a5d0919c5c4cfc8c">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_d9848ccf56db00b0d9cdeabec4ecf6f7edf0622a\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics\9.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="6a0f2d219f82db499ac03d5a985c4eb3e83fc422">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-analytics-9.2.1_25922ee74fdb38a8eeacc88693b3d64b8d21b246.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.mikepenz\google-material-typeface\2.2.0.2.original\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="ef008db7640c1e5792748c986749d8ad62fb547c">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.mikepenz-google-material-typeface-2.2.0.2.original_47a7ceb7230e98d37f951162297eb2c7c2817421.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\JBS C021\.android\build-cache\f36f2508671cd27bf21eea1bf67c46aa1f07364d\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="5337354083e89ed67151859ab0b6b80935c60eaf">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_036bd7cab2dfad16d237eb48156c3f6b2ca4ce99\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\9.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="819c2c3a4fb135e085445d11131d069cf9c32b2a">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-tasks-9.2.1_1964c05b885b25485c453fb0941f5aa422eb7cee.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\JBS C021\.android\build-cache\0b4595c17b11f8e5fae6ae147d28bc9f5e4d401e\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d41b5d21cc9dd7d210f0ae82ac509ba7f091d611">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_2573c3ed47ebd01f74d311eef56350b58da7b5f4\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-24.2.1_2d83ee98ad6bdc8ec87cfa2c8eb5aeb1c546752d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-24.2.1_5af117239bc7040ff589a97b973452820274baae.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b5c9b7229dcfb439706022aadd81c0d18f9f4ad8">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_6c348947b0b767dbe9e18877a6a89da3d6d43491\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.google.firebase\firebase-crash\9.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="6c09228ff931eb30b68dd27fe34ed90d978b6892">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-crash-9.2.1_66e263af7823e12f973c65f3cbc4b23b20e5de7b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="c5e6490573cd2cc8018417f60ddd251138b6ed61">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.android.support-cardview-v7-24.2.1_88cd049acdb899c3476e8cc51f7f61a40e0c558a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_fd74db1a8461ddf37b5bc89f368046cd6ef02eab.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_e2a4bb76cb1b64be3642ca2a45127b0a4aae009e.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_2e14da577d869df71d5df42aed3417f3afe8fbd8\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-ui-24.2.1_0d9d0101722cb4bbc59157215cdcae94317aeafe.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\JBS C021\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.3.1\19047bdb6a4fc00a44124f64ca98e88fc204e7e3\okhttp-3.3.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="19047bdb6a4fc00a44124f64ca98e88fc204e7e3">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\transforms\dex\debug\folders\1000\10\okhttp-3.3.1_7e7f2a58a21b97887ff594718b09dcd6729d6d70\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\JBS C021\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.6.2\f1bc476cc167b18e66c297df599b2377131a8947\gson-2.6.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="f1bc476cc167b18e66c297df599b2377131a8947">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\gson-2.6.2_e46500b5b68e8b7c62c067950d711ec881efff73.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\JBS C021\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\logging-interceptor\3.3.1\99ce730034c6f5aaed710d1e0e9df95e8714ed5f\logging-interceptor-3.3.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="99ce730034c6f5aaed710d1e0e9df95e8714ed5f">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\logging-interceptor-3.3.1_3acd695f20160ef03c2db64e364a6208b98daf4d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\9.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="421b36cf4f0d3bbd75e8f28647fccf36674ef049">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-base-9.2.1_1ef1159bcb24628851003db7317acadef8fb803d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.google.firebase\firebase-iid\9.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d41b5d21cc9dd7d210f0ae82ac509ba7f091d611">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-iid-9.2.1_b19d7c09c42fb4117c6485cdfae26fa25871ff36.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\JBS C021\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.3.1\19047bdb6a4fc00a44124f64ca98e88fc204e7e3\okhttp-3.3.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="19047bdb6a4fc00a44124f64ca98e88fc204e7e3">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\okhttp-3.3.1_7e7f2a58a21b97887ff594718b09dcd6729d6d70.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\JBS C021\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.8.0\5ea7af56cc7c567ed9856d99efb30740e9b17ff\okio-1.8.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="05ea7af56cc7c567ed9856d99efb30740e9b17ff">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\okio-1.8.0_351e852a25ad0c7d40ece6a57210f8f9669babb9.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\JBS C021\.android\build-cache\0c10cdc352080903bbfafeef47cb17b4f8cf6b2e\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3627eacd7f7cafb5e8ae683992e7b2f9b7dcab1a">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_45d705eff5b936bcf627205cb5756c6b5add428e\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.mikepenz\iconics-core\2.5.11\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="98a135c7935e62ac041acc1fcb148973bde828d5">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.mikepenz-iconics-core-2.5.11_19626807aad2a815de08b58d1127946141801afd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\internal_impl-24.2.1_cfad359d425714a2bc1826fd654ee5848b99da74.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-utils-24.2.1_dfad1aad8ce5861fe8093b443a5d665c04b9f12b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.android.support-support-compat-24.2.1_ff2e93930c315a2727f5b5980ea5e69bab12d143.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\JBS C021\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\converter-gson\2.0.2\f8d87f15b94b8d74e7ccf61d7eedb558811cdb30\converter-gson-2.0.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="f8d87f15b94b8d74e7ccf61d7eedb558811cdb30">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\converter-gson-2.0.2_7bee75ac1e385f2da305c8c4be236a047641c38d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics-impl\9.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="5337354083e89ed67151859ab0b6b80935c60eaf">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-analytics-impl-9.2.1_b07cd6069732ac5f1c6afe5b1f645274a5c79e76.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="D:\Learn\R_and_D\JdCode\StudioProjects\Sarvam-Sugar\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-24.2.1_c7bd28f5da294ae5f0767247e31d3a48144b6ce0.jar" />
+    </item>
+
+</items>
