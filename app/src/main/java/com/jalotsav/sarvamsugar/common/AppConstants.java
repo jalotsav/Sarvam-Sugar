@@ -36,7 +36,7 @@ public interface AppConstants {
     int LOGTYPE_WARN = 4;
     int LOGTYPE_ERROR = 5;
 
-    String API_ROOT_URL = "http://svc.sarsugar.com/";
+    String API_ROOT_URL = "http://svc.sarvamsugar.com/";
 
     // API Method name
     String API_METHOD_GETGODOWNSTK = "getGodownStk";
