@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/jalotsav/.android/build-cache/21f712fc851a54e1aa557d783448ed98b1a07ea8/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6a0f2d219f82db499ac03d5a985c4eb3e83fc422">
+        <dex dex="/home/jalotsav/Documents/Data/Aakash/SarvamSugar/Application/Sarvam-Sugar/app/build/intermediates/pre-dexed/debug/classes_a9f5d1942d725759517cfbbde46dc18bc85f7411.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/jalotsav/.android/build-cache/d8b3a511539ea1bb7cde78b8500f4b66e510c3ac/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6c09228ff931eb30b68dd27fe34ed90d978b6892">
+        <dex dex="/home/jalotsav/Documents/Data/Aakash/SarvamSugar/Application/Sarvam-Sugar/app/build/intermediates/pre-dexed/debug/classes_30f920c81e6551c47de601f9d8f6220fb823959c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/jalotsav/.android/build-cache/30a1ac572e6ebd95571f9ce2f37800e4b6c4457a/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="5337354083e89ed67151859ab0b6b80935c60eaf">
+        <dex dex="/home/jalotsav/Documents/Data/Aakash/SarvamSugar/Application/Sarvam-Sugar/app/build/intermediates/pre-dexed/debug/classes_7a303bc89ff1112033dddc56b87ca31333fdceea.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/jalotsav/.android/build-cache/facbbb15ffd6dee588535b79394bffa1691f8801/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="98a135c7935e62ac041acc1fcb148973bde828d5">
+        <dex dex="/home/jalotsav/Documents/Data/Aakash/SarvamSugar/Application/Sarvam-Sugar/app/build/intermediates/pre-dexed/debug/classes_8f55aa7c8d577f02e417c42efca6ad21d4470033.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/jalotsav/.android/build-cache/633b9d629c3ccd3bf3733c4de7f5cc1788bfd42b/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6b896c1067633db41e9c10a3a5d0919c5c4cfc8c">
+        <dex dex="/home/jalotsav/Documents/Data/Aakash/SarvamSugar/Application/Sarvam-Sugar/app/build/intermediates/pre-dexed/debug/classes_d49ae2ef78e425e9425da6d0c5f686454d1e51aa.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/jalotsav/.android/build-cache/ed9ae6ff6f57405bb7795ab1589f655442797db3/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d41b5d21cc9dd7d210f0ae82ac509ba7f091d611">
+        <dex dex="/home/jalotsav/Documents/Data/Aakash/SarvamSugar/Application/Sarvam-Sugar/app/build/intermediates/pre-dexed/debug/classes_9510d15edee45bc9f309d813293788f5fd909981.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/jalotsav/.android/build-cache/837546a179f1610522edb350d2cd802ef26dbb73/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3627eacd7f7cafb5e8ae683992e7b2f9b7dcab1a">
+        <dex dex="/home/jalotsav/Documents/Data/Aakash/SarvamSugar/Application/Sarvam-Sugar/app/build/intermediates/pre-dexed/debug/classes_884eadc56cd01b4631d9a69c4f45de9e28d216ec.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/jalotsav/.android/build-cache/a851fe2bace7802143a1057e50fca75c01e44145/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="819c2c3a4fb135e085445d11131d069cf9c32b2a">
+        <dex dex="/home/jalotsav/Documents/Data/Aakash/SarvamSugar/Application/Sarvam-Sugar/app/build/intermediates/pre-dexed/debug/classes_66aff2cba237e926a22de9d5e8d9909af4a8e411.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/jalotsav/.android/build-cache/6ae29e2f2273fb08d40ef4919870727ebf2160a3/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ef008db7640c1e5792748c986749d8ad62fb547c">
+        <dex dex="/home/jalotsav/Documents/Data/Aakash/SarvamSugar/Application/Sarvam-Sugar/app/build/intermediates/pre-dexed/debug/classes_e52698139f9461c07818319e8054ce66c9377574.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/jalotsav/.android/build-cache/f22994a82592828b4524175b90b31727cbee7238/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="421b36cf4f0d3bbd75e8f28647fccf36674ef049">
+        <dex dex="/home/jalotsav/Documents/Data/Aakash/SarvamSugar/Application/Sarvam-Sugar/app/build/intermediates/pre-dexed/debug/classes_0f795453d51aedfce5f6c22b483775edb2cc7699.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/jalotsav/.android/build-cache/6c37aec19a6df03538cab05ffbc6d2881a015b36/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="808a12523b9840c88084b6fb601724dc7093b7c8">
+        <dex dex="/home/jalotsav/Documents/Data/Aakash/SarvamSugar/Application/Sarvam-Sugar/app/build/intermediates/pre-dexed/debug/classes_501e3c203d2a187b2c1dd6274ed70e2cff1be52c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/jalotsav/.android/build-cache/e95dbd0adf8e2e54b7efa10221367875a85848c4/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="25f0ed3aa7988dc42d6c1008b20df420cc94d958">
+        <dex dex="/home/jalotsav/Documents/Data/Aakash/SarvamSugar/Application/Sarvam-Sugar/app/build/intermediates/pre-dexed/debug/classes_d84ed08eb8c1bf0695baaf3d9130ce2914259586.jar" />
+    </item>
+
+</items>
